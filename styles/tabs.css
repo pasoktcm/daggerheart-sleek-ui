@@ -10,7 +10,7 @@
 .floating-tabs-nav .floating-tabs-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   pointer-events: auto;
 }
 
@@ -21,11 +21,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-background-primary);
+  background: var(--sleekUI-color-background-primary);
   backdrop-filter: blur(5px);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  color: var(--color-secondary);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  color: var(--sleekUI-color-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
   outline: none;
@@ -33,16 +33,16 @@
 }
 
 .floating-tabs-nav .tab-button:hover {
-  background: var(--color-background-dark);
+  background: var(--sleekUI-color-background-dark);
 }
 
 .floating-tabs-nav .tab-button.active {
-  background: var(--color-background-dark);
-  color: var(--color-tertiary);
+  background: var(--sleekUI-color-background-dark);
+  color: var(--sleekUI-color-tertiary);
 }
 
 .floating-tabs-nav .tab-button i {
-  font-size: var(--font-size-lg);
+  font-size: var(--sleekUI-font-size-lg);
   pointer-events: none;
 }
 
@@ -50,37 +50,37 @@
    BASIC TABS
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .basic-tabs {
+#sleek-ui-sheet .basic-tabs {
   display: flex;
-  padding: var(--spacing-xs);
-  border-bottom: 1px solid var(--color-border);
+  padding: var(--sleekUI-spacing-xs);
+  border-bottom: 1px solid var(--sleekUI-color-border);
   justify-content: space-around;
 }
 
-.daggerheart.sheet.actor.sleek-ui .basic-tabs .tab-button {
+#sleek-ui-sheet .basic-tabs .tab-button {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   background: transparent;
   border: none;
   cursor: pointer;
   transition: none;
-  color: var(--color-secondary);
+  color: var(--sleekUI-color-secondary);
 }
 
-.daggerheart.sheet.actor.sleek-ui .basic-tabs .tab-button:hover {
-  color: var(--color-primary);
+#sleek-ui-sheet .basic-tabs .tab-button:hover {
+  color: var(--sleekUI-color-primary);
 }
 
-.daggerheart.sheet.actor.sleek-ui .basic-tabs .tab-button.active {
-  color: var(--color-tertiary);
+#sleek-ui-sheet .basic-tabs .tab-button.active {
+  color: var(--sleekUI-color-tertiary);
 }
 
 /* ==================== 
    TAB CONTENT
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .tab-content {
+#sleek-ui-sheet .tab-content {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -88,15 +88,15 @@
   overflow-y: auto;
 }
 
-.daggerheart.sheet.actor.sleek-ui .tab-pane {
+#sleek-ui-sheet .tab-pane {
   display: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui .tab-pane.active {
+#sleek-ui-sheet .tab-pane.active {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: var(--spacing-md);
+  padding: var(--sleekUI-spacing-md);
   position: relative;
 }
 
@@ -104,53 +104,48 @@
    COLLAPSIBLE CATEGORIES
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .category-wrapper {
+#sleek-ui-sheet .category-wrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .category-header {
+#sleek-ui-sheet .category-header {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   width: 100%;
   height: 18px;
   cursor: pointer;
   user-select: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui .category-header .line {
+#sleek-ui-sheet .category-header .line {
   flex: 1;
   height: 1px;
-  background: var(--gradient-line-right);
+  background: var(--sleekUI-gradient-line-right);
 }
 
-.daggerheart.sheet.actor.sleek-ui .category-header i {
-  color: var(--color-primary);
-  font-size: var(--font-size-xs);
+#sleek-ui-sheet .category-header i {
+  color: var(--sleekUI-color-primary);
+  font-size: var(--sleekUI-font-size-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .category-wrapper.collapsed
-  .category-header
-  i {
+#sleek-ui-sheet .category-wrapper.collapsed .category-header i {
   transform: rotate(90deg);
 }
 
-.daggerheart.sheet.actor.sleek-ui .category-content {
+#sleek-ui-sheet .category-content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-tiny);
+  gap: var(--sleekUI-spacing-tiny);
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .category-wrapper.collapsed
-  .category-content {
+#sleek-ui-sheet .category-wrapper.collapsed .category-content {
   display: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui .category-header .create-btn {
+#sleek-ui-sheet .category-header .create-btn {
   width: auto;
   height: 16px;
   display: inline-flex;
@@ -158,10 +153,10 @@
   align-items: center;
 }
 
-.daggerheart.sheet.actor.sleek-ui .category-header .create-btn a i {
+#sleek-ui-sheet .category-header .create-btn a i {
   display: inline-block;
   font-size: 12px;
-  color: var(--color-primary);
+  color: var(--sleekUI-color-primary);
   transform: rotate(0deg) !important;
 }
 
@@ -169,20 +164,20 @@
    FEATURES 
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .category-content.experiences {
+#sleek-ui-sheet .category-content.experiences {
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.daggerheart.sheet.actor.sleek-ui .experience-container {
+#sleek-ui-sheet .experience-container {
   display: flex;
   flex-direction: row;
   width: fit-content;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  color: var(--color-secondary);
+  gap: var(--sleekUI-spacing-sm);
+  padding: var(--sleekUI-spacing-xs) var(--sleekUI-spacing-sm);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  color: var(--sleekUI-color-secondary);
   line-height: 10px;
   cursor: pointer;
 }
@@ -191,20 +186,20 @@
    INVENTORY 
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .currency-wrapper {
+#sleek-ui-sheet .currency-wrapper {
   position: sticky;
   top: 0;
   z-index: 10;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-md);
-  padding-bottom: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
+  padding: var(--sleekUI-spacing-md);
+  padding-bottom: var(--sleekUI-spacing-xs);
   width: 100%;
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-wrapper::after {
+#sleek-ui-sheet .currency-wrapper::after {
   content: "";
   position: absolute;
   top: 0;
@@ -222,151 +217,137 @@
   z-index: -1;
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-wrapper.display-label::after {
+#sleek-ui-sheet .currency-wrapper.display-label::after {
   height: 100px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-wrapper input {
+#sleek-ui-sheet .currency-wrapper input {
   height: 26px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-container {
+#sleek-ui-sheet .currency-container {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   height: 42px;
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-xs);
-  border-radius: var(--border-radius);
+  padding: var(--sleekUI-spacing-xs);
+  border-radius: var(--sleekUI-border-radius);
   border: 1px solid #c8a15b;
-  background: var(--gradient-currency);
+  background: var(--sleekUI-gradient-currency);
   backdrop-filter: blur(2px);
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-container.display-label {
+#sleek-ui-sheet .currency-container.display-label {
   flex-direction: column;
   height: fit-content;
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-container .label {
+#sleek-ui-sheet .currency-container .label {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-container .label h3 {
+#sleek-ui-sheet .currency-container .label h3 {
   display: none;
-  color: var(--color-primary) !important;
+  color: var(--sleekUI-color-primary) !important;
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-container .label h3.show-label {
+#sleek-ui-sheet .currency-container .label h3.show-label {
   display: block;
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .currency-container
-  .label
-  span.currencyLabel {
+#sleek-ui-sheet .currency-container .label span.currencyLabel {
   display: block;
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-container .icon {
+#sleek-ui-sheet .currency-container .icon {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
   min-width: 16px;
   color: #c8a15b;
-  font-size: var(--font-size-sm);
+  font-size: var(--sleekUI-font-size-sm);
 }
 
-.daggerheart.sheet.actor.sleek-ui .currency-input {
+#sleek-ui-sheet .currency-input {
   width: 100%;
-  border-radius: var(--border-radius-s);
-  background: var(--color-background-primary);
+  border-radius: var(--sleekUI-border-radius-s);
+  background: var(--sleekUI-color-background-primary);
 }
 
 /* ==================== 
    BIOGRAPHY 
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .biography-tab .descriptions {
+#sleek-ui-sheet .biography-tab .descriptions {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-tiny);
+  gap: var(--sleekUI-spacing-tiny);
   width: 100%;
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .biography-tab
-  .descriptions
-  .description-input {
+#sleek-ui-sheet .biography-tab .descriptions .description-input {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-tiny);
-  padding-left: var(--spacing-sm);
-  background: var(--color-background-input);
-  border-radius: var(--border-radius);
+  gap: var(--sleekUI-spacing-sm);
+  padding: var(--sleekUI-spacing-tiny);
+  padding-left: var(--sleekUI-spacing-sm);
+  background: var(--sleekUI-color-background-input);
+  border-radius: var(--sleekUI-border-radius);
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .biography-tab
-  .descriptions
-  .description-input
-  span {
+#sleek-ui-sheet .biography-tab .descriptions .description-input span {
   white-space: nowrap;
-  color: var(--color-secondary);
+  color: var(--sleekUI-color-secondary);
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .biography-tab
-  .descriptions
-  .description-input
-  input {
+#sleek-ui-sheet .biography-tab .descriptions .description-input input {
   text-align: left;
 }
 
-.daggerheart.sheet.actor.sleek-ui .biography-tab .characteristics {
+#sleek-ui-sheet .biography-tab .characteristics {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .biography-tab .characteristics .input {
+#sleek-ui-sheet .biography-tab .characteristics .input {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-tiny);
+  gap: var(--sleekUI-spacing-tiny);
 }
 
-.daggerheart.sheet.actor.sleek-ui .biography-tab .characteristics span {
-  padding: 0 var(--spacing-sm);
-  color: var(--color-secondary);
+#sleek-ui-sheet .biography-tab .characteristics span {
+  padding: 0 var(--sleekUI-spacing-sm);
+  color: var(--sleekUI-color-secondary);
 }
 
-.daggerheart.sheet.actor.sleek-ui .biography-tab .characteristics input {
-  border-radius: var(--border-radius);
-  padding: 0 var(--spacing-sm);
+#sleek-ui-sheet .biography-tab .characteristics input {
+  border-radius: var(--sleekUI-border-radius);
+  padding: 0 var(--sleekUI-spacing-sm);
   text-align: left;
-  color: var(--color-primary);
+  color: var(--sleekUI-color-primary);
 }
 
-.daggerheart.sheet.actor.sleek-ui .biography-tab .textbox {
+#sleek-ui-sheet .biography-tab .textbox {
   width: 100%;
   height: 100%;
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius);
-  background: var(--color-background-input);
+  padding: var(--sleekUI-spacing-md);
+  border-radius: var(--sleekUI-border-radius);
+  background: var(--sleekUI-color-background-input);
 }
 
-.daggerheart.sheet.actor.sleek-ui .biography-tab .textbox .editor-content {
-  scrollbar-color: var(--color-background-resourceHover);
+#sleek-ui-sheet .biography-tab .textbox .editor-content {
+  scrollbar-color: var(--sleekUI-color-background-resourceHover);
 }
 
-.daggerheart.sheet.actor.sleek-ui .biography-tab .textbox .editor-container {
+#sleek-ui-sheet .biography-tab .textbox .editor-container {
   min-height: 200px;
 }

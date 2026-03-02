@@ -275,6 +275,8 @@ export function registerAdversarySheet() {
     _onRender(context, options) {
       super._onRender(context, options);
 
+      this.element.id = "sleek-ui-sheet";
+
       const tabsPosition = game.settings.get(
         "daggerheart-sleek-ui",
         "tabsPosition",

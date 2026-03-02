@@ -2,11 +2,11 @@
 SIDEBAR
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .adversary h1 {
-  font-size: var(--font-size-xl);
+#sleek-ui-sheet .adversary h1 {
+  font-size: var(--sleekUI-font-size-xl);
 }
 
-.daggerheart.sheet.actor.sleek-ui .adversary .dead {
+#sleek-ui-sheet .adversary .dead {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -18,61 +18,61 @@ SIDEBAR
   pointer-events: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui .adversary .dead i {
+#sleek-ui-sheet .adversary .dead i {
   scale: 6;
-  color: var(--color-primary);
+  color: var(--sleekUI-color-primary);
 }
 
-.daggerheart.sheet.actor.sleek-ui .adversary-info {
+#sleek-ui-sheet .adversary-info {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: fit-content;
   justify-content: flex-start;
   align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-md);
+  gap: var(--sleekUI-spacing-sm);
+  padding: var(--sleekUI-spacing-sm) var(--sleekUI-spacing-md);
   text-align: center;
   margin-top: -32px;
-  color: var(--color-secondary);
+  color: var(--sleekUI-color-secondary);
   line-height: 20px;
   cursor: default;
   overflow-y: auto;
   scrollbar-width: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui .motivesAndTactics {
+#sleek-ui-sheet .motivesAndTactics {
   display: flex;
   flex-direction: column;
-  margin: var(--spacing-sm) 0;
+  margin: var(--sleekUI-spacing-sm) 0;
 }
 
-.daggerheart.sheet.actor.sleek-ui .info-header {
+#sleek-ui-sheet .info-header {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   width: 100%;
 }
 
-.daggerheart.sheet.actor.sleek-ui .info-header::before {
+#sleek-ui-sheet .info-header::before {
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--gradient-line-left);
+  background: var(--sleekUI-gradient-line-left);
 }
 
-.daggerheart.sheet.actor.sleek-ui .info-header::after {
+#sleek-ui-sheet .info-header::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--gradient-line-right);
+  background: var(--sleekUI-gradient-line-right);
 }
 
-.daggerheart.sheet.actor.sleek-ui .actor-experiences {
+#sleek-ui-sheet .actor-experiences {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: var(--spacing-tiny);
+  gap: var(--sleekUI-spacing-tiny);
   justify-content: center;
 }
 
@@ -80,62 +80,53 @@ SIDEBAR
 HEADER
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .adversary-difficulty {
+#sleek-ui-sheet .adversary-difficulty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   height: 100%;
   max-height: fit-content;
-  padding: var(--spacing-xs) var(--spacing-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  padding: var(--sleekUI-spacing-xs) var(--sleekUI-spacing-md);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
 }
 
-.daggerheart.sheet.actor.sleek-ui .adversary-difficulty .level-number {
+#sleek-ui-sheet .adversary-difficulty .level-number {
   transform: translateY(4px);
 }
 
-.daggerheart.sheet.actor.sleek-ui .reaction {
-  background: var(--gradient-card);
+#sleek-ui-sheet .reaction {
+  background: var(--sleekUI-gradient-card);
   cursor: pointer;
 }
 
-.daggerheart.sheet.actor.sleek-ui .reaction:hover {
-  box-shadow: 0px 0px 9px -1px var(--color-border);
+#sleek-ui-sheet .reaction:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
 }
 
 /* ==================== 
 FEATURES
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .values-row.attack {
+#sleek-ui-sheet .values-row.attack {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 50px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .values-row.attack .attack-bonus {
-  padding: 0 var(--spacing-lg);
+#sleek-ui-sheet .values-row.attack .attack-bonus {
+  padding: 0 var(--sleekUI-spacing-lg);
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .actor-attack
-  .card-container.header
-  .card-header,
-.daggerheart.sheet.actor.sleek-ui
-  .actor-attack
-  .card-container.header
-  .card-text,
-.daggerheart.sheet.actor.sleek-ui
-  .actor-attack
-  .card-container.header
-  .card-resource {
+#sleek-ui-sheet .actor-attack .card-container.header .card-header,
+#sleek-ui-sheet .actor-attack .card-container.header .card-text,
+#sleek-ui-sheet .actor-attack .card-container.header .card-resource {
   cursor: default;
 }
 
-.daggerheart.sheet.actor.sleek-ui
+#sleek-ui-sheet
   .actor-attack
   .card-container.header
   .card-resource
@@ -143,29 +134,25 @@ FEATURES
   cursor: pointer;
 }
 
-.daggerheart.sheet.actor.sleek-ui .adversary .card-container.header .card-icon {
+#sleek-ui-sheet .adversary .card-container.header .card-icon {
   width: 56px;
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .adversary
-  .card-container.header
-  .card-icon
-  .dice-roll {
+#sleek-ui-sheet .adversary .card-container.header .card-icon .dice-roll {
   left: 20px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource.fear-resource {
+#sleek-ui-sheet .resource.fear-resource {
   background: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource.fear-resource .fear-icon-full i {
+#sleek-ui-sheet .resource.fear-resource .fear-icon-full i {
   margin: 0;
   color: #a45dff;
   filter: drop-shadow(0 0 4px #0000ff);
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource.fear-resource .fear-icon-empty i {
+#sleek-ui-sheet .resource.fear-resource .fear-icon-empty i {
   margin: 0;
   opacity: 0.2;
 }
@@ -174,15 +161,15 @@ FEATURES
 NOTES
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .tab-pane.active:has(.notes-tab),
-.daggerheart.sheet.actor.sleek-ui .tabs.notes-tab,
-.daggerheart.sheet.actor.sleek-ui .tabs.notes-tab .category-wrapper {
+#sleek-ui-sheet .tab-pane.active:has(.notes-tab),
+#sleek-ui-sheet .tabs.notes-tab,
+#sleek-ui-sheet .tabs.notes-tab .category-wrapper {
   height: 100%;
 }
 
-.daggerheart.sheet.actor.sleek-ui .notes-tab .notes-content {
+#sleek-ui-sheet .notes-tab .notes-content {
   height: 100%;
-  background: var(--color-background-input);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-md);
+  background: var(--sleekUI-color-background-input);
+  border-radius: var(--sleekUI-border-radius);
+  padding: var(--sleekUI-spacing-md);
 }

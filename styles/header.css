@@ -2,46 +2,46 @@
    CHARACTER INFORMATION
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .character-information {
+#sleek-ui-sheet .character-information {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   width: 100%;
   height: fit-content;
-  margin-top: var(--spacing-xs);
+  margin-top: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .character-details {
+#sleek-ui-sheet .character-details {
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: var(--spacing-tiny);
+  gap: var(--sleekUI-spacing-tiny);
 }
 
-.daggerheart.sheet.actor.sleek-ui .actor-name {
-  border-radius: var(--border-radius-s);
-  padding: var(--spacing-tiny);
-  padding-left: var(--spacing-xs);
+#sleek-ui-sheet .actor-name {
+  border-radius: var(--sleekUI-border-radius-s);
+  padding: var(--sleekUI-spacing-tiny);
+  padding-left: var(--sleekUI-spacing-xs);
   transform: translateX(-8px);
   width: calc(100% + 8px);
   cursor: text;
 }
 
-.daggerheart.sheet.actor.sleek-ui .actor-name:hover {
-  background: var(--color-background-secondary);
+#sleek-ui-sheet .actor-name:hover {
+  background: var(--sleekUI-color-background-secondary);
 }
 
-.daggerheart.sheet.actor.sleek-ui .actor-name:focus {
+#sleek-ui-sheet .actor-name:focus {
   outline: none;
-  background: var(--color-background-dark);
+  background: var(--sleekUI-color-background-dark);
 }
 
 /* ==================== 
    LEVEL
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .character-level {
+#sleek-ui-sheet .character-level {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,38 +49,38 @@
   width: 72px;
   height: 100%;
   max-height: fit-content;
-  padding: var(--spacing-xs) var(--spacing-xs);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  padding: var(--sleekUI-spacing-xs) var(--sleekUI-spacing-xs);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
 }
 
-.daggerheart.sheet.actor.sleek-ui .level-button {
+#sleek-ui-sheet .level-button {
   width: 32px;
   height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: var(--border-radius);
-  background: var(--color-tertiary);
-  color: var(--color-background-dark);
+  border-radius: var(--sleekUI-border-radius);
+  background: var(--sleekUI-color-tertiary);
+  color: var(--sleekUI-color-background-dark);
   transition: none;
   position: absolute;
   right: 94px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .level-button:hover {
-  box-shadow: 0px 0px 9px -1px var(--color-tertiary);
+#sleek-ui-sheet .level-button:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-tertiary);
 }
 
 /* ==================== 
    HEADER DETAILS
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .header-details {
+#sleek-ui-sheet .header-details {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   width: 100%;
 }
 
@@ -88,45 +88,45 @@
    HOPE
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .hope-domains-rest-row {
+#sleek-ui-sheet .hope-domains-rest-row {
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 32px;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .hope-container {
+#sleek-ui-sheet .hope-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 100%;
-  gap: var(--spacing-xs);
-  padding-left: var(--spacing-xs);
-  padding-right: var(--spacing-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  gap: var(--sleekUI-spacing-xs);
+  padding-left: var(--sleekUI-spacing-xs);
+  padding-right: var(--sleekUI-spacing-md);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
 }
 
-.daggerheart.sheet.actor.sleek-ui .hope-container:has(h3:hover) {
-  box-shadow: 0px 0px 9px -1px var(--color-border);
+#sleek-ui-sheet .hope-container:has(h3:hover) {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .hope-container h3 {
+#sleek-ui-sheet .hope-container h3 {
   height: 100%;
-  padding: 0 var(--spacing-xs);
+  padding: 0 var(--sleekUI-spacing-xs);
   align-content: center;
   cursor: pointer;
 }
 
-.daggerheart.sheet.actor.sleek-ui .hope-container .hope-bar {
+#sleek-ui-sheet .hope-container .hope-bar {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--sleekUI-spacing-sm);
 }
 
-.daggerheart.sheet.actor.sleek-ui .hope-icon-full {
+#sleek-ui-sheet .hope-icon-full {
   cursor: pointer;
   width: 14px;
   height: 14px;
@@ -142,47 +142,44 @@
     0px 0px 16px 0px rgba(243, 194, 103, 0.5);
 }
 
-.daggerheart.sheet.actor.sleek-ui .hope-icon-empty {
+#sleek-ui-sheet .hope-icon-empty {
   cursor: pointer;
   cursor: pointer;
   width: 14px;
   height: 14px;
   border-radius: 2px;
   transform: rotate(45deg);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .hope-container
-  .hope-bar
-  .hope-icon-empty:hover {
-  background: var(--color-background-resourceHover);
+#sleek-ui-sheet .hope-container .hope-bar .hope-icon-empty:hover {
+  background: var(--sleekUI-color-background-resourceHover);
 }
 
 /* ==================== 
    DOMAINS
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .domains-container {
+#sleek-ui-sheet .domains-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   height: 100%;
   margin-right: auto;
 }
 
-.daggerheart.sheet.actor.sleek-ui .domains-container .domain {
+#sleek-ui-sheet .domains-container .domain {
   width: 32px;
   height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
+  border-radius: var(--sleekUI-border-radius);
+  border: 1px solid var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .domains-container .domain img {
+#sleek-ui-sheet .domains-container .domain img {
   width: 26px;
   height: 26px;
   filter: invert(100%) sepia(5%) saturate(5777%) hue-rotate(307deg)
@@ -193,126 +190,118 @@
    REST
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .btn-container {
+#sleek-ui-sheet .btn-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   height: 100%;
 }
 
-.daggerheart.sheet.actor.sleek-ui .btn-container button {
+#sleek-ui-sheet .btn-container button {
   width: 32px;
   height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
-  background: var(--gradient-card);
-  color: var(--color-primary);
+  border-radius: var(--sleekUI-border-radius);
+  border: 1px solid var(--sleekUI-color-border);
+  background: var(--sleekUI-gradient-card);
+  color: var(--sleekUI-color-primary);
   transition: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui .btn-container button:hover {
-  box-shadow: 0px 0px 9px -1px var(--color-border);
+#sleek-ui-sheet .btn-container button:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
 }
 
 /* ==================== 
    VALUES 
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .values-row {
+#sleek-ui-sheet .values-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
   height: 32px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .values-row .values-container {
+#sleek-ui-sheet .values-row .values-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-md);
+  gap: var(--sleekUI-spacing-md);
   height: 100%;
-  padding: 0 var(--spacing-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  padding: 0 var(--sleekUI-spacing-md);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
 }
 
-.daggerheart.sheet.actor.sleek-ui .values-row .values-container.thresholds {
+#sleek-ui-sheet .values-row .values-container.thresholds {
   flex: 1;
-  gap: var(--spacing-sm);
+  gap: var(--sleekUI-spacing-sm);
   padding: 0;
 }
 
-.daggerheart.sheet.actor.sleek-ui
+#sleek-ui-sheet
   .values-row
   .values-container.thresholds:has(.threshold-damage:hover) {
-  box-shadow: 0px 0px 9px -1px var(--color-border);
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .values-row
-  .values-container.thresholds
-  .threshold-damage {
+#sleek-ui-sheet .values-row .values-container.thresholds .threshold-damage {
   display: inline-block;
-  padding: var(--spacing-tiny);
+  padding: var(--sleekUI-spacing-tiny);
   cursor: pointer;
 }
 
-.daggerheart.sheet.actor.sleek-ui
+#sleek-ui-sheet
   .values-row
   .values-container.thresholds
   .threshold-damage:hover {
-  color: var(--color-tertiary) !important;
+  color: var(--sleekUI-color-tertiary) !important;
 }
 
 /* ==================== 
    RESOURCES
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .resources-row {
+#sleek-ui-sheet .resources-row {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .resources-row .resource-container {
+#sleek-ui-sheet .resources-row .resource-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-tiny);
-  padding: var(--spacing-sm);
-  padding-top: var(--spacing-tiny);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  gap: var(--sleekUI-spacing-tiny);
+  padding: var(--sleekUI-spacing-sm);
+  padding-top: var(--sleekUI-spacing-tiny);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
   flex: 1;
   justify-content: center;
   align-items: center;
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .resources-row
-  .resource-container:has(.resource-header:hover) {
-  box-shadow: 0px 0px 9px -1px var(--color-border);
+#sleek-ui-sheet .resources-row .resource-container:has(.resource-header:hover) {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .resources-row
-  .resource-container
-  .resource-header {
+#sleek-ui-sheet .resources-row .resource-container .resource-header {
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-xs) 0;
+  padding: var(--sleekUI-spacing-xs) 0;
   cursor: pointer;
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-bar {
+#sleek-ui-sheet .resource-bar {
   display: flex;
   flex-direction: row;
   height: 12px;
@@ -320,36 +309,36 @@
   gap: 2px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-pip {
+#sleek-ui-sheet .resource-pip {
   flex: 1;
   height: 100%;
   border-radius: 2px;
   cursor: pointer;
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-pip.empty {
-  border: 1px solid var(--color-border);
+#sleek-ui-sheet .resource-pip.empty {
+  border: 1px solid var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-pip.empty:hover {
-  background: var(--color-background-resourceHover);
+#sleek-ui-sheet .resource-pip.empty:hover {
+  background: var(--sleekUI-color-background-resourceHover);
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-pip.filled {
+#sleek-ui-sheet .resource-pip.filled {
   border: 1px solid transparent;
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-pip.pip-hitpoints.filled {
+#sleek-ui-sheet .resource-pip.pip-hitpoints.filled {
   background: linear-gradient(180deg, #c42a44 0%, #e84747 100%);
   box-shadow: inset 0px 0.5px 0.5px 0.5px #ff988b;
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-pip.pip-stress.filled {
+#sleek-ui-sheet .resource-pip.pip-stress.filled {
   background: linear-gradient(180deg, #5a3be6 0%, #6177e3 100%);
   box-shadow: inset 0px 0.5px 0.5px 0.5px #81a9ff;
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-pip.pip-armor.filled {
+#sleek-ui-sheet .resource-pip.pip-armor.filled {
   background: linear-gradient(180deg, #77868c 0%, #c8d0d3 100%);
   box-shadow: inset 0px 0.5px 0.5px 0.5px #ffffff;
 }
@@ -358,58 +347,58 @@
    TRAITS
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .traits-row {
+#sleek-ui-sheet .traits-row {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .traits-row .trait-container {
+#sleek-ui-sheet .traits-row .trait-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--sleekUI-spacing-sm);
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding: var(--spacing-sm);
-  padding-top: var(--spacing-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  background: var(--gradient-trait);
+  padding: var(--sleekUI-spacing-sm);
+  padding-top: var(--sleekUI-spacing-md);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  background: var(--sleekUI-gradient-trait);
   cursor: pointer;
 }
 
-.daggerheart.sheet.actor.sleek-ui .traits-row .trait-container:hover {
-  box-shadow: 0px 0px 9px -1px var(--color-border);
+#sleek-ui-sheet .traits-row .trait-container:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .traits-row .spellcast-trait {
-  border: 1px solid var(--color-border-spellcast);
-  background: var(--gradient-spellcast-trait);
+#sleek-ui-sheet .traits-row .spellcast-trait {
+  border: 1px solid var(--sleekUI-color-border-spellcast);
+  background: var(--sleekUI-gradient-spellcast-trait);
 }
 
-.daggerheart.sheet.actor.sleek-ui .traits-row .spellcast-trait:hover {
-  box-shadow: 0px 0px 9px -1px var(--color-border-spellcast);
+#sleek-ui-sheet .traits-row .spellcast-trait:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border-spellcast);
 }
 
-.daggerheart.sheet.actor.sleek-ui .traits-row .trait-container .trait-unmarked {
+#sleek-ui-sheet .traits-row .trait-container .trait-unmarked {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .traits-row .spellcast-trait .trait-unmarked {
-  border: 1px solid var(--color-border-spellcast);
+#sleek-ui-sheet .traits-row .spellcast-trait .trait-unmarked {
+  border: 1px solid var(--sleekUI-color-border-spellcast);
 }
 
-.daggerheart.sheet.actor.sleek-ui .traits-row .trait-container .trait-marked {
+#sleek-ui-sheet .traits-row .trait-container .trait-marked {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-border);
+  background: var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .traits-row .spellcast-trait .trait-marked {
-  background: var(--color-border-spellcast);
+#sleek-ui-sheet .traits-row .spellcast-trait .trait-marked {
+  background: var(--sleekUI-color-border-spellcast);
 }

@@ -2,12 +2,12 @@
 PORTRAIT
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .main-content.companion .header-content {
+#sleek-ui-sheet .main-content.companion .header-content {
   z-index: 5;
-  padding-top: var(--spacing-md);
+  padding-top: var(--sleekUI-spacing-md);
 }
 
-.daggerheart.sheet.actor.sleek-ui .portrait.companion {
+#sleek-ui-sheet .portrait.companion {
   min-height: 250px;
   max-height: 250px;
   overflow: hidden;
@@ -18,61 +18,54 @@ PORTRAIT
 INFORMATION
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui
-  .character-information.companion
-  .character-level {
+#sleek-ui-sheet .character-information.companion .character-level {
   pointer-events: none;
   max-height: 100%;
   justify-content: center;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .values-container.evasion.companion {
+#sleek-ui-sheet .values-container.evasion.companion {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: 0 var(--spacing-md);
-  gap: var(--spacing-xs);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  padding: 0 var(--sleekUI-spacing-md);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .header-content.partner {
-  gap: var(--spacing-xs);
+#sleek-ui-sheet .header-content.partner {
+  gap: var(--sleekUI-spacing-xs);
 }
 
 /* ==================== 
 PARTNER
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .card-container.header.partner .card-header {
+#sleek-ui-sheet .card-container.header.partner .card-header {
   padding: 0;
 }
 
-.daggerheart.sheet.actor.sleek-ui .card-container.header.partner .card-icon {
+#sleek-ui-sheet .card-container.header.partner .card-icon {
   width: 48px !important;
   height: 42px;
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .card-container.header.partner
-  .card-icon:hover
-  .icon {
+#sleek-ui-sheet .card-container.header.partner .card-icon:hover .icon {
   filter: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .card-container.header.partner
-  .partner-label {
+#sleek-ui-sheet .card-container.header.partner .partner-label {
   display: flex;
   align-items: center;
   height: 100%;
-  padding: 0 var(--spacing-xs);
-  border-left: 1px solid var(--color-border);
+  padding: 0 var(--sleekUI-spacing-xs);
+  border-left: 1px solid var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .card-text:has(.no-partner) {
+#sleek-ui-sheet .card-text:has(.no-partner) {
   height: 42px;
   margin-left: 20px;
 }
@@ -81,39 +74,35 @@ PARTNER
 ACTIONS
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .companion .actions {
+#sleek-ui-sheet .companion .actions {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .companion .action-roll {
+#sleek-ui-sheet .companion .action-roll {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 72px;
   height: 48px;
   text-align: center;
-  padding: var(--spacing-sm);
-  background: var(--gradient-card);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
+  padding: var(--sleekUI-spacing-sm);
+  background: var(--sleekUI-gradient-card);
+  border-radius: var(--sleekUI-border-radius);
+  border: 1px solid var(--sleekUI-color-border);
   cursor: pointer;
 }
 
-.daggerheart.sheet.actor.sleek-ui .companion .action-roll:hover {
-  box-shadow: 0px 0px 9px -1px var(--color-border);
+#sleek-ui-sheet .companion .action-roll:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .companion .card-container.header .card-icon {
+#sleek-ui-sheet .companion .card-container.header .card-icon {
   width: 56px;
 }
 
-.daggerheart.sheet.actor.sleek-ui
-  .companion
-  .card-container.header
-  .card-icon
-  .dice-roll {
+#sleek-ui-sheet .companion .card-container.header .card-icon .dice-roll {
   left: 20px;
 }
 
@@ -121,8 +110,8 @@ ACTIONS
 EXPERIENCES
 ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .experiences-container {
+#sleek-ui-sheet .experiences-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--sleekUI-spacing-sm);
 }

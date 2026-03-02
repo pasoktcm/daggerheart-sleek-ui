@@ -6,119 +6,119 @@
 /* ==================== 
    CSS VARIABLES (Sheet-specific)
    ==================== */
-.daggerheart.sheet.actor.sleek-ui,
+#sleek-ui-sheet,
 .floating-tabs-nav {
   /* Fonts */
-  --font-primary: "Montserrat", sans-serif;
-  --font-secondary: "Rubik", sans-serif;
+  --sleekUI-font-primary: "Montserrat", sans-serif;
+  --sleekUI-font-secondary: "Rubik", sans-serif;
 
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+  --sleekUI-font-weight-regular: 400;
+  --sleekUI-font-weight-medium: 500;
+  --sleekUI-font-weight-semibold: 600;
+  --sleekUI-font-weight-bold: 700;
 
-  --font-size-tiny: 8px;
-  --font-size-xs: 10px;
-  --font-size-sm: 12px;
-  --font-size-md: 14px;
-  --font-size-lg: 16px;
-  --font-size-xl: 24px;
-  --font-size-name: 28px;
+  --sleekUI-font-size-tiny: 8px;
+  --sleekUI-font-size-xs: 10px;
+  --sleekUI-font-size-sm: 12px;
+  --sleekUI-font-size-md: 14px;
+  --sleekUI-font-size-lg: 16px;
+  --sleekUI-font-size-xl: 24px;
+  --sleekUI-font-size-name: 28px;
 
   /* Spacing */
-  --spacing-tiny: 4px;
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-md: 16px;
-  --spacing-xm: 18px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  --sleekUI-spacing-tiny: 4px;
+  --sleekUI-spacing-xs: 8px;
+  --sleekUI-spacing-sm: 12px;
+  --sleekUI-spacing-md: 16px;
+  --sleekUI-spacing-xm: 18px;
+  --sleekUI-spacing-lg: 24px;
+  --sleekUI-spacing-xl: 32px;
 
-  --sidebar-width: 275px;
+  --sleekUI-sidebar-width: 275px;
 
   /* Border Radius */
-  --border-radius: 8px;
-  --border-radius-s: 4px;
+  --sleekUI-border-radius: 8px;
+  --sleekUI-border-radius-s: 4px;
 
   /* Colors */
-  --color-primary: #efe6d8;
-  --color-secondary: #cbcfe2;
-  --color-tertiary: #f3c267;
+  --sleekUI-color-primary: #efe6d8;
+  --sleekUI-color-secondary: #cbcfe2;
+  --sleekUI-color-tertiary: #f3c267;
 
-  --color-background-primary: rgba(26, 30, 43, 0.75);
-  --color-background-secondary: rgba(20, 24, 34, 0.75);
-  --color-background-input: #1a1e2b;
-  --color-background-dark: #141822;
-  --color-background-resourceHover: rgba(79, 89, 137, 0.3);
+  --sleekUI-color-background-primary: rgba(26, 30, 43, 0.75);
+  --sleekUI-color-background-secondary: rgba(20, 24, 34, 0.75);
+  --sleekUI-color-background-input: #1a1e2b;
+  --sleekUI-color-background-dark: #141822;
+  --sleekUI-color-background-resourceHover: rgba(79, 89, 137, 0.3);
 
-  --color-border: #4f5989;
-  --color-border-spellcast: #68b0b5;
-  --color-border-equipped: #9d7c40;
+  --sleekUI-color-border: #4f5989;
+  --sleekUI-color-border-spellcast: #68b0b5;
+  --sleekUI-color-border-equipped: #9d7c40;
 
-  --color-tag-text: #add0f1;
-  --color-tag-border: #4e6aa5;
-  --color-tag-background: rgba(78, 106, 165, 0.3);
+  --sleekUI-color-tag-text: #add0f1;
+  --sleekUI-color-tag-border: #4e6aa5;
+  --sleekUI-color-tag-background: rgba(78, 106, 165, 0.3);
 
-  --color-tag2-text: #abede7;
-  --color-tag2-border: #68b0b5;
-  --color-tag2-background: rgba(104, 176, 181, 0.3);
+  --sleekUI-color-tag2-text: #abede7;
+  --sleekUI-color-tag2-border: #68b0b5;
+  --sleekUI-color-tag2-background: rgba(104, 176, 181, 0.3);
 
-  --color-tag3-text: #ffd6a8;
-  --color-tag3-border: #e88a47;
-  --color-tag3-background: rgba(232, 138, 71, 0.3);
+  --sleekUI-color-tag3-text: #ffd6a8;
+  --sleekUI-color-tag3-border: #e88a47;
+  --sleekUI-color-tag3-background: rgba(232, 138, 71, 0.3);
 
-  --color-tag4-text: #ffbdb2;
-  --color-tag4-border: #e84747;
-  --color-tag4-background: rgba(232, 71, 71, 0.3);
+  --sleekUI-color-tag4-text: #ffbdb2;
+  --sleekUI-color-tag4-border: #e84747;
+  --sleekUI-color-tag4-background: rgba(232, 71, 71, 0.3);
 
-  --color-tag5-text: #d2bfff;
-  --color-tag5-border: #7747e8;
-  --color-tag5-background: rgba(119, 71, 232, 0.3);
+  --sleekUI-color-tag5-text: #d2bfff;
+  --sleekUI-color-tag5-border: #7747e8;
+  --sleekUI-color-tag5-background: rgba(119, 71, 232, 0.3);
 
-  --color-scrollbar: rgba(79, 89, 137, 0.8);
+  --sleekUI-color-scrollbar: rgba(79, 89, 137, 0.8);
 
   /* Gradients */
-  --gradient-mask-portrait: linear-gradient(
+  --sleekUI-gradient-mask-portrait: linear-gradient(
     0deg,
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 1) 30%
   );
-  --gradient-mask-icon: linear-gradient(
+  --sleekUI-gradient-mask-icon: linear-gradient(
     -90deg,
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 1) 50%
   );
-  --gradient-card: linear-gradient(
+  --sleekUI-gradient-card: linear-gradient(
     90deg,
     rgba(104, 79, 89, 0.12) 0%,
     rgba(79, 89, 137, 0.3) 100%
   );
-  --gradient-currency: linear-gradient(
+  --sleekUI-gradient-currency: linear-gradient(
     90deg,
     rgb(232, 138, 71, 0.12) 0%,
     rgb(243, 194, 103, 0.3) 100%
   );
-  --gradient-trait: linear-gradient(
+  --sleekUI-gradient-trait: linear-gradient(
     0deg,
     rgba(104, 79, 89, 0.12) 0%,
     rgba(79, 89, 137, 0.3) 100%
   );
-  --gradient-spellcast-trait: linear-gradient(
+  --sleekUI-gradient-spellcast-trait: linear-gradient(
     0deg,
     rgba(104, 79, 89, 0.12) 0%,
     rgba(104, 176, 181, 0.3) 100%
   );
-  --gradient-line-left: linear-gradient(
+  --sleekUI-gradient-line-left: linear-gradient(
     90deg,
     rgba(79, 89, 137, 0) 0%,
     rgba(79, 89, 137, 1) 100%
   );
-  --gradient-line-right: linear-gradient(
+  --sleekUI-gradient-line-right: linear-gradient(
     260deg,
     rgba(79, 89, 137, 0) 0%,
     rgba(79, 89, 137, 1) 100%
   );
-  --gradient-line-middle: linear-gradient(
+  --sleekUI-gradient-line-middle: linear-gradient(
     260deg,
     rgba(79, 89, 137, 0) 0%,
     rgba(79, 89, 137, 1) 50%,
@@ -130,38 +130,38 @@
    GENERAL
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui {
+#sleek-ui-sheet {
   width: fit-content;
   min-width: 860px;
 }
 
-.daggerheart.sheet.actor.adversary.sleek-ui {
+#sleek-ui-sheet.daggerheart.sheet.actor.adversary.sleek-ui {
   min-width: 750px;
 }
 
-.daggerheart.sheet.actor.companion.sleek-ui {
+#sleek-ui-sheet.daggerheart.sheet.actor.companion.sleek-ui {
   min-width: 370px;
   max-width: 370px;
   min-height: 700px;
 }
 
-.daggerheart.sheet.actor.sleek-ui.minimized {
+#sleek-ui-sheet.minimized {
   min-width: 0;
 }
 
-.daggerheart.sheet.actor.sleek-ui .window-content {
+#sleek-ui-sheet .window-content {
   display: flex;
   flex-direction: row;
   height: 100%;
   width: 100%;
-  background-color: var(--color-background-primary);
-  font-family: var(--font-primary);
-  font-weight: var(--font-weight-regular);
-  font-size: var(--font-size-md);
+  background-color: var(--sleekUI-color-background-primary);
+  font-family: var(--sleekUI-font-primary);
+  font-weight: var(--sleekUI-font-weight-regular);
+  font-size: var(--sleekUI-font-size-md);
   padding: 0 !important;
 }
 
-.daggerheart.sheet.actor.sleek-ui .sheet-container {
+#sleek-ui-sheet .sheet-container {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -174,246 +174,251 @@
    ==================== */
 
 *::-webkit-scrollbar-track {
-  background: var(--color-background-secondary);
+  background: var(--sleekUI-color-background-secondary);
 }
 *::-webkit-scrollbar-thumb {
-  background-color: var(--color-border);
-  border-radius: var(--border-radius-s);
+  background-color: var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius-s);
 }
 *::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-secondary);
+  background-color: var(--sleekUI-color-secondary);
 }
 
 /* ==================== 
    SIDEBAR
    ==================== */
-.daggerheart.sheet.actor.sleek-ui [data-application-part="sidebar"] {
-  min-width: var(--sidebar-width);
-  max-width: var(--sidebar-width);
+#sleek-ui-sheet [data-application-part="sidebar"] {
+  min-width: var(--sleekUI-sidebar-width);
+  max-width: var(--sleekUI-sidebar-width);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: var(--color-background-secondary);
-  border-right: 1px solid var(--color-border);
+  background-color: var(--sleekUI-color-background-secondary);
+  border-right: 1px solid var(--sleekUI-color-border);
   position: relative;
 }
 
 /* ==================== 
    MAIN CONTENT
    ==================== */
-.daggerheart.sheet.actor.sleek-ui [data-application-part="mainSheet"] {
+#sleek-ui-sheet [data-application-part="mainSheet"] {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.daggerheart.sheet.actor.sleek-ui .header-content {
+#sleek-ui-sheet .header-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border-bottom: 1px solid var(--color-border);
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
-  padding-top: var(--spacing-xl);
+  border-bottom: 1px solid var(--sleekUI-color-border);
+  gap: var(--sleekUI-spacing-md);
+  padding: var(--sleekUI-spacing-md);
+  padding-top: var(--sleekUI-spacing-xl);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tab-content {
+#sleek-ui-sheet .tab-content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.daggerheart.sheet.actor.sleek-ui .tabs {
+#sleek-ui-sheet .tabs {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: var(--sleekUI-spacing-lg);
 }
 
 /* ==================== 
    TYPOGRAPHY
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui h1 {
-  color: var(--color-primary) !important;
-  font-family: var(--font-secondary) !important;
-  font-size: var(--font-size-name);
-  font-weight: var(--font-weight-bold);
+#sleek-ui-sheet h1 {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-secondary) !important;
+  font-size: var(--sleekUI-font-size-name);
+  font-weight: var(--sleekUI-font-weight-bold);
   text-transform: uppercase;
 }
 
-.daggerheart.sheet.actor.sleek-ui h2 {
-  color: var(--color-secondary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-md);
+#sleek-ui-sheet h2 {
+  color: var(--sleekUI-color-secondary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-md);
   text-transform: uppercase;
   letter-spacing: 1.4px;
 }
 
-.daggerheart.sheet.actor.sleek-ui h3 {
-  color: var(--color-secondary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-xs);
+#sleek-ui-sheet h3 {
+  color: var(--sleekUI-color-secondary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-xs);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .trait-name {
-  color: var(--color-secondary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-tiny);
-  font-weight: var(--font-weight-semibold);
+#sleek-ui-sheet p,
+#sleek-ui-sheet span {
+  font-family: var(--sleekUI-font-primary) !important;
+}
+
+#sleek-ui-sheet .trait-name {
+  color: var(--sleekUI-color-secondary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-tiny);
+  font-weight: var(--sleekUI-font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 0 -16px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .level-number {
-  color: var(--color-primary) !important;
-  font-family: var(--font-secondary) !important;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
+#sleek-ui-sheet .level-number {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-secondary) !important;
+  font-size: var(--sleekUI-font-size-xl);
+  font-weight: var(--sleekUI-font-weight-bold);
 }
 
-.daggerheart.sheet.actor.sleek-ui .value-number {
-  color: var(--color-primary) !important;
-  font-family: var(--font-secondary) !important;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
+#sleek-ui-sheet .value-number {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-secondary) !important;
+  font-size: var(--sleekUI-font-size-lg);
+  font-weight: var(--sleekUI-font-weight-bold);
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource-number {
-  color: var(--color-primary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
+#sleek-ui-sheet .resource-number {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-sm);
+  font-weight: var(--sleekUI-font-weight-bold);
   letter-spacing: 2px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .trait-number {
-  color: var(--color-primary) !important;
-  font-family: var(--font-secondary) !important;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--spacing-xm);
+#sleek-ui-sheet .trait-number {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-secondary) !important;
+  font-size: var(--sleekUI-font-size-xl);
+  font-weight: var(--sleekUI-font-weight-bold);
+  line-height: var(--sleekUI-spacing-xm);
 }
 
-.daggerheart.sheet.actor.sleek-ui .experience-number {
-  color: var(--color-primary) !important;
-  font-family: var(--font-secondary) !important;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
+#sleek-ui-sheet .experience-number {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-secondary) !important;
+  font-size: var(--sleekUI-font-size-sm);
+  font-weight: var(--sleekUI-font-weight-bold);
 }
 
-.daggerheart.sheet.actor.sleek-ui .loadout-number {
-  color: var(--color-primary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-bold);
+#sleek-ui-sheet .loadout-number {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-md);
+  font-weight: var(--sleekUI-font-weight-bold);
   letter-spacing: 3px;
 }
 
-.daggerheart.sheet.actor.sleek-ui .card-text-name {
-  color: var(--color-primary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
+#sleek-ui-sheet .card-text-name {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-md);
+  font-weight: var(--sleekUI-font-weight-medium);
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
 }
 
-.daggerheart.sheet.actor.sleek-ui .card-text-details {
-  color: var(--color-secondary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-regular);
+#sleek-ui-sheet .card-text-details {
+  color: var(--sleekUI-color-secondary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-sm);
+  font-weight: var(--sleekUI-font-weight-regular);
 }
 
-.daggerheart.sheet.actor.sleek-ui .card-button {
-  color: var(--color-primary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-sm);
+#sleek-ui-sheet .card-button {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-sm);
 }
 
-.daggerheart.sheet.actor.sleek-ui .resource {
-  color: var(--color-primary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+#sleek-ui-sheet .resource {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-md);
+  font-weight: var(--sleekUI-font-weight-semibold);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tab-text {
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
+#sleek-ui-sheet .tab-text {
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-md);
+  font-weight: var(--sleekUI-font-weight-medium);
 }
 
-.daggerheart.sheet.actor.sleek-ui .separator {
+#sleek-ui-sheet .separator {
   display: inline-block;
   width: 1px;
   height: 60%;
-  background: var(--color-border);
+  background: var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui h1.window-title {
-  font-family: var(--font-primary);
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-regular);
+#sleek-ui-sheet h1.window-title {
+  font-family: var(--sleekUI-font-primary);
+  font-size: var(--sleekUI-font-size-md);
+  font-weight: var(--sleekUI-font-weight-regular);
   text-transform: none;
-  padding-left: var(--spacing-xs);
+  padding-left: var(--sleekUI-spacing-xs);
 }
 
 /* ==================== 
    INPUTS
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui input {
+#sleek-ui-sheet input {
   border: none;
   outline: none;
   text-align: center;
   width: 100%;
-  border-radius: var(--border-radius-s);
-  background: var(--color-background-input);
-  color: var(--color-primary) !important;
-  font-family: var(--font-primary) !important;
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+  border-radius: var(--sleekUI-border-radius-s);
+  background: var(--sleekUI-color-background-input);
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-md);
+  font-weight: var(--sleekUI-font-weight-semibold);
 }
 
-.daggerheart.sheet.actor.sleek-ui input:hover {
-  background: var(--color-background-dark);
+#sleek-ui-sheet input:hover {
+  background: var(--sleekUI-color-background-dark);
 }
 
-.daggerheart.sheet.actor.sleek-ui input:focus {
-  background: var(--color-background-dark);
+#sleek-ui-sheet input:focus {
+  background: var(--sleekUI-color-background-dark);
 }
 
 /* ==================== 
    TAGS 
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .character-tags {
+#sleek-ui-sheet .character-tags {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-tiny);
+  gap: var(--sleekUI-spacing-tiny);
   flex-wrap: wrap;
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag [data-action] {
+#sleek-ui-sheet .tag [data-action] {
   cursor: pointer;
-  padding: var(--spacing-tiny) var(--spacing-xs);
+  padding: var(--sleekUI-spacing-tiny) var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag:not(:has([data-action])) {
-  padding: var(--spacing-tiny) var(--spacing-xs);
+#sleek-ui-sheet .tag:not(:has([data-action])) {
+  padding: var(--sleekUI-spacing-tiny) var(--sleekUI-spacing-xs);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag {
-  border-radius: var(--border-radius);
-  font-size: var(--font-size-xs);
-  color: var(--color-tag-text);
-  border: 1px solid var(--color-tag-border);
-  background: var(--color-tag-background);
+#sleek-ui-sheet .tag {
+  border-radius: var(--sleekUI-border-radius);
+  font-size: var(--sleekUI-font-size-xs);
+  color: var(--sleekUI-color-tag-text);
+  border: 1px solid var(--sleekUI-color-tag-border);
+  background: var(--sleekUI-color-tag-background);
   height: 20px;
   line-height: initial;
   display: flex;
@@ -421,37 +426,37 @@
   align-items: center;
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag i {
-  margin-right: var(--spacing-tiny);
+#sleek-ui-sheet .tag i {
+  margin-right: var(--sleekUI-spacing-tiny);
   transform: translateY(-1px);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag-blue {
-  color: var(--color-tag-text);
-  border: 1px solid var(--color-tag-border);
-  background: var(--color-tag-background);
+#sleek-ui-sheet .tag-blue {
+  color: var(--sleekUI-color-tag-text);
+  border: 1px solid var(--sleekUI-color-tag-border);
+  background: var(--sleekUI-color-tag-background);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag-green {
-  color: var(--color-tag2-text);
-  border: 1px solid var(--color-tag2-border);
-  background: var(--color-tag2-background);
+#sleek-ui-sheet .tag-green {
+  color: var(--sleekUI-color-tag2-text);
+  border: 1px solid var(--sleekUI-color-tag2-border);
+  background: var(--sleekUI-color-tag2-background);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag-orange {
-  color: var(--color-tag3-text);
-  border: 1px solid var(--color-tag3-border);
-  background: var(--color-tag3-background);
+#sleek-ui-sheet .tag-orange {
+  color: var(--sleekUI-color-tag3-text);
+  border: 1px solid var(--sleekUI-color-tag3-border);
+  background: var(--sleekUI-color-tag3-background);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag-red {
-  color: var(--color-tag4-text);
-  border: 1px solid var(--color-tag4-border);
-  background: var(--color-tag4-background);
+#sleek-ui-sheet .tag-red {
+  color: var(--sleekUI-color-tag4-text);
+  border: 1px solid var(--sleekUI-color-tag4-border);
+  background: var(--sleekUI-color-tag4-background);
 }
 
-.daggerheart.sheet.actor.sleek-ui .tag-purple {
-  color: var(--color-tag5-text);
-  border: 1px solid var(--color-tag5-border);
-  background: var(--color-tag5-background);
+#sleek-ui-sheet .tag-purple {
+  color: var(--sleekUI-color-tag5-text);
+  border: 1px solid var(--sleekUI-color-tag5-border);
+  background: var(--sleekUI-color-tag5-background);
 }

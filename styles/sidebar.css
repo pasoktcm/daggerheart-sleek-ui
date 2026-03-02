@@ -2,31 +2,31 @@
    PORTRAIT
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .portrait {
+#sleek-ui-sheet .portrait {
   width: 100%;
   min-height: 350px;
   max-height: 350px;
   object-fit: cover;
   object-position: top;
-  mask-image: var(--gradient-mask-portrait);
+  mask-image: var(--sleekUI-gradient-mask-portrait);
   position: relative;
 }
 
-.daggerheart.sheet.actor.sleek-ui .portrait img {
+#sleek-ui-sheet .portrait img {
   height: 100%;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
-.daggerheart.sheet.actor.sleek-ui .portrait:hover img {
+#sleek-ui-sheet .portrait:hover img {
   transform: scale(1.02);
 }
 
-.daggerheart.sheet.actor.sleek-ui .portrait.deathroll img {
+#sleek-ui-sheet .portrait.deathroll img {
   filter: grayscale(1) brightness(0.5);
 }
 
-.daggerheart.sheet.actor.sleek-ui .deathroll-btn {
+#sleek-ui-sheet .deathroll-btn {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -37,12 +37,12 @@
   left: 10%;
 }
 
-.daggerheart.sheet.actor.sleek-ui .deathroll-btn i {
+#sleek-ui-sheet .deathroll-btn i {
   scale: 6;
-  color: var(--color-primary);
+  color: var(--sleekUI-color-primary);
 }
 
-.daggerheart.sheet.actor.sleek-ui .deathroll-btn:hover {
+#sleek-ui-sheet .deathroll-btn:hover {
   text-shadow: 0 0 16px red;
 }
 
@@ -50,39 +50,39 @@
    BEASTFORM
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .portrait:has(.beastform-portrait) {
+#sleek-ui-sheet .portrait:has(.beastform-portrait) {
   pointer-events: none;
 }
 
-.daggerheart.sheet.actor.sleek-ui .cancel-beastform-btn {
+#sleek-ui-sheet .cancel-beastform-btn {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-md);
+  gap: var(--sleekUI-spacing-md);
   height: 32px;
-  margin: 0 var(--spacing-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  margin: 0 var(--sleekUI-spacing-md);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
   position: absolute;
   top: 290px;
   right: 0px;
   left: 0px;
-  background: var(--gradient-card);
-  background-color: var(--color-background-dark);
+  background: var(--sleekUI-gradient-card);
+  background-color: var(--sleekUI-color-background-dark);
   backdrop-filter: blur(5px);
   cursor: pointer;
   z-index: 10;
 }
 
-.daggerheart.sheet.actor.sleek-ui .cancel-beastform-btn:hover {
-  box-shadow: 0px 0px 9px -1px var(--color-border);
+#sleek-ui-sheet .cancel-beastform-btn:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
 }
 
 /* ==================== 
    SETTINGS BUTTON
    ==================== */
-.daggerheart.sheet.actor.sleek-ui .settings-button {
+#sleek-ui-sheet .settings-button {
   width: 32px;
   height: 32px;
   padding: 0;
@@ -97,21 +97,21 @@
   bottom: 8px;
   left: 8px;
   z-index: 5;
-  border-radius: var(--border-radius);
-  background: var(--color-background-secondary);
-  color: var(--color-secondary);
+  border-radius: var(--sleekUI-border-radius);
+  background: var(--sleekUI-color-background-secondary);
+  color: var(--sleekUI-color-secondary);
 }
 
-.daggerheart.sheet.actor.sleek-ui .settings-button:hover {
-  background: var(--color-background-dark);
-  color: var(--color-tertiary);
+#sleek-ui-sheet .settings-button:hover {
+  background: var(--sleekUI-color-background-dark);
+  color: var(--sleekUI-color-tertiary);
 }
 
 /* ==================== 
    FAVORITES
    ==================== */
 
-.daggerheart.sheet.actor.sleek-ui .favorites {
+#sleek-ui-sheet .favorites {
   width: 100%;
   height: fit-content;
   overflow-y: auto;
@@ -129,50 +129,50 @@
   z-index: 1;
 }
 
-.daggerheart.sheet.actor.sleek-ui .favorites-container {
+#sleek-ui-sheet .favorites-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-tiny);
-  padding: var(--spacing-sm);
+  gap: var(--sleekUI-spacing-tiny);
+  padding: var(--sleekUI-spacing-sm);
 }
 
-.daggerheart.sheet.actor.sleek-ui .favorites-header {
+#sleek-ui-sheet .favorites-header {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-tiny);
+  gap: var(--sleekUI-spacing-xs);
+  margin-bottom: var(--sleekUI-spacing-tiny);
 }
 
-.daggerheart.sheet.actor.sleek-ui .favorites-header::before {
+#sleek-ui-sheet .favorites-header::before {
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--gradient-line-left);
+  background: var(--sleekUI-gradient-line-left);
 }
 
-.daggerheart.sheet.actor.sleek-ui .favorites-header::after {
+#sleek-ui-sheet .favorites-header::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--gradient-line-right);
+  background: var(--sleekUI-gradient-line-right);
 }
 
-.daggerheart.sheet.actor.sleek-ui .favorites-list {
+#sleek-ui-sheet .favorites-list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-tiny);
+  gap: var(--sleekUI-spacing-tiny);
 }
 
-.daggerheart.sheet.actor.sleek-ui .favorites-list .drag-area {
+#sleek-ui-sheet .favorites-list .drag-area {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 48px;
-  border-radius: var(--border-radius);
-  border: 1px dashed var(--color-border);
+  border-radius: var(--sleekUI-border-radius);
+  border: 1px dashed var(--sleekUI-color-border);
 }
 
-.daggerheart.sheet.actor.sleek-ui .favorites-list .drag-area h3 {
-  color: var(--color-border) !important;
+#sleek-ui-sheet .favorites-list .drag-area h3 {
+  color: var(--sleekUI-color-border) !important;
 }
