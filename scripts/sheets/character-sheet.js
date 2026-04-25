@@ -339,12 +339,19 @@ export function registerCharacterSheet() {
             .join(", ");
         }
 
-        const features = (item.system.weaponFeatures || []).map((wf) => {
-          const config = CONFIG.DH.ITEM.weaponFeatures[wf.value];
-          return {
-            name: game.i18n.localize(config.label),
-            description: game.i18n.localize(config.description),
-          };
+        const homebrewWeaponFeatures = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Homebrew)?.itemFeatures?.weaponFeatures ?? {};
+        const allWeaponFeatures = { ...CONFIG.DH.ITEM.weaponFeatures, ...homebrewWeaponFeatures };
+        const homebrewWeaponKeys = new Set(Object.keys(homebrewWeaponFeatures));
+        const features = (item.system.weaponFeatures || []).flatMap((wf) => {
+          const config = allWeaponFeatures[wf.value];
+          if (!config) return [];
+          const isHomebrew = homebrewWeaponKeys.has(wf.value);
+          return [
+            {
+              name: game.i18n.localize(config.label ?? config.name),
+              description: isHomebrew ? (config.description ?? "") : game.i18n.localize(config.description),
+            },
+          ];
         });
 
         const tags = [
@@ -376,12 +383,19 @@ export function registerCharacterSheet() {
       const createArmorData = async (item) => {
         const base = await createBaseData(item);
 
-        const features = (item.system.armorFeatures || []).map((af) => {
-          const config = CONFIG.DH.ITEM.armorFeatures[af.value];
-          return {
-            name: game.i18n.localize(config.label),
-            description: game.i18n.localize(config.description),
-          };
+        const homebrewArmorFeatures = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Homebrew)?.itemFeatures?.armorFeatures ?? {};
+        const allArmorFeatures = { ...CONFIG.DH.ITEM.armorFeatures, ...homebrewArmorFeatures };
+        const homebrewArmorKeys = new Set(Object.keys(homebrewArmorFeatures));
+        const features = (item.system.armorFeatures || []).flatMap((af) => {
+          const config = allArmorFeatures[af.value];
+          if (!config) return [];
+          const isHomebrew = homebrewArmorKeys.has(af.value);
+          return [
+            {
+              name: game.i18n.localize(config.label ?? config.name),
+              description: isHomebrew ? (config.description ?? "") : game.i18n.localize(config.description),
+            },
+          ];
         });
 
         const tags = [

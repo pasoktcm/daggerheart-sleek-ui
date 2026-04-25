@@ -1,11 +1,11 @@
 {
   "id": "daggerheart-sleek-ui",
   "title": "Daggerheart: Sleek UI",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "compatibility": {
     "minimum": "13",
     "maximum": "13",
-    "verified": "13.351"
+    "verified": "13"
   },
   "relationships": {
     "systems": [
@@ -56,7 +56,7 @@
     }
   ],
   "description": "<p>UI/UX improvements for Foundryborne's actor sheets</p>",
-  "manifest": "https://github.com/pasoktcm/daggerheart-sleek-ui/releases/latest/download/module.json",
-  "download": "https://github.com/pasoktcm/daggerheart-sleek-ui/releases/latest/download/daggerheart-sleek-ui.zip",
+  "manifest": "https://github.com/pasoktcm/daggerheart-sleek-ui/releases/download/v1.6.3/module.json",
+  "download": "https://github.com/pasoktcm/daggerheart-sleek-ui/releases/download/v1.6.3/daggerheart-sleek-ui.zip",
   "flags": {}
 }
