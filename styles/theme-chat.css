@@ -93,7 +93,7 @@ BUTTONS
   background: var(--sleekUI-color-roll-background-dark);
   border: 1px solid var(--sleekUI-color-roll-border);
   border-radius: var(--sleekUI-border-radius);
-  padding: 18px 0;
+  padding: 18px 8px;
   transition: none;
 }
 
@@ -467,6 +467,10 @@ FEATURES
   flex: 1;
 }
 
+.chat-message .message-content .description p {
+  margin: 0;
+}
+
 /* ==================== 
 ACTIONS
 ==================== */
@@ -537,6 +541,85 @@ ACTIONS
   border-top: 1px solid var(--sleekUI-color-roll-border);
   line-height: 20px;
   color: var(--sleekUI-color-secondary);
+}
+
+/* ==================== 
+DEATH MOVES
+==================== */
+
+.chat-message .message-content:has(.death-move) {
+  padding: 0;
+}
+
+.chat-message .message-content .death-moves-list .death-move .death-label {
+  border: none;
+  height: 64px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  border-bottom: 1px solid var(--sleekUI-color-roll-border);
+  overflow: hidden;
+}
+
+.chat-message .message-content .death-moves-list .death-move .death-label:hover {
+  background: none;
+}
+
+.chat-message .message-content .death-moves-list .death-move .death-label .death-image {
+  position: absolute;
+  right: 0;
+  height: 64px;
+  width: 50%;
+  object-fit: cover;
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 80%);
+}
+
+.chat-message .message-content .death-moves-list .death-move .death-label .header-label {
+  padding: 0;
+  padding-left: 12px;
+  flex: 1;
+  z-index: 5;
+  user-select: none;
+}
+
+.chat-message .message-content .death-moves-list .death-move .death-label .header-label .title {
+  color: var(--sleekUI-color-primary) !important;
+  font-family: var(--sleekUI-font-secondary) !important;
+  font-size: var(--sleekUI-font-size-lg);
+  font-weight: var(--sleekUI-font-weight-bold);
+  text-transform: uppercase;
+  text-align: start;
+  text-overflow: ellipsis;
+}
+
+.chat-message .message-content .death-moves-list .death-move .death-label .header-label .label {
+  color: var(--sleekUI-color-secondary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-xs);
+  font-weight: 400;
+  line-height: var(--sleekUI-spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.chat-message .message-content .death-moves-list .death-move .death-label i {
+  margin-right: 12px;
+  z-index: 5;
+}
+
+.chat-message .message-content .death-moves-list .death-move .description {
+  padding: 12px;
+  line-height: 20px;
+  color: var(--sleekUI-color-secondary);
+  border-bottom: 1px solid var(--sleekUI-color-roll-border);
+}
+
+.chat-message .message-content .death-moves .result {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  color: var(--sleekUI-color-primary);
 }
 
 /* ==================== 

@@ -122,6 +122,9 @@ export function registerAdversaryMiniSheet() {
     static async _render() {
       if (!this.currentActor) return;
 
+      // Preserve features window open state across re-renders
+      const favWasActive = this.element?.querySelector(".favorites-window")?.classList.contains("active") ?? false;
+
       const effectsEl = document.getElementById("effects-display");
       const wasInMinisheet = effectsEl && this.element?.contains(effectsEl);
       if (wasInMinisheet) document.body.appendChild(effectsEl);
@@ -173,6 +176,13 @@ export function registerAdversaryMiniSheet() {
             }
           });
         });
+      }
+
+      if (favWasActive) {
+        const favWindow = this.element.querySelector(".favorites-window");
+        const tabBtn = this.element.querySelector(".tab-button");
+        favWindow?.classList.add("active");
+        tabBtn?.classList.add("active");
       }
 
       this._attachListeners();

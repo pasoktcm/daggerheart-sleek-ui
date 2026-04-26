@@ -131,6 +131,9 @@ export function registerCharacterMiniSheet() {
     static async _render() {
       if (!this.currentActor) return;
 
+      // Preserve favorites window open state across re-renders
+      const favWasActive = this.element?.querySelector(".favorites-window")?.classList.contains("active") ?? false;
+
       const effectsEl = document.getElementById("effects-display");
       const wasInMinisheet = effectsEl && this.element?.contains(effectsEl);
       if (wasInMinisheet) document.body.appendChild(effectsEl);
@@ -185,6 +188,14 @@ export function registerCharacterMiniSheet() {
             }
           });
         });
+      }
+
+      // Restore favorites window state
+      if (favWasActive) {
+        const favWindow = this.element.querySelector(".favorites-window");
+        const tabBtn = this.element.querySelector(".tab-button");
+        favWindow?.classList.add("active");
+        tabBtn?.classList.add("active");
       }
 
       this._attachListeners();
@@ -266,6 +277,46 @@ export function registerCharacterMiniSheet() {
     static async _prepareContext(actor) {
       const systemContext = await actor.sheet._prepareContext({});
 
+      let { weapons, armors, loadoutCards, quickAccess, quickAccessItems, unarmedAttack } = systemContext;
+
+      const isSleekSheet = actor.sheet?.constructor?.name === "SleekCharacterSheet";
+
+      if (!isSleekSheet) {
+        weapons = actor.items.filter((i) => i.type === "weapon").map((item) => ({ item, tags: [], hopeCost: 0, usesData: null, enrichedDescription: "" }));
+
+        armors = actor.items
+          .filter((i) => i.type === "armor")
+          .map((item) => ({
+            item,
+            tags: [],
+            hopeCost: 0,
+            usesData: null,
+            marks: item.system.marks ?? null,
+            enrichedDescription: "",
+          }));
+
+        loadoutCards = (actor.system.domainCards?.loadout ?? []).map((item) => ({
+          item,
+          tags: [],
+          hopeCost: 0,
+          usesData: null,
+        }));
+
+        unarmedAttack = actor.system.usedUnarmed
+          ? {
+              item: actor.system.usedUnarmed,
+              tags: [],
+              hopeCost: 0,
+              usesData: null,
+              damage: actor.system.usedUnarmed?.system?.damage ?? null,
+              enrichedDescription: "",
+            }
+          : null;
+
+        quickAccess = false;
+        quickAccessItems = [];
+      }
+
       return {
         document: actor,
         source: actor,
@@ -275,12 +326,12 @@ export function registerCharacterMiniSheet() {
         attributes: systemContext.attributes,
         isDeath: actor.system.deathMoveViable,
         beastformPortrait: systemContext.beastformPortrait,
-        quickAccess: systemContext.quickAccess,
-        quickAccessItems: systemContext.quickAccessItems,
-        unarmedAttack: systemContext.unarmedAttack,
-        weapons: systemContext.weapons,
-        armors: systemContext.armors,
-        loadoutCards: systemContext.loadoutCards,
+        quickAccess,
+        quickAccessItems,
+        unarmedAttack,
+        weapons,
+        armors,
+        loadoutCards,
       };
     }
 

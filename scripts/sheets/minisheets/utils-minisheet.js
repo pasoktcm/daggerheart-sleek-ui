@@ -434,11 +434,35 @@ function _attachToggleEquipListeners(element, actor) {
   element.querySelectorAll("[data-action='toggleEquipItem']").forEach((el) => {
     el.addEventListener("click", async (event) => {
       event.stopPropagation();
-      const itemUuid = el.dataset.itemUuid || el.closest("[data-item-uuid]")?.dataset.itemUuid;
+      const itemUuid = el.closest("[data-item-uuid]")?.dataset.itemUuid;
       if (!itemUuid) return;
       const item = await fromUuid(itemUuid);
       if (!item) return;
-      await item.update({ "system.equipped": !item.system.equipped });
+
+      // Unequip path — same for both types
+      if (item.system.equipped) {
+        await item.update({ "system.equipped": false });
+        return;
+      }
+
+      const actor = item.parent;
+
+      if (item.type === "armor") {
+        const currentArmor = actor?.system?.armor;
+        if (currentArmor) {
+          await currentArmor.update({ "system.equipped": false });
+        }
+        await item.update({ "system.equipped": true });
+      } else if (item.type === "weapon") {
+        // Block equipping during beastform
+        if (actor?.effects?.find((x) => !x.disabled && x.type === "beastform")) {
+          ui.notifications.warn(game.i18n.localize("DAGGERHEART.UI.Notifications.beastformEquipWeapon"));
+          return;
+        }
+
+        await actor.system.constructor.unequipBeforeEquip.bind(actor.system)(item);
+        await item.update({ "system.equipped": true });
+      }
     });
   });
 }

@@ -238,6 +238,7 @@ TOOLTIPS
 .daggerheart.dh-style.tooltip .close-hint::before {
   content: "";
   display: flex;
+  width: 100%;
   height: 1px;
   background: var(--sleekUI-gradient-line-middle);
   margin: var(--sleekUI-spacing-sm);

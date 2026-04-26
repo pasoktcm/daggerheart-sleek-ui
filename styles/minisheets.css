@@ -5,6 +5,7 @@ GENERAL
 #sleek-ui-sheet:has(.minisheet) {
   background: none;
   min-width: unset;
+  backdrop-filter: none !important;
 }
 
 #sleek-ui-sheet .minisheet.character {
