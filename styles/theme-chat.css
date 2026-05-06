@@ -471,6 +471,31 @@ FEATURES
   margin: 0;
 }
 
+.chat-message .message-content .description hr {
+  height: 1px;
+  background-image: linear-gradient(90deg, transparent 0%, var(--sleekUI-color-border) 50%, transparent 100%);
+}
+
+/* ==================== 
+REFRESH
+==================== */
+
+.chat-message .message-content .refresh-message {
+  margin-top: 8px;
+}
+
+.chat-message .message-content .refresh-message .subtitle {
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-sm);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  background: none;
+  white-space: nowrap;
+  color: var(--sleekUI-color-roll);
+}
+
 /* ==================== 
 ACTIONS
 ==================== */

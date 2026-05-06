@@ -118,6 +118,23 @@ export function setMinisheetCollapsed(value) {
   game.user.setFlag("daggerheart-sleek-ui", "minisheetCollapsed", value);
 }
 
+export function triggerMinisheetToggle() {
+  const reopenBtn = document.getElementById("minisheet-reopen-btn");
+  if (reopenBtn) {
+    reopenBtn.click();
+    return;
+  }
+  document.querySelector("#sleek-ui-sheet .toggle-minisheet.close")?.click();
+}
+
+export function registerMinisheetKeybinding() {
+  game.keybindings.register("daggerheart-sleek-ui", "toggleMinisheet", {
+    name: "Toggle minisheet open/closed",
+    editable: [{ key: "KeyC", modifiers: ["Alt"] }],
+    onDown: () => triggerMinisheetToggle(),
+  });
+}
+
 // ─── MINISHEET COLLAPSE ANIMATION ────────────────────────────────────────────
 
 export function collapseMinisheet(element, onCollapsed) {

@@ -10,7 +10,7 @@
 
       <div class="card-text">
         <h1 class="small">{{actor.name}}</h1>
-        {{#if (gte ownershipLevel 1)}}
+        {{#if (or (not restrictMetagaming) (gte ownershipLevel 1))}}
           <div class="character-tags">
             {{!-- CLASS --}}
             {{#if actor.system.class.value}}
@@ -74,7 +74,7 @@
 
   </div>
 
-  {{#if (gte ownershipLevel 2)}}
+  {{#if (or (not restrictMetagaming) (gte ownershipLevel 2))}}
   <div class="card-container description">
     <span class="separator-line"></span>
     <div class="party-character-information">

@@ -149,7 +149,7 @@ export function registerCharacterMiniSheet() {
         hideMacrobar();
       }
 
-      const scaleWrapper = this.element.querySelector(".minisheet-scale-wrapper");
+      const scaleWrapper = this.element.querySelector(".minisheet-transform-wrapper");
       scaleWrapper.innerHTML = html;
 
       const collapsed = isMinisheetCollapsed();
@@ -263,7 +263,7 @@ export function registerCharacterMiniSheet() {
       container.style.cssText = "position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:70;";
 
       const scaleWrapper = document.createElement("div");
-      scaleWrapper.classList.add("minisheet-scale-wrapper");
+      scaleWrapper.classList.add("minisheet-transform-wrapper");
       scaleWrapper.style.transformOrigin = "bottom center";
 
       const value = game.settings.get("daggerheart-sleek-ui", "minisheetScale");
