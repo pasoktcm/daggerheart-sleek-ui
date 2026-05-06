@@ -166,6 +166,7 @@ export function registerPartySheet() {
 
         results.push({
           ownershipLevel: game.user.isGM ? CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER : actor.getUserLevel(game.user),
+          restrictMetagaming: game.settings.get("daggerheart-sleek-ui", "partySheetMetagaming"),
           actor,
           level,
           hope,
@@ -401,7 +402,12 @@ export function registerPartySheet() {
           const cardWrapper = nameContainer.closest(".card-wrapper");
           if (!cardWrapper) return;
           const description = cardWrapper.querySelector(".card-container.description");
-          if (!description) return;
+          if (!description) {
+            if (game.settings.get("daggerheart-sleek-ui", "partySheetMetagaming")) {
+              ui.notifications.warn("You don't have permission to view this character's resources and stats.");
+            }
+            return;
+          }
 
           const isCurrentlyHidden = description.style.display === "none" || !description.style.display;
           description.style.display = isCurrentlyHidden ? "flex" : "none";

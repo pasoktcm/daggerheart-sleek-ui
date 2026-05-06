@@ -72,7 +72,7 @@ export function registerPartyMiniSheet() {
         hideMacrobar();
       }
 
-      const scaleWrapper = this.element.querySelector(".minisheet-scale-wrapper");
+      const scaleWrapper = this.element.querySelector(".minisheet-transform-wrapper");
       scaleWrapper.innerHTML = html;
 
       const collapsed = isMinisheetCollapsed();
@@ -147,7 +147,7 @@ export function registerPartyMiniSheet() {
       container.style.cssText = "position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:70;";
 
       const scaleWrapper = document.createElement("div");
-      scaleWrapper.classList.add("minisheet-scale-wrapper");
+      scaleWrapper.classList.add("minisheet-transform-wrapper");
       scaleWrapper.style.transformOrigin = "bottom center";
 
       const value = game.settings.get("daggerheart-sleek-ui", "minisheetScale");
@@ -180,6 +180,7 @@ export function registerPartyMiniSheet() {
           actor: member,
           actorUuid: member.uuid,
           ownershipLevel,
+          restrictMetagaming: game.settings.get("daggerheart-sleek-ui", "partySheetMetagaming"),
           hopeValue: sys.resources?.hope?.value ?? 0,
           hopeMax: sys.resources?.hope?.max ?? 0,
           hitPointsValue: sys.resources?.hitPoints?.value ?? 0,

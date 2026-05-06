@@ -1,5 +1,6 @@
 import { preloadHandlebarsTemplates, registerHelpers } from "./helpers.js";
-import { registerSettings, applyMinisheetScale, applyTheme, applyThemeChat } from "./settings.js";
+import { registerSettings, applyMinisheetScale, applyMinisheetOffset, applyTheme, applyThemeChat } from "./settings.js";
+import { registerMinisheetKeybinding } from "./sheets/minisheets/utils-minisheet.js";
 
 import { registerCharacterSheet } from "./sheets/character-sheet.js";
 import { registerCompanionSheet } from "./sheets/companion-sheet.js";
@@ -17,10 +18,12 @@ Hooks.once("init", () => {
   preloadHandlebarsTemplates();
   registerHelpers();
   registerSettings();
+  registerMinisheetKeybinding();
 });
 
 Hooks.on("ready", () => {
   applyMinisheetScale();
+  applyMinisheetOffset();
   applyTheme();
   applyThemeChat();
 });

@@ -9,7 +9,7 @@
         <div class="character" data-actor-uuid="{{memberData.actorUuid}}">
 
             <div class="hope-row">
-                {{#if (gte memberData.ownershipLevel 2)}}
+                {{#if (or (not restrictMetagaming) (gte ownershipLevel 2))}}
                 <div class="hope-container">
                     {{#times memberData.hopeMax}}
                     <span class="hope-value">
@@ -32,7 +32,7 @@
                 {{/if}}
             </div>
 
-            {{#if (gte memberData.ownershipLevel 2)}}
+            {{#if (or (not restrictMetagaming) (gte ownershipLevel 2))}}
             <div class="resources-row">
 
                 {{!-- HIT POINTS --}}
