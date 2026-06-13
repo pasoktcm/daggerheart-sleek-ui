@@ -40,10 +40,10 @@ export function registerSettings() {
     default: true,
   });
 
-  //Minisheet Scaling
+  //Minisheet Transform
   game.settings.register("daggerheart-sleek-ui", "minisheetScale", {
     name: "Minisheet Scale",
-    hint: "Adjusts the scale of the mini sheets to better accomodate smaller or larger screens",
+    hint: "Adjusts the scale of the mini sheets to better accomodate smaller or larger screens (default: 1)",
     scope: "client",
     config: true,
     type: Number,
@@ -64,6 +64,15 @@ export function registerSettings() {
     config: true,
     type: Boolean,
     default: false,
+  game.settings.register("daggerheart-sleek-ui", "minisheetOffset", {
+    name: "Minisheet Horizontal Offset",
+    hint: "Adjusts the horizontal position of the mini sheets, nudging it from the center by the value in pixels (default: 0)",
+    scope: "client",
+    config: true,
+    type: Number,
+    range: { min: -500, max: 500, step: 1 },
+    default: 0,
+    onChange: () => applyMinisheetOffset(),
   });
 
   // Tooltips
@@ -98,6 +107,17 @@ export function registerSettings() {
     default: false,
   });
 
+  // Party Sheet Metagaming
+  game.settings.register("daggerheart-sleek-ui", "partySheetMetagaming", {
+    name: "Restrict Party Sheet Metagaming",
+    hint: "When enabled, only players with Observer (or higher) ownership of a character will see their detailed resources and stats in the party sheet and party mini sheet",
+    requiresReload: true,
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false,
+  });
+
   // Theme Foundryborne
   game.settings.register("daggerheart-sleek-ui", "theme", {
     name: "Theme Foundryborne",
@@ -121,11 +141,22 @@ export function registerSettings() {
   });
 }
 
-export function applyMinisheetScale() {
-  const value = game.settings.get("daggerheart-sleek-ui", "minisheetScale");
-  const wrapper = document.querySelector("#sleek-ui-sheet .minisheet-scale-wrapper");
+export function applyMinisheetScale(value) {
+  const scale = value ?? game.settings.get("daggerheart-sleek-ui", "minisheetScale");
+  const offset = game.settings.get("daggerheart-sleek-ui", "minisheetOffset");
+  const wrapper = document.querySelector("#sleek-ui-sheet .minisheet-transform-wrapper");
   if (wrapper) {
-    wrapper.style.transform = `scale(${value})`;
+    wrapper.style.transform = `translateX(${offset}px) scale(${scale})`;
+    wrapper.style.transformOrigin = "bottom center";
+  }
+}
+
+export function applyMinisheetOffset() {
+  const scale = game.settings.get("daggerheart-sleek-ui", "minisheetScale");
+  const offset = game.settings.get("daggerheart-sleek-ui", "minisheetOffset");
+  const wrapper = document.querySelector("#sleek-ui-sheet .minisheet-transform-wrapper");
+  if (wrapper) {
+    wrapper.style.transform = `translateX(${offset}px) scale(${scale})`;
     wrapper.style.transformOrigin = "bottom center";
   }
 }
