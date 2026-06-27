@@ -12,7 +12,7 @@
         "id": "daggerheart",
         "type": "system",
         "compatibility": {
-          "minimum": "2.0.0"
+          "minimum": "2.4.1"
         }
       }
     ]
