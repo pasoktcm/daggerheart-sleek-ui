@@ -1035,7 +1035,7 @@ export function registerCharacterSheet() {
             if (!action) return;
 
             const config = action.prepareConfig(event);
-            config.effects = await game.system.api.data.actions.actionsTypes.base.getEffects(this.actor, null);
+            config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(this.actor, null);
             config.hasRoll = false;
             action.workflow.get("damage").execute(config, null, true);
             return;
@@ -1046,7 +1046,7 @@ export function registerCharacterSheet() {
 
           const action = item.system.attack;
           const config = action.prepareConfig(event);
-          config.effects = await game.system.api.data.actions.actionsTypes.base.getEffects(this.actor, item);
+          config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(this.actor, item);
           config.hasRoll = false;
           action.workflow.get("damage").execute(config, null, true);
         });

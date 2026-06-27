@@ -64,7 +64,7 @@ export function attachTraitRollListeners(element, actor) {
         event,
         title: game.i18n.format("DAGGERHEART.UI.Chat.dualityRoll.abilityCheckTitle", { ability: abilityLabel }),
         headerTitle: `${game.i18n.localize("DAGGERHEART.GENERAL.dualityRoll")}: ${actor.name}`,
-        effects: await game.system.api.data.actions.actionsTypes.base.getEffects(actor),
+        effects: await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor),
         roll: { trait: attribute, type: "trait" },
         hasRoll: true,
         actionType: "action",
@@ -440,7 +440,7 @@ function _attachRollDamageListeners(element, actor) {
         const action = actor.system.usedUnarmed;
         if (!action) return;
         const config = action.prepareConfig(event);
-        config.effects = await game.system.api.data.actions.actionsTypes.base.getEffects(actor, null);
+        config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor, null);
         config.hasRoll = false;
         action.workflow.get("damage").execute(config, null, true);
         return;
@@ -449,7 +449,7 @@ function _attachRollDamageListeners(element, actor) {
       if (!item) return;
       const action = item.system.attack;
       const config = action.prepareConfig(event);
-      config.effects = await game.system.api.data.actions.actionsTypes.base.getEffects(actor, item);
+      config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor, item);
       config.hasRoll = false;
       action.workflow.get("damage").execute(config, null, true);
     });
