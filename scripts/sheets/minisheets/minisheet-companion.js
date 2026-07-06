@@ -327,7 +327,7 @@ export function registerCompanionMiniSheet() {
           event.stopPropagation();
           const action = actor.system.attack;
           const config = action.prepareConfig(event);
-          config.effects = await game.system.api.data.actions.actionsTypes.base.getEffects(actor, null);
+          config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor, null);
           config.hasRoll = false;
           action.workflow.get("damage").execute(config, null, true);
         });
