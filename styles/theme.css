@@ -1114,23 +1114,33 @@ REST
 
 .application.daggerheart.dh-style.views.downtime .refreshables-container {
   gap: var(--sleekUI-spacing-xs);
-  max-width: 280px;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
+  min-width: 320px;
 }
 
 .application.daggerheart.dh-style.views.downtime .refreshables-container .refreshable-container {
-  width: fit-content;
-  align-items: flex-start;
   padding: var(--sleekUI-spacing-xs) var(--sleekUI-spacing-sm);
   border: 1px solid var(--sleekUI-color-background-resourceHover);
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .application.daggerheart.dh-style.views.downtime .refreshables-container .refreshable-container .refreshable-name {
   color: var(--sleekUI-color-secondary);
 }
 
+.application.daggerheart.dh-style.views.downtime .activity-container:has(.activity-selected-marker) {
+  border-radius: var(--sleekUI-border-radius-s);
+  background: var(--sleekUI-color-background-resourceHover);
+}
+
 .application.daggerheart.dh-style.views.downtime .activity-container .activity-inner-container .activity-marker {
   display: none;
+}
+
+.daggerheart.dh-style.views.downtime .downtime-container .activities-grouping {
+  width: unset;
 }
 
 /* ==================== 
@@ -1477,6 +1487,10 @@ CHARACTER CREATOR
   font-family: var(--sleekUI-font-secondary);
   font-weight: 600;
   color: var(--sleekUI-color-primary);
+}
+
+.daggerheart.dh-style.dialog.character-creation .main-selections-container .experiences-inner-container .experience-container.separated {
+  border-bottom: none;
 }
 
 /* EQUIPMENT //////////////////////////////////////////////////*/

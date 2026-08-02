@@ -74,7 +74,7 @@ export function registerCompanionSheet() {
       }
 
       // Attack data
-      const part = this.actor.system.attack.damage.parts.hitPoints;
+      const part = this.actor.system.attack.damage.main ?? this.actor.system.attack.damage.parts?.hitPoints;
       const proficiency = this.actor.system.proficiency ?? 1;
       const dice = part.value.dice ?? "";
       const bonus = part.value.bonus ?? 0;

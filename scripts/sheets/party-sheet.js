@@ -4,7 +4,7 @@ export function registerPartySheet() {
   if (game.system.id !== "daggerheart") return;
 
   const registeredSheets = CONFIG.Actor.sheetClasses.party || {};
-  const daggerheartPartySheet = registeredSheets["daggerheart.Party"];
+  const daggerheartPartySheet = registeredSheets["daggerheart.PartySheet"];
   if (!daggerheartPartySheet) {
     console.warn("daggerheart-sleek-ui | Could not find the system Party sheet to extend.");
     return;

@@ -261,7 +261,7 @@ export function registerAdversaryMiniSheet() {
       const systemContext = await actor.sheet._prepareContext({});
 
       // Build attackDamage string
-      const part = actor.system.attack.damage.parts.hitPoints;
+      const part = actor.system.attack.damage.main ?? actor.system.attack.damage.parts.hitPoints;
       const multiplier = part?.value.flatMultiplier ?? 1;
       const dice = part?.value.dice ?? "";
       const bonus = part?.value.bonus ?? 0;

@@ -239,7 +239,7 @@ export function registerCompanionMiniSheet() {
     // ─── CONTEXT ─────────────────────────────────────────────────────────────
 
     static async _prepareContext(actor) {
-      const part = actor.system.attack.damage.parts.hitPoints;
+      const part = actor.system.attack.damage.main ?? actor.system.attack.damage.parts.hitPoints;
       const proficiency = actor.system.proficiency ?? 1;
       const dice = part?.value.dice ?? "";
       const bonus = part?.value.bonus ?? 0;

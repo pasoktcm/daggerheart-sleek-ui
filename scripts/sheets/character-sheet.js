@@ -157,14 +157,12 @@ export function registerCharacterSheet() {
       const sheetLists = this.actor.system.sheetLists;
       const ancestryFeatures = sheetLists?.ancestryFeatures?.values || [];
       const communityFeatures = sheetLists?.communityFeatures?.values || [];
-      const allClassFeatures = sheetLists?.classFeatures?.values || [];
-      const allSubclassFeatures = sheetLists?.subclassFeatures?.values || [];
       const extraFeatures = sheetLists?.features?.values || [];
 
-      const classFeatures = allClassFeatures.filter((f) => !f.system.multiclassOrigin);
-      const multiclassClassFeatures = allClassFeatures.filter((f) => f.system.multiclassOrigin);
-      const subclassFeatures = allSubclassFeatures.filter((f) => !f.system.multiclassOrigin);
-      const multiclassSubclassFeatures = allSubclassFeatures.filter((f) => f.system.multiclassOrigin);
+      const classFeatures = sheetLists?.classFeatures?.values || [];
+      const subclassFeatures = sheetLists?.subclassFeatures?.values || [];
+      const multiclassClassFeatures = sheetLists?.multiclassFeatures?.values || [];
+      const multiclassSubclassFeatures = sheetLists?.multiclassSubclassFeatures?.values || [];
 
       const createFeatureData = async (item, tags) => {
         let hopeCost = 0;
@@ -288,6 +286,7 @@ export function registerCharacterSheet() {
 
       context.loadoutCards = await Promise.all(sortedLoadout.map((item) => createDomainData(item)));
       context.vaultCards = await Promise.all(sortedVault.map((item) => createDomainData(item)));
+      context.loadoutMax = game.settings.get("daggerheart", "Homebrew").maxLoadout;
     }
 
     async _prepareInventoryData(context) {
@@ -1006,8 +1005,8 @@ export function registerCharacterSheet() {
             return;
           }
 
-          const loadoutSlot = this.actor.system.loadoutSlot;
-          if (loadoutSlot.max !== null && loadoutSlot.current >= loadoutSlot.max) {
+          const { available } = this.actor.system.loadoutSlot;
+          if (!available && !item.system.loadoutIgnore) {
             ui.notifications.warn(`${game.i18n.localize("DAGGERHEART.UI.Notifications.loadoutMaxReached")}`);
             return;
           }
