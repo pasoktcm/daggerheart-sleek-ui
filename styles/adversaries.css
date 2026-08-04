@@ -136,17 +136,20 @@ FEATURES
   left: 20px;
 }
 
-#sleek-ui-sheet .resource.fear-resource {
+#sleek-ui-sheet .resource.fear-resource,
+#resources .resource.fear-resource {
   background: none;
 }
 
-#sleek-ui-sheet .resource.fear-resource .fear-icon-full i {
+#sleek-ui-sheet .resource.fear-resource .fear-icon-full i,
+#resources .resource.fear-resource .fear-icon-full i {
   margin: 0;
   color: #a45dff;
   filter: drop-shadow(0 0 4px #0000ff);
 }
 
-#sleek-ui-sheet .resource.fear-resource .fear-icon-empty i {
+#sleek-ui-sheet .resource.fear-resource .fear-icon-empty i,
+#resources .resource.fear-resource .fear-icon-empty i {
   margin: 0;
   opacity: 0.2;
 }

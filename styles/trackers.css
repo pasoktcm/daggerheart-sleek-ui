@@ -1,0 +1,237 @@
+/* ====================================================================
+   FEAR TRACKER & COUNTDOWN TRACKER
+   The system's Fear tracker (#resources) and Countdowns panel are reskinned
+   to reuse Sleek UI's own component classes (added to their DOM in
+   scripts/trackers.js): .fear-resource / .fear-icon-* for Fear, and
+   .card-wrapper / .card-text-name / .tag for Countdowns. The shared look for
+   those classes lives with the components themselves; the rules here cover
+   only the tracker-specific panel/layout bits.
+   ==================================================================== */
+
+/* ====================
+   FEAR TRACKER
+   ==================== */
+
+/* Panel: swap the system parchment for Sleek UI's dark-glass background.
+   Selectors mirror (and outrank) the system's theme-scoped --background. */
+#interface.theme-dark #resources.fear-tracker,
+#interface.theme-light #resources.fear-tracker,
+body.theme-dark #resources.fear-tracker,
+body.theme-light #resources.fear-tracker {
+  --background: var(--sleekUI-color-background-primary);
+}
+
+/* Same framed-glass panel as the countdowns tracker, so the two match. */
+#resources.fear-tracker {
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+}
+
+#resources #resource-fear .fear-header .fear-title {
+  font-family: var(--sleekUI-font-secondary);
+  font-size: var(--sleekUI-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--sleekUI-color-secondary);
+}
+
+/* Drop the system's circular token pip; the .fear-resource skull rule
+   (adversaries.css) does the painting. */
+#resources #resource-fear .fear-resource {
+  gap: 0.25rem 0.4rem;
+}
+
+#resources #resource-fear .fear-resource .fear-token {
+  width: auto;
+  aspect-ratio: auto;
+  border: none;
+  border-radius: 0;
+  background: none;
+  background-color: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  filter: none;
+  font-size: var(--sleekUI-font-size-lg);
+}
+
+#resources #resource-fear.isGM .fear-resource .fear-icon-full:hover i {
+  filter: drop-shadow(0 0 7px #6a5bff);
+}
+
+#resources #resource-fear.isGM .fear-resource .fear-icon-empty:hover i {
+  opacity: 0.5;
+}
+
+/* Bar display mode. The tracker has two displays ('token' and 'bar'); the rules
+   above only reach 'token', so without these the bar keeps the system's purple
+   pill inside our dark-glass panel. No JS needed here — we restyle the system's
+   own .resource-bar / .controls markup, matching the Fear purple used by the
+   skulls in adversaries.css. */
+#resources #resource-fear .resource-bar .progress-bar {
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  background: var(--sleekUI-color-background-input);
+}
+
+#resources #resource-fear .resource-bar .progress-bar::-webkit-progress-bar {
+  background: var(--sleekUI-color-background-input);
+  border-radius: var(--sleekUI-border-radius);
+}
+
+#resources #resource-fear .resource-bar .progress-bar::-webkit-progress-value {
+  background: linear-gradient(90deg, #4a1d7a 0%, #a45dff 100%);
+  border-radius: var(--sleekUI-border-radius);
+}
+
+#resources #resource-fear .resource-bar .progress-bar::-moz-progress-bar {
+  background: linear-gradient(90deg, #4a1d7a 0%, #a45dff 100%);
+  border-radius: var(--sleekUI-border-radius);
+}
+
+#resources #resource-fear .resource-bar .label {
+  font-family: var(--sleekUI-font-secondary);
+  color: var(--sleekUI-color-primary);
+}
+
+#resources #resource-fear .controls a {
+  color: var(--sleekUI-color-secondary);
+}
+
+#resources #resource-fear .controls a:hover {
+  color: var(--sleekUI-color-primary);
+}
+
+/* ====================
+   COUNTDOWNS PANEL
+   ==================== */
+
+#interface.theme-dark #countdowns.countdowns,
+#interface.theme-light #countdowns.countdowns,
+body.theme-dark #countdowns.countdowns,
+body.theme-light #countdowns.countdowns {
+  --background: var(--sleekUI-color-background-primary);
+}
+
+.daggerheart.dh-style.countdowns {
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  color: var(--sleekUI-color-primary);
+}
+
+.daggerheart.dh-style.countdowns .countdowns-header .window-title {
+  font-family: var(--sleekUI-font-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--sleekUI-color-primary);
+}
+
+.daggerheart.dh-style.countdowns .countdowns-header > i,
+.daggerheart.dh-style.countdowns .countdowns-header .header-control {
+  color: var(--sleekUI-color-secondary);
+}
+
+.daggerheart.dh-style.countdowns .countdowns-header .header-control:hover {
+  color: var(--sleekUI-color-primary);
+}
+
+/* Type-filter pills reuse the .tag class (see #countdowns .tag in style.css);
+   these are the layout bits on top of it. */
+#countdowns .header-type-toggles .header-type {
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 4px;
+}
+
+#countdowns .header-type-toggles .header-type.inactive {
+  opacity: 0.4;
+}
+
+/* Countdown card: the module's .card-wrapper look, via Sleek UI tokens.
+   Matches the system's card rule on specificity and wins on load order. */
+.daggerheart.dh-style.countdowns .countdown-container.card-wrapper {
+  align-items: center;
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  background: var(--sleekUI-gradient-card);
+  overflow: hidden;
+}
+
+.daggerheart.dh-style.countdowns .countdown-container.card-wrapper:hover {
+  box-shadow: 0 0 9px -1px var(--sleekUI-color-border);
+}
+
+#countdowns .countdown-main-container {
+  padding: 6px 10px 6px 6px;
+}
+
+/* Smaller countdown icon than the system's 2.75rem. */
+#countdowns .countdown-main-container img {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--sleekUI-border-radius-s);
+}
+
+/* +/- controls */
+.daggerheart.dh-style.countdowns .countdown-tool-controls a {
+  color: var(--sleekUI-color-secondary);
+}
+
+.daggerheart.dh-style.countdowns .countdown-tool-controls a:hover {
+  color: var(--sleekUI-color-primary);
+}
+
+/* Loop toggle: keep gold (module tertiary) as the "looping" accent.
+   Scoped by #countdowns (the app's id) because the system paints .looping-container
+   from an 8-class-deep LESS nest that outranks any plain class selector here. */
+#countdowns .countdown-tool-icons .looping-container {
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius-s);
+  color: var(--sleekUI-color-secondary);
+}
+
+#countdowns .countdown-tool-icons .looping-container.should-loop {
+  background: var(--sleekUI-color-tertiary);
+  color: var(--sleekUI-color-background-dark);
+}
+
+#countdowns .countdown-tool-icons .looping-container.should-loop .loop-marker {
+  color: var(--sleekUI-color-background-dark);
+}
+
+/* ====================
+   COUNTDOWN EDIT DIALOG
+   ==================== */
+
+/* The system styles this dialog as `.daggerheart.application.dh-style.countdown-edit`
+   and nests deeply inside it, so every rule below matches that full class set (and
+   keeps !important where the system's nest still outranks us). */
+.daggerheart.application.dh-style.countdown-edit {
+  background: var(--sleekUI-color-background-primary) !important;
+  background-image: none !important;
+  color: var(--sleekUI-color-primary);
+  backdrop-filter: blur(8px);
+}
+
+/* Outranks `.application.daggerheart.dh-style.dialog .window-content .dialog-header h1`
+   in the system's shared dialog header rules. */
+.daggerheart.application.dh-style.dialog.countdown-edit .window-content .dialog-header h1 {
+  font-family: var(--sleekUI-font-secondary);
+  color: var(--sleekUI-color-primary);
+  text-transform: uppercase;
+}
+
+.daggerheart.application.dh-style.countdown-edit .countdown-edit-sub-tag {
+  background: var(--sleekUI-color-tag-background) !important;
+  border: 1px solid var(--sleekUI-color-tag-border) !important;
+  color: var(--sleekUI-color-tag-text) !important;
+  border-radius: var(--sleekUI-border-radius-s) !important;
+}
+
+.daggerheart.application.dh-style.countdown-edit .countdown-edit-input input,
+.daggerheart.application.dh-style.countdown-edit .countdown-edit-input select,
+.daggerheart.application.dh-style.countdown-edit .default-ownership-tools select {
+  background: var(--sleekUI-color-background-input) !important;
+  color: var(--sleekUI-color-primary) !important;
+  border: 1px solid var(--sleekUI-color-border);
+}

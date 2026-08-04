@@ -323,7 +323,8 @@
   letter-spacing: 3px;
 }
 
-#sleek-ui-sheet .card-text-name {
+#sleek-ui-sheet .card-text-name,
+.daggerheart.dh-style.countdowns .countdown-content > header.card-text-name {
   color: var(--sleekUI-color-primary) !important;
   font-family: var(--sleekUI-font-primary) !important;
   font-size: var(--sleekUI-font-size-md);
@@ -420,7 +421,11 @@
   padding: var(--sleekUI-spacing-tiny) var(--sleekUI-spacing-xs);
 }
 
-#sleek-ui-sheet .tag {
+/* #countdowns (the system's Countdowns app id) rather than its classes: the
+   system paints .header-type and .progress-tag from 6- and 9-class-deep LESS
+   nests, which outrank any plain class selector. */
+#sleek-ui-sheet .tag,
+#countdowns .tag {
   border-radius: var(--sleekUI-border-radius);
   font-size: var(--sleekUI-font-size-xs);
   color: var(--sleekUI-color-tag-text);

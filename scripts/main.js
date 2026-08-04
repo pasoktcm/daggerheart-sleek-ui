@@ -14,11 +14,14 @@ import { registerCompanionMiniSheet } from "./sheets/minisheets/minisheet-compan
 import { registerPartyMiniSheet } from "./sheets/minisheets/minisheet-party.js";
 import { registerAdversaryMiniSheet } from "./sheets/minisheets/minisheet-adversary.js";
 
+import { registerTrackers } from "./trackers.js";
+
 Hooks.once("init", () => {
   preloadHandlebarsTemplates();
   registerHelpers();
   registerSettings();
   registerMinisheetKeybinding();
+  registerTrackers();
 });
 
 Hooks.on("ready", () => {
