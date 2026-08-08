@@ -1,4 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
+import { formatWeaponDamageDisplay } from "../helpers.js";
 
 export function registerCharacterSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -70,6 +71,7 @@ export function registerCharacterSheet() {
       }
 
       const context = await super._prepareContext(options);
+      await this._prepareHeaderContext(context, options);
 
       context.tabsPosition = game.settings.get("daggerheart-sleek-ui", "tabsPosition");
       context.quickAccess = game.settings.get("daggerheart-sleek-ui", "quickAccess");
@@ -322,29 +324,11 @@ export function registerCharacterSheet() {
         return { hopeCost, usesData, enrichedDescription };
       };
 
-      const createWeaponData = async (item, proficiency) => {
+      const createWeaponData = async (item) => {
         const base = await createBaseData(item);
         const attack = item.system.attack;
-
-        let damage = "";
-        const damageParts = attack?.damage?.parts;
-        if (damageParts && !foundry.utils.isEmpty(damageParts)) {
-          damage = Object.values(damageParts)
-            .map((part) => {
-              const value = part.value;
-              let formula = "";
-              if (value?.custom?.enabled) {
-                formula = value.custom.formula ?? game.i18n.localize("DAGGERHEART.GENERAL.custom");
-              } else {
-                const dice = value?.dice ? `${proficiency}${value.dice}` : "";
-                const bonus = value?.bonus ? ` ${value.bonus.signedString()}` : "";
-                formula = `${dice}${bonus}`;
-              }
-              const typeIcons = part.type ? [...part.type].map((t) => (t === "magical" ? '<i class="fa-solid fa-wand-sparkles"></i>' : '<i class="fa-solid fa-hand-fist"></i>')).join(" ") : "";
-              return `${formula}&nbsp;&nbsp;${typeIcons}`;
-            })
-            .join(", ");
-        }
+        const rollData = item.getRollData?.() ?? {};
+        const damage = formatWeaponDamageDisplay(attack, { rollData });
 
         const homebrewWeaponFeatures = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Homebrew)?.itemFeatures?.weaponFeatures ?? {};
         const allWeaponFeatures = { ...CONFIG.DH.ITEM.weaponFeatures, ...homebrewWeaponFeatures };
@@ -434,35 +418,15 @@ export function registerCharacterSheet() {
       const consumables = this.actor.items.filter((i) => i.type === "consumable").sort((a, b) => a.sort - b.sort);
       const loots = this.actor.items.filter((i) => i.type === "loot").sort((a, b) => a.sort - b.sort);
 
-      context.weapons = await Promise.all(weapons.map((item) => createWeaponData(item, this.actor.system.proficiency)));
+      context.weapons = await Promise.all(weapons.map((item) => createWeaponData(item)));
       context.armors = await Promise.all(armors.map((item) => createArmorData(item)));
       context.consumables = await Promise.all(consumables.map((item) => createConsumableData(item)));
       context.loots = await Promise.all(loots.map((item) => createLootData(item)));
 
       if (this.actor.system.usedUnarmed) {
         const unarmed = this.actor.system.usedUnarmed;
-        const proficiency = this.actor.system.proficiency;
-        let unarmedDamage = "";
-
-        if (unarmed.damage?.parts && !foundry.utils.isEmpty(unarmed.damage.parts)) {
-          unarmedDamage = Object.values(unarmed.damage.parts)
-            .map((part) => {
-              let dice = "";
-              if (part.value?.custom?.enabled && part.value?.custom?.formula) {
-                const formula = part.value.custom.formula;
-                const diceMatch = formula.match(/@prof(d\d+)/);
-                if (diceMatch) {
-                  dice = `${proficiency}${diceMatch[1]}`;
-                }
-              } else if (part.value?.dice) {
-                dice = `${proficiency}${part.value.dice}`;
-              }
-              const bonus = part.value?.bonus ? ` ${part.value.bonus.signedString()}` : "";
-              const typeIcons = part.type ? [...part.type].map((t) => (t === "magical" ? '<i class="fa-solid fa-wand-sparkles"></i>' : '<i class="fa-solid fa-hand-fist"></i>')).join(" ") : "";
-              return `${dice}${bonus}&nbsp;&nbsp;${typeIcons}`;
-            })
-            .join(", ");
-        }
+        const rollData = this.actor.getRollData();
+        const unarmedDamage = formatWeaponDamageDisplay(unarmed, { rollData });
 
         context.unarmedAttack = {
           item: {
@@ -724,7 +688,6 @@ export function registerCharacterSheet() {
     _attachPartListeners(partId, htmlElement, options) {
       super._attachPartListeners?.(partId, htmlElement, options);
 
-      this._attachLevelListener(htmlElement);
       this._attachHopeListener(htmlElement);
       this._attachResourceListeners(htmlElement);
       this._attachUsesListeners(htmlElement);
@@ -761,16 +724,6 @@ export function registerCharacterSheet() {
           this.hoveredCompactCard = null;
           hoverArea.classList.remove("force-hover");
         });
-      });
-    }
-
-    _attachLevelListener(htmlElement) {
-      const levelInput = htmlElement.querySelector(".level-number");
-      if (!levelInput) return;
-
-      levelInput.addEventListener("change", async (event) => {
-        const newLevel = parseInt(event.target.value);
-        await this.actor.update({ "system.levelData.level.changed": newLevel });
       });
     }
 
@@ -967,7 +920,7 @@ export function registerCharacterSheet() {
             return;
           }
           const cardWrapper = nameContainer.closest(".card-wrapper");
-          if (!cardWrapper) return;
+          if (!cardWrapper || cardWrapper.dataset.itemUuid === "unarmed-attack") return;
           const description = cardWrapper.querySelector(".card-container.description");
           const itemUuid = nameContainer.closest("[data-item-uuid]")?.dataset.itemUuid;
           if (description && itemUuid) {

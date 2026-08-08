@@ -16,6 +16,7 @@ import {
 } from "./utils-minisheet.js";
 
 import { applyMinisheetScale } from "../../settings.js";
+import { toggleResourceManagement } from "../../helpers.js";
 
 export function registerCharacterMiniSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -275,6 +276,7 @@ export function registerCharacterMiniSheet() {
 
     static async _prepareContext(actor) {
       const systemContext = await actor.sheet._prepareContext({});
+      await actor.sheet._prepareHeaderContext(systemContext, {});
 
       let { weapons, armors, loadoutCards, quickAccess, quickAccessItems, unarmedAttack } = systemContext;
 
@@ -320,8 +322,11 @@ export function registerCharacterMiniSheet() {
         document: actor,
         source: actor,
         actor,
+        hasExtraResources: systemContext.hasExtraResources,
         ownershipLevel: game.user.isGM ? CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER : actor.getUserLevel(game.user),
         showTooltip: true,
+        isMinisheet: true,
+        isCharacterSheet: true,
         attributes: systemContext.attributes,
         isDeath: actor.system.deathMoveViable,
         beastformPortrait: systemContext.beastformPortrait,
@@ -345,6 +350,10 @@ export function registerCharacterMiniSheet() {
       attachTraitRollListeners(this.element, actor);
       attachDowntimeListeners(this.element, actor);
 
+      this.element.querySelector(".resource-manager")?.addEventListener("click", (event) => {
+        toggleResourceManagement(event, event.currentTarget, actor);
+      });
+
       this.element.querySelectorAll("[data-action='openSheet']").forEach((el) => {
         el.addEventListener("click", () => actor.sheet?.render(true));
       });
@@ -355,7 +364,7 @@ export function registerCharacterMiniSheet() {
         });
       });
 
-      attachFavoritesListeners(this.element, actor);
+      attachFavoritesListeners(this.element, actor, { isMinisheet: true });
 
       // Tab button toggle
       this.element.querySelectorAll(".tab-button").forEach((btn) => {

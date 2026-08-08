@@ -187,7 +187,7 @@ FAVORITES
   /* bottom: calc(100% - -1px); */
   bottom: 100%;
   right: var(--sleekUI-spacing-md);
-  width: 320px;
+  width: 480px;
   overflow: hidden;
   pointer-events: none;
 }
@@ -272,6 +272,25 @@ FAVORITES
   transition: none;
 }
 
+#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-controls {
+  margin-right: var(--sleekUI-spacing-xs);
+  margin-left: var(--sleekUI-spacing-sm);
+}
+
+#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-controls a[data-action="triggerContextMenu"],
+#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-controls a[data-action="toggleVault"] {
+  display: none;
+}
+
+#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-description {
+  text-align: start;
+  font-size: var(--sleekUI-font-size-md);
+}
+
+#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-description p {
+  margin: 0;
+}
+
 /* //////////////////////////////
 ADVERSARY MINISHEET
 ////////////////////////////// */
@@ -319,7 +338,7 @@ ADVERSARY MINISHEET
   margin-right: var(--sleekUI-spacing-xs);
 }
 
-#sleek-ui-sheet .minisheet.adversary .favorites-window .features-container .card-controls a[data-action="triggerContextMenu"] {
+#sleek-ui-sheet .minisheet .favorites-window .features-container .card-controls a[data-action="triggerContextMenu"] {
   display: none;
 }
 

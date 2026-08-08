@@ -88,7 +88,7 @@ HEADER
   border-radius: var(--sleekUI-border-radius);
 }
 
-#sleek-ui-sheet .adversary-difficulty .level-number {
+#sleek-ui-sheet .adversary-difficulty .level-value {
   transform: translateY(4px);
 }
 

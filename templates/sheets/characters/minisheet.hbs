@@ -18,7 +18,7 @@
             <div class="hope-row">
 
                 {{!-- HOPE --}}
-                <div class="hope-container">
+                <div class="hope-container resource-section">
                     <h3>{{localize "DAGGERHEART.GENERAL.hope"}}</h3>
                     <span class="hope-bar">
                         {{#times document.system.resources.hope.max}}
@@ -31,6 +31,11 @@
                         </span>
                         {{/times}}
                     </span>
+                    {{#if hasExtraResources}}
+                    <a type="button" class="resource-manager">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                    {{/if}}
                 </div>
 
                 <div class="tab-button-container">

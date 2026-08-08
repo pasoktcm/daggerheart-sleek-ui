@@ -3,6 +3,7 @@
     {{> "modules/daggerheart-sleek-ui/templates/components/card-party-character.hbs"
         actor=memberData.actor
         actorUuid=memberData.actorUuid
+        attributes=memberData.attributes
         level=memberData.level
         hope=memberData.hope
         hitPoints=memberData.hitPoints
@@ -10,6 +11,8 @@
         armorSlots=memberData.armorSlots
         evasion=memberData.evasion
         proficiency=memberData.proficiency
-        damageThresholds=memberData.damageThresholds}}
+        damageThresholds=memberData.damageThresholds
+        primaryWeapon=memberData.primaryWeapon
+        secondaryWeapon=memberData.secondaryWeapon}}
   {{/each}}
 </div>

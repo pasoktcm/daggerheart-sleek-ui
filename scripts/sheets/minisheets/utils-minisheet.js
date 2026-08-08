@@ -247,13 +247,17 @@ export async function renderFavorites(element, actor, templatePath, context) {
   const newFavoritesList = favWindow.querySelector(".favorites");
   if (newFavoritesList) newFavoritesList.scrollTop = scrollTop;
 
-  attachFavoritesListeners(favWindow, actor);
-  _restoreCompactCardHover(favWindow);
+  attachFavoritesListeners(favWindow, actor, { isMinisheet: !!context.isMinisheet });
+  if (!context.isMinisheet) _restoreCompactCardHover(favWindow);
 }
 
-export function attachFavoritesListeners(element, actor) {
-  _attachCompactCardHoverListeners(element);
-  _attachNavigateToCardListeners(element, actor);
+export function attachFavoritesListeners(element, actor, { isMinisheet = false } = {}) {
+  if (isMinisheet) {
+    _attachExpandCardListeners(element);
+  } else {
+    _attachCompactCardHoverListeners(element);
+    _attachNavigateToCardListeners(element, actor);
+  }
   _attachUseItemListeners(element, actor);
   _attachRollDamageListeners(element, actor);
   _attachToggleEquipListeners(element, actor);
@@ -264,6 +268,7 @@ export function attachFavoritesListeners(element, actor) {
   _attachRecallListeners(element, actor);
   _attachQuantityListeners(element, actor);
   _attachQuickAccessListeners(element, actor);
+  if (isMinisheet) _attachUseActionListeners(element);
 }
 
 // ─── FAVORITES HELPERS ───────────────────────────────────────────────────────
@@ -308,6 +313,51 @@ function _restoreCompactCardHover(element) {
       _hoveredCompactCard = null;
     }
   }, 100);
+}
+
+function _attachExpandCardListeners(element) {
+  element.querySelectorAll(".card-text, .card-resource").forEach((nameContainer) => {
+    nameContainer.addEventListener("click", (event) => {
+      if (event.target.closest('.card-controls, [data-action="useItem"], .uses-resource, .simple-resource, .die-resource, .dice-resource, .recall-resource, .roll-damage, .quantity-resource')) {
+        return;
+      }
+
+      const cardWrapper = nameContainer.closest(".card-wrapper");
+      if (!cardWrapper || cardWrapper.dataset.itemUuid === "unarmed-attack") return;
+
+      const description = cardWrapper.querySelector(".card-container.description");
+      if (description) {
+        const isHidden = description.style.display === "none" || !description.style.display;
+        description.style.display = isHidden ? "flex" : "none";
+      }
+    });
+  });
+}
+
+function _attachUseActionListeners(element) {
+  element.querySelectorAll('[data-action="useAction"]').forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.stopPropagation();
+
+      const itemUuid = button.dataset.itemUuid || button.closest("[data-item-uuid]")?.dataset.itemUuid;
+      const actionId = button.dataset.actionId;
+      if (!itemUuid || !actionId) return;
+
+      const item = await fromUuid(itemUuid);
+      if (!item) {
+        ui.notifications.warn("Item not found");
+        return;
+      }
+
+      const action = item.system.actions?.get(actionId);
+      if (!action) {
+        ui.notifications.warn("Action not found");
+        return;
+      }
+
+      await action.use(event);
+    });
+  });
 }
 
 function _attachNavigateToCardListeners(element, actor) {

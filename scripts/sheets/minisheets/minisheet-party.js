@@ -174,13 +174,10 @@ export function registerPartyMiniSheet() {
         if (!member) continue;
 
         const sys = member.system;
-        const ownershipLevel = game.user.isGM ? CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER : member.getUserLevel(game.user);
 
         partyMembersData.push({
           actor: member,
           actorUuid: member.uuid,
-          ownershipLevel,
-          restrictMetagaming: game.settings.get("daggerheart-sleek-ui", "partySheetMetagaming"),
           hopeValue: sys.resources?.hope?.value ?? 0,
           hopeMax: sys.resources?.hope?.max ?? 0,
           hitPointsValue: sys.resources?.hitPoints?.value ?? 0,
@@ -192,10 +189,15 @@ export function registerPartyMiniSheet() {
         });
       }
 
+      const settings = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Metagaming);
+      const showStats =
+        settings.hidePartyStats === "never" || (settings.hidePartyStats === "players" && game.user.isGM);
+
       return {
         document: actor,
         source: actor,
         actor,
+        showStats,
         partyMembersData,
       };
     }

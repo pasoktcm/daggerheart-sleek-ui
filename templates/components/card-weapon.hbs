@@ -1,114 +1,250 @@
-<div class="card-wrapper weapon {{#if item.system.equipped}}card-equipped{{/if}}" draggable="true" data-item-uuid="{{item.uuid}}">
+<div class="card-wrapper weapon {{#if item.system.equipped}}card-equipped{{/if}}" {{#unless (eq item.uuid 'unarmed-attack')}}draggable="true"{{/unless}} data-item-uuid="{{item.uuid}}">
+
+
 
   <div class="card-container header" data-item-uuid="{{item.uuid}}" data-type="weapon">
 
-    <div class="card-icon" {{#if (gte ownershipLevel 3)}}data-action="useItem"{{/if}}
-      data-item-uuid="{{item.uuid}}"
-      {{#if @root.showTooltip}}data-tooltip="#item#{{item.uuid}}"{{/if}}>
+
+
+    <div class="card-icon"
+
+      {{#if (gte ownershipLevel 3)}}
+
+      data-action="{{#if (eq item.uuid 'unarmed-attack')}}useUnarmedAttack{{else}}useItem{{/if}}"
+
+      {{/if}}
+
+      {{#unless (eq item.uuid 'unarmed-attack')}}data-item-uuid="{{item.uuid}}"{{/unless}}
+
+      {{#if @root.showTooltip}}data-tooltip="{{#if (eq item.uuid 'unarmed-attack')}}Use Unarmed Attack{{else}}#item#{{item.uuid}}{{/if}}"{{/if}}>
+
       <img class="icon" src="{{item.img}}" alt="{{item.name}}" />
+
       <img class="dice-roll" src="systems/daggerheart/assets/icons/dice/duality/DualityBW.svg" alt="" />
+
     </div>
+
+
 
     <div class="card-header">
 
+
+
       <div class="card-text">
+
         <span class="card-text-name">{{item.name}}</span>
+
         <span class="card-text-details">
+
           {{localize (concat 'DAGGERHEART.CONFIG.Traits.' item.system.attack.roll.trait '.name')}}
+
           <span class="separator"></span>
+
           {{localize (concat 'DAGGERHEART.CONFIG.Range.' item.system.attack.range '.name')}}
+
+          {{#unless (or item.system.equipped (eq item.uuid 'unarmed-attack'))}}
+
+          <span class="separator"></span>
+
+          {{{damage}}}
+
+          {{/unless}}
+
         </span>
+
       </div>
+
+
 
       <div class="card-resource">
+
         {{#if hopeCost}}
+
         {{> "modules/daggerheart-sleek-ui/templates/components/res-hope.hbs"
+
         hopeCost=hopeCost
+
         actorHope=@root.document.system.resources.hope.value}}
+
         {{/if}}
+
         
+
         {{#if (eq item.system.resource.type 'die')}}
+
         {{> "modules/daggerheart-sleek-ui/templates/components/res-die.hbs"}}
+
         {{/if}}
+
+
 
         {{#if (eq item.system.resource.type 'diceValue')}}
+
         {{> "modules/daggerheart-sleek-ui/templates/components/res-dice.hbs"}}
+
         {{/if}}
+
+
 
         {{#if (eq item.system.resource.type 'simple')}}
+
         {{> "modules/daggerheart-sleek-ui/templates/components/res-simple.hbs"}}
+
         {{/if}}
+
+
 
         {{#if usesData}}
+
         {{> "modules/daggerheart-sleek-ui/templates/components/res-uses.hbs"
+
         usesData=usesData}}
+
         {{/if}}
 
-        {{#if item.system.equipped}}
+
+
+        {{#if (or item.system.equipped (eq item.uuid 'unarmed-attack'))}}
+
         {{#if (gte ownershipLevel 3)}}
+
         <div class="card-resource roll-damage" data-item-uuid="{{item.uuid}}" data-tooltip="DAGGERHEART.GENERAL.rollDamage">
+
             {{{damage}}}
+
         </div>
+
         {{/if}}
+
         {{/if}}
+
       </div>
+
+
+
+      {{#unless (eq item.uuid 'unarmed-attack')}}
 
       <div class="card-controls">
+
         {{#if @root.isCharacterSheet}}
+
         <a class="{{#unless item.system.equipped}}unequipped{{/unless}} equip" data-action="toggleEquipItem"
+
           data-tooltip="DAGGERHEART.UI.Tooltip.{{ifThen item.system.equipped 'unequip' 'equip' }}">
+
           {{#if (eq item.system.burden 'oneHanded')}}
+
           <i class="fa-solid fa-hand {{#if item.system.equipped}}equipped{{/if}}" ></i>
+
           {{else}}
+
           <i class="fa-solid fa-hands {{#if item.system.equipped}}equipped{{/if}}"></i>
+
           {{/if}}
+
         </a>
+
         {{/if}}
+
         <a data-action="toChat" data-item-uuid="{{item.uuid}}" data-tooltip="DAGGERHEART.UI.Tooltip.sendToChat">
+
           <i class="fa-regular fa-message"></i>
+
         </a>
+
         {{#if @root.isCharacterSheet}}
+
         <a data-action="triggerContextMenu" data-tooltip="DAGGERHEART.UI.Tooltip.moreOptions">
+
           <i class="fa-solid fa-ellipsis-vertical"></i>
+
         </a>
+
         {{else}}
+
         <a class="edit-doc" data-action="editDoc" data-tooltip="DAGGERHEART.UI.Tooltip.openItemWorld">
+
           <i class="fa-regular fa-pen-to-square"></i>
+
         </a>
+
         <a class="delete-item" data-action="deleteItem" data-item-uuid="{{item.uuid}}" data-tooltip="DAGGERHEART.UI.Tooltip.deleteItem">
+
           <i class="fa-regular fa-trash-can"></i>
+
         </a>
+
         {{/if}}
+
       </div>
+
+      {{/unless}}
+
+
 
     </div>
 
+
+
   </div>
+
+
+
+  {{#unless (eq item.uuid 'unarmed-attack')}}
 
   <div class="card-container description">
+
     <span class="separator-line"></span>
+
     <div class="card-description">
+
       {{{enrichedDescription}}}
+
       {{#each features as |feature|}}
+
       <div class="feature-box">
+
         <strong>{{feature.name}}</strong>
+
         <p>{{{feature.description}}}</p>
+
       </div>
+
       {{/each}}
+
     </div>
+
     <div class="card-bottom">
+
       <div class="card-tags">
+
         {{#each tags as |tag|}}
+
         <span class="tag {{tag.tagClass}}" data-item-uuid="{{tag.uuid}}">{{{tag.label}}}</span>
+
         {{/each}}
+
       </div>
+
       <div class="card-actions">
+
         {{#each item.system.actions as |action|}}
+
         <button class="card-button" data-action="useAction" data-item-uuid="{{../item.uuid}}"
+
           data-action-id="{{action._id}}">{{localize action.name}}</button>
+
         {{/each}}
+
       </div>
+
     </div>
+
   </div>
 
+  {{/unless}}
+
+
+
 </div>
+

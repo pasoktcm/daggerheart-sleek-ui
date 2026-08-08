@@ -114,7 +114,7 @@
 }
 
 #sleek-ui-sheet.daggerheart.sheet.actor.party.sleek-ui {
-  min-width: 650px;
+  min-width: 700px;
 }
 
 #sleek-ui-sheet.daggerheart.sheet.actor.environment.sleek-ui {
@@ -277,7 +277,7 @@
   margin: 0 -16px;
 }
 
-#sleek-ui-sheet .level-number {
+#sleek-ui-sheet .level-value {
   color: var(--sleekUI-color-primary) !important;
   font-family: var(--sleekUI-font-primary) !important;
   font-size: var(--sleekUI-font-size-xl);
@@ -331,6 +331,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  text-align: start;
+  white-space: nowrap;
 }
 
 #sleek-ui-sheet .card-text-details {
@@ -338,6 +340,8 @@
   font-family: var(--sleekUI-font-primary) !important;
   font-size: var(--sleekUI-font-size-sm);
   font-weight: var(--sleekUI-font-weight-regular);
+  text-align: start;
+  white-space: nowrap;
 }
 
 #sleek-ui-sheet .card-button {

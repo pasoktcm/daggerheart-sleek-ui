@@ -153,6 +153,62 @@
 }
 
 /* ==================== 
+HOMEBREW RESOURCE
+==================== */
+
+#sleek-ui-sheet .hope-container .resource-manager {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  color: var(--sleekUI-color-border);
+  margin-left: var(--sleekUI-spacing-xs);
+}
+
+#sleek-ui-sheet .hope-container .resource-manager:hover {
+  text-shadow: none;
+  color: var(--sleekUI-color-primary);
+}
+
+#sleek-ui-sheet .hope-container .resource-manager.inverted {
+  transform: rotate(180deg);
+  color: var(--sleekUI-color-primary);
+}
+
+#tooltip.bordered-tooltip,
+.locked-tooltip.bordered-tooltip {
+  max-width: unset;
+  border: 1px solid var(--sleekUI-color-border-equipped);
+  background: var(--sleekUI-color-background-dark);
+  padding: var(--sleekUI-spacing-xs);
+  margin-left: var(--sleekUI-spacing-sm);
+  border-radius: var(--sleekUI-border-radius);
+}
+
+.bordered-tooltip.locked-tooltip .daggerheart.resource-management-container .resource-section,
+#tooltip .daggerheart.resource-management-container .resource-section {
+  gap: var(--sleekUI-spacing-tiny);
+  border: 1px solid var(--sleekUI-color-border);
+  background: var(--sleekUI-color-background-primary);
+}
+
+.bordered-tooltip.locked-tooltip .daggerheart.resource-management-container .resource-section h4,
+#tooltip .daggerheart.resource-management-container .resource-section h4 {
+  color: var(--sleekUI-color-secondary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-right: var(--sleekUI-spacing-xs);
+}
+
+.bordered-tooltip.locked-tooltip .daggerheart.resource-management-container .resource-section .resource-value .empty,
+#tooltip .daggerheart.resource-management-container .resource-section .resource-value .empty {
+  color: var(--sleekUI-color-border);
+}
+
+/* ==================== 
    DOMAINS
    ==================== */
 

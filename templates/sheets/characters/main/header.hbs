@@ -71,7 +71,7 @@
 
     <div class="character-level">
       <h3>{{localize 'DAGGERHEART.GENERAL.level'}}</h3>
-      <input type="number" data-dtype="Number" class="level-number" min="0" max="10"
+      <input type="number" data-dtype="Number" class="level-value" min="0" max="10"
         value={{document.system.levelData.level.changed}} {{#if document.system.needsCharacterSetup}}disabled{{/if}}>
     </div>
   </div>
@@ -79,7 +79,7 @@
   <div class="header-details">
     <div class="hope-row">
       {{!-- HOPE --}}
-      <div class="hope-container">
+      <div class="hope-container resource-section">
         <h3>{{localize "DAGGERHEART.GENERAL.hope"}}</h3>
         <span class="hope-bar">
           {{#times document.system.resources.hope.max}}
@@ -92,6 +92,11 @@
           </span>
           {{/times}}
         </span>
+        {{#if hasExtraResources}}
+        <a type="button" class="resource-manager" data-action="toggleResourceManagement">
+          <i class="fa-solid fa-angle-down"></i>
+        </a>
+        {{/if}}
       </div>
       {{!-- DOMAINS --}}
       {{#if document.system.class.value}}

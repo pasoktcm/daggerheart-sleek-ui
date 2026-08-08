@@ -1,5 +1,66 @@
 export function registerSettings() {
-  // CLIENT SCOPE //
+
+  // Theme Foundryborne
+  game.settings.register("daggerheart-sleek-ui", "theme", {
+    name: "Theme Foundryborne",
+    hint: "Enables the styling of Foundryborne's application windows to match Sleek UI's styling",
+    requiresReload: true,
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
+
+  // Theme Chat Cards
+  game.settings.register("daggerheart-sleek-ui", "themeChat", {
+    name: "Theme Chat Cards",
+    hint: "Enables the styling of chat cards to match Sleek UI's styling",
+    requiresReload: true,
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
+
+  // Minisheets
+  game.settings.register("daggerheart-sleek-ui", "enableMinisheet", {
+    name: "Enable Mini Sheets",
+    hint: "Enables the mini sheet displayed at the bottom of the screen while a token is selected",
+    requiresReload: true,
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
+
+  // Minisheet Style
+
+  //Minisheet Transform
+  game.settings.register("daggerheart-sleek-ui", "minisheetScale", {
+    name: "Minisheet Scale",
+    hint: "Adjusts the scale of the mini sheets to better accomodate smaller or larger screens (default: 1)",
+    scope: "client",
+    config: true,
+    type: Number,
+    range: {
+      min: 0.8,
+      max: 1.2,
+      step: 0.05,
+    },
+    default: 1,
+    onChange: (value) => applyMinisheetScale(value),
+  });
+
+  game.settings.register("daggerheart-sleek-ui", "minisheetOffset", {
+    name: "Minisheet Horizontal Offset",
+    hint: "Adjusts the horizontal position of the mini sheets, nudging it from the center by the value in pixels (default: 0)",
+    scope: "client",
+    config: true,
+    type: Number,
+    range: { min: -500, max: 500, step: 1 },
+    default: 0,
+    onChange: () => applyMinisheetOffset(),
+  });
 
   // Tabs Position
   game.settings.register("daggerheart-sleek-ui", "tabsPosition", {
@@ -29,61 +90,11 @@ export function registerSettings() {
     default: true,
   });
 
-  // Minisheets
-  game.settings.register("daggerheart-sleek-ui", "enableMinisheet", {
-    name: "Enable Mini Sheets",
-    hint: "Enables the mini sheet displayed at the bottom of the screen while a token is selected",
-    requiresReload: true,
-    scope: "client",
-    config: true,
-    type: Boolean,
-    default: true,
-  });
-
-  //Minisheet Transform
-  game.settings.register("daggerheart-sleek-ui", "minisheetScale", {
-    name: "Minisheet Scale",
-    hint: "Adjusts the scale of the mini sheets to better accomodate smaller or larger screens (default: 1)",
-    scope: "client",
-    config: true,
-    type: Number,
-    range: {
-      min: 0.8,
-      max: 1.2,
-      step: 0.05,
-    },
-    default: 1,
-    onChange: (value) => applyMinisheetScale(value),
-  });
-
-  game.settings.register("daggerheart-sleek-ui", "minisheetOffset", {
-    name: "Minisheet Horizontal Offset",
-    hint: "Adjusts the horizontal position of the mini sheets, nudging it from the center by the value in pixels (default: 0)",
-    scope: "client",
-    config: true,
-    type: Number,
-    range: { min: -500, max: 500, step: 1 },
-    default: 0,
-    onChange: () => applyMinisheetOffset(),
-  });
-
   // Tooltips
   game.settings.register("daggerheart-sleek-ui", "showTooltip", {
     name: "Show Card Tooltips",
     hint: "Shows tooltips for cards when hovering the icon",
     scope: "client",
-    config: true,
-    type: Boolean,
-    default: true,
-  });
-
-  // WORLD SCOPE //
-
-  // Beastform Portrait
-  game.settings.register("daggerheart-sleek-ui", "beastformPortrait", {
-    name: "Use Beastform Portrait",
-    hint: "When in beastform, change the character's portrait to the form's Subject Texture",
-    scope: "world",
     config: true,
     type: Boolean,
     default: true,
@@ -99,38 +110,16 @@ export function registerSettings() {
     default: false,
   });
 
-  // Party Sheet Metagaming
-  game.settings.register("daggerheart-sleek-ui", "partySheetMetagaming", {
-    name: "Restrict Party Sheet Metagaming",
-    hint: "When enabled, only players with Observer (or higher) ownership of a character will see their detailed resources and stats in the party sheet and party mini sheet",
-    requiresReload: true,
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: false,
-  });
-
-  // Theme Foundryborne
-  game.settings.register("daggerheart-sleek-ui", "theme", {
-    name: "Theme Foundryborne",
-    hint: "Enables the styling of Foundryborne's application windows to match Sleek UI's styling",
-    requiresReload: true,
+  // Beastform Portrait
+  game.settings.register("daggerheart-sleek-ui", "beastformPortrait", {
+    name: "Use Beastform Portrait",
+    hint: "When in beastform, change the character's portrait to the form's Subject Texture",
     scope: "world",
     config: true,
     type: Boolean,
     default: true,
   });
 
-  // Theme Chat Cards
-  game.settings.register("daggerheart-sleek-ui", "themeChat", {
-    name: "Theme Chat Cards",
-    hint: "Enables the styling of chat cards to match Sleek UI's styling",
-    requiresReload: true,
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true,
-  });
 }
 
 export function applyMinisheetScale(value) {

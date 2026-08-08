@@ -48,6 +48,255 @@ HEADER
 PARTY MEMBERS
 ==================== */
 
+#sleek-ui-sheet .party-character {
+  flex-direction: row;
+  position: relative;
+  overflow: visible;
+}
+
+#sleek-ui-sheet .party-character .character-information {
+  flex-direction: column;
+  margin: var(--sleekUI-spacing-xs);
+  margin-left: 0;
+  gap: var(--sleekUI-spacing-tiny);
+}
+
+/* REMOVE */
+#sleek-ui-sheet .party-character .party-character-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: var(--sleekUI-spacing-md);
+  height: var(--sleekUI-spacing-md);
+  cursor: pointer;
+  
+}
+
+#sleek-ui-sheet .party-character .party-character-remove .party-character-remove-icon {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #E84747;
+  color: #fff;
+  font-size: var(--sleekUI-font-size-tiny);
+  border-radius: 50%;
+}
+
+#sleek-ui-sheet .party-character .party-character-remove:hover .party-character-remove-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* PORTRAIT */
+#sleek-ui-sheet .party-character .party-character-icon {
+  mask-image: var(--sleekUI-gradient-mask-icon);
+  border-radius: var(--sleekUI-border-radius) 0 0 var(--sleekUI-border-radius);
+}
+
+#sleek-ui-sheet .party-character .party-character-icon img {
+  min-width: 200px;
+  max-width: 200px;
+  height: 156px;
+  object-fit: cover;
+}
+
+/* OVERLAY */
+#sleek-ui-sheet .party-character .party-character-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 190px;
+  height: 100%;
+  padding: var(--sleekUI-spacing-xs);
+  padding-right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+/* Evasion */
+#sleek-ui-sheet .party-character .party-character-overlay .values-container.evasion {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--sleekUI-color-background-input);
+  padding: 0 var(--sleekUI-spacing-sm);
+  width: fit-content;
+  height: var(--sleekUI-spacing-xl);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  pointer-events: auto;
+}
+
+#sleek-ui-sheet .party-character .party-character-overlay .values-container.evasion .label-hidden {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0px;
+  opacity: 0;
+  padding-left: 0;
+  transition: all 0.2s ease;
+}
+
+#sleek-ui-sheet .party-character .party-character-overlay .values-container.evasion:hover .label-hidden {
+  max-width: 15ch;
+  opacity: 1;
+  padding-left: var(--sleekUI-spacing-sm);
+}
+
+/* Thresholds */
+#sleek-ui-sheet .party-character .party-character-overlay .values-container.thresholds {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 var(--sleekUI-spacing-xs);
+  background: var(--sleekUI-color-background-input);
+  height: var(--sleekUI-spacing-xl);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  pointer-events: auto;
+}
+
+#sleek-ui-sheet .party-character .party-character-overlay .values-container.thresholds .threshold-damage {
+  cursor: pointer;
+}
+
+#sleek-ui-sheet .party-character .party-character-overlay .values-container.thresholds .threshold-damage:hover {
+  color: var(--sleekUI-color-tertiary) !important;
+}
+
+/* NAME + HOPE */
+#sleek-ui-sheet .party-character .hope-row {
+  width: 100%;
+  justify-content: space-between;
+}
+
+#sleek-ui-sheet .party-character .hope-row .hope-container {
+  padding-left: var(--sleekUI-spacing-md);
+}
+
+/* Equipment */
+#sleek-ui-sheet .party-character .party-character-overlay .equipment-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sleekUI-spacing-tiny);
+  position: absolute;
+  top: var(--sleekUI-spacing-xs);
+  right: 0;
+  pointer-events: auto;
+}
+
+#sleek-ui-sheet .party-character .party-character-overlay .equipment-container .equipment-icon {
+  width: var(--sleekUI-spacing-xl);
+  height: var(--sleekUI-spacing-xl);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* RESOURCES + TRAITS */
+#sleek-ui-sheet .party-character .resources-traits-row {
+  display: flex;
+  width: 100%;
+  gap: var(--sleekUI-spacing-tiny);
+}
+
+/* Resources */
+#sleek-ui-sheet .party-character .resources-traits-row .resources-row {
+  flex-direction: column;
+  width: 100%;
+  gap: var(--sleekUI-spacing-tiny);
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .resources-row .resource-container {  
+  display: grid;
+  grid-template-columns: auto 1fr 52px;
+  align-items: center;
+  padding: var(--sleekUI-spacing-tiny) var(--sleekUI-spacing-xs);
+  gap: var(--sleekUI-spacing-xs);
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .resources-row .resource-container .resource-header {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  padding: 0;
+  cursor: pointer;
+}
+#sleek-ui-sheet .party-character .resources-traits-row .resources-row .resource-container .resource-header i {
+  color: var(--sleekUI-color-border);
+  font-size: var(--sleekUI-font-size-md);
+  margin-right: var(--sleekUI-spacing-tiny);
+}
+#sleek-ui-sheet .party-character .resources-traits-row .resources-row .resource-container .resource-bar {
+  height: 12px;
+  width: 100%;
+}
+#sleek-ui-sheet .party-character .resources-traits-row .resources-row .resource-container .resource-header:has(.resource-number) {
+  padding: 0 var(--sleekUI-spacing-tiny);
+  white-space: nowrap;
+}
+
+/* Traits */
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  max-width: 178px;
+    min-width: 178px;
+  gap: var(--sleekUI-spacing-tiny);
+  grid-auto-flow: column;
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row .trait-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: var(--sleekUI-spacing-xl);
+  justify-content: space-between;
+  gap: 0;
+  padding: 0 var(--sleekUI-spacing-xs);
+  border: 1px solid var(--sleekUI-color-border);
+  border-radius: var(--sleekUI-border-radius);
+  background: var(--sleekUI-gradient-card);
+  cursor: default;
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row .trait-container[data-action] {
+  cursor: pointer;
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row .trait-container:hover {
+  box-shadow: none;
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row .trait-container[data-action]:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border);
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row .spellcast-trait {
+  border: 1px solid var(--sleekUI-color-border-spellcast);
+  background: linear-gradient(90deg, rgba(104, 79, 89, 0.12) 0%, rgba(104, 176, 181, 0.3) 100%);
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row .spellcast-trait[data-action]:hover {
+  box-shadow: 0px 0px 9px -1px var(--sleekUI-color-border-spellcast);
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row .trait-container .trait-name {
+  margin: 0;
+  font-size: var(--sleekUI-font-size-xs);
+}
+
+#sleek-ui-sheet .party-character .resources-traits-row .traits-row .trait-container .trait-number {
+  font-size: var(--sleekUI-font-size-lg);
+  letter-spacing: 2px;
+}
+
+/* /////////// */
+
 #sleek-ui-sheet .tabs.members-tab {
   gap: var(--sleekUI-spacing-xs);
   display: none;
@@ -62,25 +311,19 @@ PARTY MEMBERS
   min-height: 74px;
 }
 
-#sleek-ui-sheet .party-character-header .party-character-icon {
-  width: 100px;
-  height: 100%;
-  mask-image: var(--sleekUI-gradient-mask-icon);
-}
-
-#sleek-ui-sheet .party-character-header .party-character-icon img {
+#sleek-ui-sheet .party-character .party-character-icon img {
   transition: transform 0.2s ease;
 }
 
-#sleek-ui-sheet .party-character-header .party-character-icon:hover img {
+#sleek-ui-sheet .party-character .party-character-icon:hover img {
   transform: scale(1.05);
 }
 
-#sleek-ui-sheet .party-character-header .party-character-details .card-text {
+#sleek-ui-sheet .party-character .party-character-details .card-text {
   margin-right: var(--sleekUI-spacing-md);
 }
 
-#sleek-ui-sheet .party-character-header .party-character-details .card-text .tag {
+#sleek-ui-sheet .party-character .party-character-details .card-text .tag {
   margin-top: var(--sleekUI-spacing-xs);
 }
 

@@ -1,4 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
+import { formatWeaponDamageDisplay } from "../helpers.js";
 
 export function registerPartySheet() {
   if (game.system.id !== "daggerheart") return;
@@ -164,10 +165,38 @@ export function registerPartySheet() {
 
         const level = sys.levelData?.level?.changed ?? sys.levelData?.level?.value ?? 0;
 
+        const attributes = Object.keys(sys.traits ?? {}).reduce((acc, key) => {
+          acc[key] = {
+            ...sys.traits[key],
+            label: game.i18n.localize(CONFIG.DH.ACTOR.abilities[key].label),
+            verbs: CONFIG.DH.ACTOR.abilities[key].verbs.map((x) => game.i18n.localize(x)),
+            isSpellcasting: sys.spellcastModifierTrait?.key === key,
+          };
+          return acc;
+        }, {});
+
+        let primaryWeapon = null;
+        let secondaryWeapon = null;
+
+        if (actor.type === "character") {
+          const equipped = actor.items.filter((i) => i.type === "weapon" && i.system.equipped);
+          primaryWeapon = equipped.find((w) => !w.system.secondary) ?? null;
+
+          if (primaryWeapon?.system.burden !== "twoHanded") {
+            secondaryWeapon = equipped.find((w) => w.system.secondary) ?? null;
+          }
+
+          if (!primaryWeapon && sys.usedUnarmed) {
+            primaryWeapon = {
+              img: sys.usedUnarmed.img,
+              name: game.i18n.localize(sys.usedUnarmed.name || "DAGGERHEART.GENERAL.unarmedAttack"),
+            };
+          }
+        }
+
         results.push({
-          ownershipLevel: game.user.isGM ? CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER : actor.getUserLevel(game.user),
-          restrictMetagaming: game.settings.get("daggerheart-sleek-ui", "partySheetMetagaming"),
           actor,
+          attributes,
           level,
           hope,
           hitPoints,
@@ -176,6 +205,8 @@ export function registerPartySheet() {
           evasion,
           proficiency,
           damageThresholds,
+          primaryWeapon,
+          secondaryWeapon,
           actorUuid: actor.uuid,
         });
       }
@@ -209,27 +240,8 @@ export function registerPartySheet() {
       const createWeaponData = async (item) => {
         const base = await createBaseData(item);
         const attack = item.system.attack;
-
-        // v2: damage.parts is a keyed object, not an array
-        let damage = "";
-        const damageParts = attack?.damage?.parts;
-        if (damageParts && !foundry.utils.isEmpty(damageParts)) {
-          damage = Object.values(damageParts)
-            .map((part) => {
-              const value = part.value;
-              let formula = "";
-              if (value?.custom?.enabled) {
-                formula = value.custom.formula ?? game.i18n.localize("DAGGERHEART.GENERAL.custom");
-              } else {
-                const dice = value?.dice ? `${value.dice}` : "";
-                const bonus = value?.bonus ? ` ${value.bonus.signedString()}` : "";
-                formula = `${dice}${bonus}`;
-              }
-              const typeIcons = part.type ? [...part.type].map((t) => (t === "magical" ? '<i class="fa-solid fa-wand-sparkles"></i>' : '<i class="fa-solid fa-hand-fist"></i>')).join(" ") : "";
-              return `${formula}&nbsp;&nbsp;${typeIcons}`;
-            })
-            .join(", ");
-        }
+        const rollData = item.getRollData?.() ?? {};
+        const damage = formatWeaponDamageDisplay(attack, { rollData });
 
         const homebrewWeaponFeatures = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Homebrew)?.itemFeatures?.weaponFeatures ?? {};
         const allWeaponFeatures = { ...CONFIG.DH.ITEM.weaponFeatures, ...homebrewWeaponFeatures };
@@ -402,12 +414,7 @@ export function registerPartySheet() {
           const cardWrapper = nameContainer.closest(".card-wrapper");
           if (!cardWrapper) return;
           const description = cardWrapper.querySelector(".card-container.description");
-          if (!description) {
-            if (game.settings.get("daggerheart-sleek-ui", "partySheetMetagaming")) {
-              ui.notifications.warn("You don't have permission to view this character's resources and stats.");
-            }
-            return;
-          }
+          if (!description) return;
 
           const isCurrentlyHidden = description.style.display === "none" || !description.style.display;
           description.style.display = isCurrentlyHidden ? "flex" : "none";
@@ -488,7 +495,7 @@ export function registerPartySheet() {
             const actor = await fromUuid(uuid);
             if (!actor) return;
 
-            if (resource === "armorSlots") {
+            if (resource === "system.armorScore.value") {
               await actor.system.updateArmorValue({ value: -amount });
               this.render(false, { parts: ["partyMembers"] });
               return;
@@ -684,7 +691,7 @@ export function registerPartySheet() {
       if (event.type === "contextmenu") amount = -amount;
       if (!uuid || !resource) return;
 
-      if (resource === "armorSlots") {
+      if (resource === "system.armorScore.value") {
         const actor = await fromUuid(uuid);
         if (!actor) return;
         await actor.system.updateArmorValue({ value: amount });

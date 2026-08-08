@@ -1,168 +1,105 @@
 <div class="card-wrapper party-character">
 
-  <div class="card-container header party-character-header" data-actor-uuid="{{actorUuid}}">
+  {{#if @root.showStats}}
+  <div class="party-character-overlay">
 
-    <div class="party-character-icon" {{#if (gte ownershipLevel 1)}}data-action="openMemberSheet" data-actor-uuid="{{actorUuid}}" style="cursor:pointer"{{/if}}>
-      <img class="icon" src="{{actor.img}}" />
+        {{!-- EVASION --}}
+    <div class="values-container evasion">
+      <span class="value-number">{{evasion}}</span>
+      <h3 class="label-hidden">{{localize "DAGGERHEART.GENERAL.evasion"}}</h3>
     </div>
 
-    <div class="card-header party-character-details">
+    {{!-- THRESHOLDS --}}
+    <div class="values-container thresholds">
 
-      <div class="card-text">
-        <h1 class="small">{{actor.name}}</h1>
-        {{#if (or (not restrictMetagaming) (gte ownershipLevel 1))}}
-          <div class="character-tags">
-            {{!-- CLASS --}}
-            {{#if actor.system.class.value}}
-            <span class="tag tag-green">
-              <span>{{actor.system.class.value.name}}</span>
-            </span>
-            {{/if}}
+      <h3 class="threshold-damage" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
+        data-resource="hitPoints.value" data-amount="1">
+        {{localize "DAGGERHEART.ACTORS.Party.Thresholds.minor"}}
+      </h3>
 
-            {{!-- SUBCLASS --}}
-            {{#if actor.system.class.subclass}}
-            <span class="tag tag-green">
-              <span>{{actor.system.class.subclass.name}}</span>
-            </span>
-            {{/if}}
+      <span class="value-number">{{damageThresholds.major}}</span>
 
-            {{!-- MULTICLASS --}}
-            {{#if actor.system.multiclass.value}}
-            <span class="tag tag-blue">
-              <span>{{actor.system.multiclass.value.name}}</span>
-            </span>
-            {{/if}}
+      <h3 class="threshold-damage" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
+        data-resource="hitPoints.value" data-amount="2">
+        {{localize "DAGGERHEART.ACTORS.Party.Thresholds.major"}}
+      </h3>
 
-            {{!-- MULTICLASS SUBCLASS --}}
-            {{#if actor.system.multiclass.subclass}}
-            <span class="tag tag-blue">
-              <span>{{actor.system.multiclass.subclass.name}}</span>
-            </span>
-            {{/if}}
+      <span class="value-number">{{damageThresholds.severe}}</span>
 
-            {{!-- COMMUNITY --}}
-            {{#if actor.system.community}}
-            <span class="tag tag-orange">
-              <span>{{actor.system.community.name}}</span>
-            </span>
-            {{/if}}
-
-            {{!-- ANCESTRY --}}
-            {{#if actor.system.ancestry}}
-            <span class="tag tag-purple">
-              <span>{{actor.system.ancestry.name}}</span>
-            </span>
-            {{/if}}
-          </div>
-        {{/if}}
-      </div>
-
-      <div class="card-controls party-controls">
-        {{#if (gte ownershipLevel 1)}}
-          <a data-action="openMemberSheet" data-actor-uuid="{{actorUuid}}" data-tooltip="Open Character Sheet">
-            <i class="fa-solid fa-user"></i>
-          </a>
-        {{/if}}
-        {{#if (gte ownershipLevel 3)}}
-          <a data-action="deletePartyMember" data-actor-uuid="{{actorUuid}}" data-tooltip="Remove from Party">
-            <i class="fa-solid fa-trash"></i>
-          </a>
-        {{/if}}
-      </div>
+      <h3 class="threshold-damage" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
+        data-resource="hitPoints.value" data-amount="3">
+        {{localize "DAGGERHEART.ACTORS.Party.Thresholds.severe"}}
+      </h3>
 
     </div>
+
+    {{#if (or primaryWeapon secondaryWeapon)}}
+    <div class="equipment-container">
+      {{#if primaryWeapon}}
+      <div class="equipment-icon primary">
+        <img src="{{primaryWeapon.img}}" alt="{{primaryWeapon.name}}" data-tooltip="{{primaryWeapon.name}}">
+      </div>
+      {{/if}}
+
+      {{#if secondaryWeapon}}
+      <div class="equipment-icon secondary">
+        <img src="{{secondaryWeapon.img}}" alt="{{secondaryWeapon.name}}" data-tooltip="{{secondaryWeapon.name}}">
+      </div>
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  <div class="party-character-icon" data-action="openMemberSheet" data-actor-uuid="{{actorUuid}}" style="cursor:pointer">
+
+    <img class="icon" src="{{actor.img}}" />
 
   </div>
 
-  {{#if (or (not restrictMetagaming) (gte ownershipLevel 2))}}
-  <div class="card-container description">
-    <span class="separator-line"></span>
-    <div class="party-character-information">
-      <div class="hope-row">
+  <div class="character-information">
 
-        {{!-- HOPE --}}
-        <div class="hope-container">
-          <h3 data-action="modifyResource" data-actor-uuid="{{actorUuid}}" data-resource="hope.value" data-amount="1">
-            {{localize "DAGGERHEART.GENERAL.hope"}}</h3>
-          <span class="hope-bar">
-            {{#times hope.max}}
-            <span class='hope-value' data-action='toggleHope' data-actor-uuid="{{../actorUuid}}"
-              data-value="{{add this 1}}">
-              {{#if (gte ../hope.value (add this 1))}}
-              <div class="hope-icon-full"></div>
-              {{else}}
-              <div class="hope-icon-empty"></div>
-              {{/if}}
-            </span>
-            {{/times}}
+    <div class="hope-row">
+
+      {{!-- NAME --}}
+      <h1 class="small">{{actor.name}}</h1>
+
+      {{!-- HOPE --}}
+      {{#if @root.showStats}}
+      <div class="hope-container">
+
+        <span class="hope-bar">
+          {{#times hope.max}}
+          <span class='hope-value' data-action='toggleHope' data-actor-uuid="{{../actorUuid}}"
+            data-value="{{add this 1}}">
+            {{#if (gte ../hope.value (add this 1))}}
+            <div class="hope-icon-full"></div>
+            {{else}}
+            <div class="hope-icon-empty"></div>
+            {{/if}}
           </span>
-        </div>
-        <span class="separator"></span>
-
-        {{!-- DOMAINS --}}
-        {{#if actor.system.class.value}}
-        <div class="domains-container">
-          {{#each actor.system.domainData as |data|}}
-          <div class="domain">
-            <img src="{{data.src}}" alt="" data-tooltip="{{data.label}}" />
-          </div>
-          {{/each}}
-        </div>
-        {{/if}}
-
-        {{!-- LEVEL --}}
-        <div class="values-row level">
-          <div class="values-container level">
-            <h3>{{localize "DAGGERHEART.GENERAL.level"}}</h3>
-            <span class="value-number">{{level}}</span>
-          </div>
-        </div>
+          {{/times}}
+        </span>
 
       </div>
+      {{/if}}
 
-      <div class="values-row">
-        {{!-- EVASION --}}
-        <div class="values-container evasion">
-          <h3>{{localize "DAGGERHEART.GENERAL.evasion"}}</h3>
-          <span class="value-number">{{evasion}}</span>
-        </div>
-        {{!-- THRESHOLDS --}}
-        <div class="values-container thresholds">
-          <h3 class="threshold-damage" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
-            data-resource="hitPoints.value" data-amount="1">
-            {{localize "DAGGERHEART.GENERAL.DamageThresholds.minor"}}
-          </h3>
+    </div>
 
-          <span class="value-number">{{damageThresholds.major}}</span>
-
-          <h3 class="threshold-damage" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
-            data-resource="hitPoints.value" data-amount="2">
-            {{localize "DAGGERHEART.GENERAL.DamageThresholds.major"}}
-          </h3>
-
-          <span class="value-number">{{damageThresholds.severe}}</span>
-
-          <h3 class="threshold-damage" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
-            data-resource="hitPoints.value" data-amount="3">
-            {{localize "DAGGERHEART.GENERAL.DamageThresholds.severe"}}
-          </h3>
-        </div>
-        {{!-- PROFICIENCY --}}
-        <div class="values-container proficiency">
-          <h3>{{localize "DAGGERHEART.GENERAL.proficiency"}}</h3>
-          <span class="value-number">{{proficiency}}</span>
-        </div>
-      </div>
+    {{#if @root.showStats}}
+    <div class="resources-traits-row">
 
       <div class="resources-row">
-        {{#if hitPoints.max}}
+              
         {{!-- HIT POINTS --}}
+        {{#if hitPoints.max}}
         <div class="resource-container">
-          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
-            data-resource="hitPoints.value" data-amount="1">
-            <h3>{{localize "DAGGERHEART.GENERAL.HitPoints.plural"}}</h3>
-            <span class="resource-number">{{hitPoints.value}} / {{hitPoints.max}}</span>
+
+          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}" data-resource="hitPoints.value"
+            data-amount="1">
+            <i class="fa-solid fa-heart-crack"></i>
           </div>
+
           <div class="resource-bar">
             {{#times hitPoints.max}}
             <div
@@ -171,47 +108,101 @@
             </div>
             {{/times}}
           </div>
+
+          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}" data-resource="hitPoints.value"
+            data-amount="1">
+            <span class="resource-number">{{hitPoints.value}} / {{hitPoints.max}}</span>
+          </div>
+
         </div>
         {{/if}}
+
         {{!-- STRESS --}}
         {{#if stress.max}}
         <div class="resource-container">
-          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
-            data-resource="stress.value" data-amount="1">
-            <h3>{{localize "DAGGERHEART.GENERAL.stress"}}</h3>
-            <span class="resource-number">{{stress.value}} / {{stress.max}}</span>
+
+          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}" data-resource="stress.value"
+            data-amount="1">
+            <i class="fa-solid fa-bolt"></i>
           </div>
+
           <div class="resource-bar">
-            {{#times stress.max}}
-            <div class="resource-pip pip-stress {{#if (gte ../stress.value (add this 1))}}filled{{else}}empty{{/if}}"
-              data-action="toggleStress" data-actor-uuid="{{../actorUuid}}" data-value="{{add this 1}}">
-            </div>
-            {{/times}}
+              {{#times stress.max}}
+              <div class="resource-pip pip-stress {{#if (gte ../stress.value (add this 1))}}filled{{else}}empty{{/if}}"
+                data-action="toggleStress" data-actor-uuid="{{../actorUuid}}" data-value="{{add this 1}}">
+              </div>
+              {{/times}}
           </div>
+
+          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}" data-resource="stress.value"
+            data-amount="1">
+            <span class="resource-number">{{stress.value}} /
+              {{stress.max}}</span>
+          </div>
+
         </div>
         {{/if}}
+
         {{!-- ARMOR --}}
         {{#if armorSlots.max}}
         <div class="resource-container">
-          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}"
-            data-resource="armorSlots" data-amount="1">
-            <h3>{{localize "DAGGERHEART.GENERAL.armorSlots"}}</h3>
-            <span class="resource-number">{{armorSlots.value}} / {{armorSlots.max}}</span>
+
+          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}" data-resource="system.armorScore.value"
+            data-amount="1">
+            <i class="fa-solid fa-shield"></i>
           </div>
+
           <div class="resource-bar">
-            {{#times armorSlots.max}}
-            <div class="resource-pip pip-armor {{#if (gte ../armorSlots.value (add this 1))}}filled{{else}}empty{{/if}}"
-              data-action="toggleArmorSlot"
-              {{#if ../armorSlots.itemUuid}}data-item-uuid="{{../armorSlots.itemUuid}}"{{else}}data-actor-uuid="{{../actorUuid}}"{{/if}}
-              data-value="{{add this 1}}">
+              {{#times armorSlots.max}}
+              <div class="resource-pip pip-armor {{#if (gte ../armorSlots.value (add this 1))}}filled{{else}}empty{{/if}}"
+                data-action="toggleArmorSlot"
+                {{#if ../armorSlots.itemUuid}}data-item-uuid="{{../armorSlots.itemUuid}}"{{else}}data-actor-uuid="{{../actorUuid}}"{{/if}}
+                data-value="{{add this 1}}">
+              </div>
+              {{/times}}
             </div>
-            {{/times}}
+
+          <div class="resource-header" data-action="modifyResource" data-actor-uuid="{{actorUuid}}" data-resource="system.armorScore.value"
+            data-amount="1">
+            <span class="resource-number">{{armorSlots.value}} /
+              {{armorSlots.max}}</span>
           </div>
+
         </div>
         {{/if}}
-      </div>
-    </div>
 
+      </div>
+
+      {{!-- TRAITS --}}
+      <div class="traits-row">
+        {{#each attributes as |attribute key|}}
+        <div
+          class="trait-container {{#if attribute.isSpellcasting}}spellcast-trait{{/if}}"
+          data-attribute="{{key}}"
+          data-value="{{attribute.value}}">
+          <span class="trait-name">{{localize (concat 'DAGGERHEART.CONFIG.Traits.' key '.short')}}</span>
+          <span class="trait-number">
+            {{#if (gt attribute.value 0)}}
+            <span>+{{attribute.value}}</span>
+            {{else}}
+            <span>{{attribute.value}}</span>
+            {{/if}}
+          </span>
+        </div>
+        {{/each}}
+      </div>
+
+    </div>
+    {{/if}}
+
+  </div>
+
+  {{#if @root.editable}}
+  <div class="party-character-remove" data-action="deletePartyMember" data-actor-uuid="{{actorUuid}}"
+    data-tooltip="{{localize 'DAGGERHEART.ACTORS.Party.RemoveConfirmation.title' name=actor.name}}">
+    <div class="party-character-remove-icon">
+      <i class="fa-solid fa-x"></i>
+    </div>
   </div>
   {{/if}}
 
