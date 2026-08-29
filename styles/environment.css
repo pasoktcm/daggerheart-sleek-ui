@@ -9,6 +9,10 @@ PORTRAIT
   margin-bottom: -42px;
 }
 
+#sleek-ui-sheet .portrait.environment img {
+  object-position: unset;
+}
+
 /* ==================== 
 HEADER
 ==================== */
@@ -31,7 +35,7 @@ HEADER
   height: fit-content;
   gap: var(--sleekUI-spacing-md);
   padding-bottom: var(--sleekUI-spacing-tiny);
-  text-align: center;
+  /* text-align: center; */
   color: var(--sleekUI-color-secondary);
   line-height: 20px;
   cursor: default;
@@ -55,6 +59,14 @@ FEATURES
 
 #sleek-ui-sheet .environment.features-tab .category-wrapper {
   margin-bottom: 32px;
+}
+
+#sleek-ui-sheet .environment .card-container.header .card-icon {
+  width: 64px;
+}
+
+#sleek-ui-sheet .environment .card-container.header .card-icon .dice-roll {
+  left: 24px;
 }
 
 /* ==================== 

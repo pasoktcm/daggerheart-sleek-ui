@@ -13,6 +13,7 @@ import { registerCharacterMiniSheet } from "./sheets/minisheets/minisheet-charac
 import { registerCompanionMiniSheet } from "./sheets/minisheets/minisheet-companion.js";
 import { registerPartyMiniSheet } from "./sheets/minisheets/minisheet-party.js";
 import { registerAdversaryMiniSheet } from "./sheets/minisheets/minisheet-adversary.js";
+import { registerEnvironmentMiniSheet } from "./sheets/minisheets/minisheet-environment.js";
 
 Hooks.once("init", () => {
   preloadHandlebarsTemplates();
@@ -40,4 +41,5 @@ Hooks.once("ready", () => {
   registerCompanionMiniSheet();
   registerPartyMiniSheet();
   registerAdversaryMiniSheet();
+  registerEnvironmentMiniSheet();
 });

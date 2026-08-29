@@ -73,7 +73,7 @@
         {{#each item.system.actions as |action|}}
         {{#if (and (eq action.type "beastform") @root.beastformActive)}}
         <button class="card-button" data-action="cancelBeastform" data-item-uuid="{{../item.uuid}}">
-          {{localize "Cancel Beastform"}}
+          {{localize "DAGGERHEART.ACTORS.Character.cancelBeastform"}}
         </button>
         {{else}}
         <button class="card-button" data-action="useAction" data-item-uuid="{{../item.uuid}}"

@@ -85,6 +85,29 @@
 
   {{/if}}
 
+  {{!-- TRANSFORMATIONS --}}
+  {{#if transformationFeatures}}
+  <div class="category-wrapper {{#if (contains @root.collapsedCategories 'transformations')}}collapsed{{/if}}"
+    data-category-id="transformations">
+
+    <div class="category-header" data-action="toggleCategory">
+      <h2>{{localize "TYPES.Item.transformation"}}</h2>
+      <span class="line"></span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="category-content">
+      {{#each transformationFeatures as |featureData|}}
+        {{> "modules/daggerheart-sleek-ui/templates/components/card-features.hbs" 
+            item=featureData.item 
+            tags=featureData.tags
+            ownershipLevel=@root.ownershipLevel}}
+      {{/each}}
+    </div>
+
+  </div>
+  {{/if}}
+
   {{!-- EXTRA FEATURES --}}
   <div class="category-wrapper {{#if (contains @root.collapsedCategories 'extrafeatures')}}collapsed{{/if}}"
     data-category-id="extrafeatures">

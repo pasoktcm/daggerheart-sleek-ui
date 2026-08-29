@@ -272,22 +272,30 @@ FAVORITES
   transition: none;
 }
 
+#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-container.header .card-icon {
+  width: 64px;
+}
+
+#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-container.header .card-icon .dice-roll {
+  left: 24px;
+}
+
 #sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-controls {
   margin-right: var(--sleekUI-spacing-xs);
   margin-left: var(--sleekUI-spacing-sm);
 }
 
-#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-controls a[data-action="triggerContextMenu"],
-#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-controls a[data-action="toggleVault"] {
+#sleek-ui-sheet .minisheet .favorites-window .card-controls a[data-action="triggerContextMenu"],
+#sleek-ui-sheet .minisheet .favorites-window .card-controls a[data-action="toggleVault"] {
   display: none;
 }
 
-#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-description {
+#sleek-ui-sheet .minisheet .favorites-window .card-description {
   text-align: start;
   font-size: var(--sleekUI-font-size-md);
 }
 
-#sleek-ui-sheet .minisheet .favorites-window .favorites-container .card-description p {
+#sleek-ui-sheet .minisheet .favorites-window .card-description p {
   margin: 0;
 }
 
@@ -338,16 +346,184 @@ ADVERSARY MINISHEET
   margin-right: var(--sleekUI-spacing-xs);
 }
 
-#sleek-ui-sheet .minisheet .favorites-window .features-container .card-controls a[data-action="triggerContextMenu"] {
-  display: none;
-}
-
 #sleek-ui-sheet .minisheet.adversary .favorites-window .features-container .card-description {
   padding-bottom: var(--sleekUI-spacing-sm);
 }
 
 #sleek-ui-sheet .minisheet.adversary .favorites-window .features-container .card-bottom {
   display: none;
+}
+
+/* //////////////////////////////
+ENVIRONMENT MINISHEET
+////////////////////////////// */
+
+#sleek-ui-sheet .minisheet.environment {
+  min-height: 64px;
+}
+
+#sleek-ui-sheet .minisheet.environment .portrait {
+  min-height: 64px;
+  max-height: 64px;
+  min-width: 220px;
+  max-width: 220px;
+}
+
+#sleek-ui-sheet .minisheet.environment .portrait img {
+  object-position: unset;
+}
+
+#sleek-ui-sheet .minisheet.environment .character-information {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sleekUI-spacing-xs);
+  margin-left: -32px;
+  flex: 1;
+  position: relative;
+}
+
+#sleek-ui-sheet .minisheet.environment .values-row {
+  flex: 1;
+  gap: var(--sleekUI-spacing-md);
+}
+
+#sleek-ui-sheet .minisheet.environment .actor-name {
+  flex: 1;
+  cursor: default;
+  transform: none;
+  font-size: 18px;
+  margin: 0;
+  margin-left: 46px;
+  width: auto;
+  max-width: 360px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#sleek-ui-sheet .minisheet.environment .actor-name:hover,
+#sleek-ui-sheet .minisheet.environment .actor-name:focus {
+  background: none;
+}
+
+#sleek-ui-sheet .minisheet.environment .environment-difficulty {
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  height: var(--sleekUI-spacing-xl);
+  max-height: unset;
+  padding: 0 var(--sleekUI-spacing-sm);
+  width: fit-content;
+  flex-shrink: 0;
+  position: absolute;
+  background: var(--sleekUI-color-background-input);
+}
+
+#sleek-ui-sheet .minisheet.environment .environment-difficulty .level-value {
+  font-size: var(--sleekUI-font-size-lg);
+  transform: none;
+}
+
+#sleek-ui-sheet .minisheet.environment .environment-difficulty h3 {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+  opacity: 0;
+  padding-left: 0;
+  transition: all 0.2s ease;
+}
+
+#sleek-ui-sheet .minisheet.environment .environment-difficulty:hover h3 {
+  max-width: 15ch;
+  opacity: 1;
+  padding-left: var(--sleekUI-spacing-sm);
+}
+
+#sleek-ui-sheet .minisheet.environment .tab-button-container {
+  flex: 0;
+}
+
+#sleek-ui-sheet .minisheet.environment .favorites-window-container {
+  width: 480px;
+}
+
+#sleek-ui-sheet .minisheet.environment .favorites-window {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+#sleek-ui-sheet .minisheet.environment .favorites-window .features-container {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sleekUI-spacing-sm);
+  gap: var(--sleekUI-spacing-tiny);
+}
+
+#sleek-ui-sheet .minisheet.environment .favorites-window .features-container .card-description {
+  padding-bottom: var(--sleekUI-spacing-sm);
+}
+
+#sleek-ui-sheet .minisheet.environment .favorites-window .features-container .card-bottom {
+  display: none;
+}
+
+#sleek-ui-sheet .minisheet.environment .favorites-window .features-container .card-controls {
+  margin-right: var(--sleekUI-spacing-xs);
+}
+
+/* /////
+ENVIRONMENT ROW
+///// */
+
+#sleek-ui-sheet .scene-environ-minisheets {
+  display: flex;
+  flex-direction: row;
+}
+
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container {
+  padding: 0 var(--sleekUI-spacing-tiny);
+}
+
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container .minisheet.environment {
+  display: grid;
+  grid-template-columns: 120px 0fr;
+  transition: grid-template-columns 0.15s ease;
+}
+
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container:hover .minisheet.environment,
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container.expanded .minisheet.environment {
+  grid-template-columns: 180px 1fr;
+}
+
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container .portrait {
+  min-width: 0px;
+  mask-size: 140%;
+  border-radius: var(--sleekUI-border-radius) var(--sleekUI-border-radius) 0 0;
+  transition: all 0.15s ease;
+}
+
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container:hover .portrait,
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container.expanded .portrait {
+  mask-size: 100%;
+  border-radius: var(--sleekUI-border-radius) 0 0 0 ;
+}
+
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container .character-information {
+  width: calc(100% + 32px);
+  min-width: 0px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  overflow: hidden;
+}
+
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container:hover .character-information,
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container.expanded .character-information {
+  opacity: 1;
+}
+
+#sleek-ui-sheet .scene-environ-minisheets .scene-environ-minisheets-container .character-information .values-row {
+  width: 100%;
 }
 
 /* //////////////////////////////

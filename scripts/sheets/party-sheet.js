@@ -1,5 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
-import { formatWeaponDamageDisplay } from "../helpers.js";
+import { formatWeaponDamageDisplay, resolveUnarmedAttack, resolveUsesUnarmed } from "../helpers.js";
 
 export function registerPartySheet() {
   if (game.system.id !== "daggerheart") return;
@@ -186,11 +186,14 @@ export function registerPartySheet() {
             secondaryWeapon = equipped.find((w) => w.system.secondary) ?? null;
           }
 
-          if (!primaryWeapon && sys.usedUnarmed) {
-            primaryWeapon = {
-              img: sys.usedUnarmed.img,
-              name: game.i18n.localize(sys.usedUnarmed.name || "DAGGERHEART.GENERAL.unarmedAttack"),
-            };
+          if (!primaryWeapon && resolveUsesUnarmed(member)) {
+            const unarmed = resolveUnarmedAttack(member);
+            if (unarmed) {
+              primaryWeapon = {
+                img: unarmed.img,
+                name: game.i18n.localize(unarmed.name || "DAGGERHEART.GENERAL.unarmedAttack"),
+              };
+            }
           }
         }
 

@@ -1,0 +1,42 @@
+<div class="minisheet environment">
+
+    <div class="portrait environment">
+        <img src="{{document.img}}" alt="{{document.name}}" data-action="openSheet" />
+    </div>
+
+    <div class="character-information">
+
+        <div class="values-row">
+
+            {{! DIFFICULTY }}
+            <div class="environment-difficulty">
+                <div class="level-value">{{document.system.difficulty}}</div>
+                <h3>{{localize 'DAGGERHEART.ACTORS.Adversary.FIELDS.difficulty.label'}}</h3>
+            </div>
+
+            {{! NAME }}
+            <h1 class="actor-name small">{{source.name}}</h1>
+
+            <span class="separator"></span>
+
+            {{! FEATURES }}
+            <div class="tab-button-container">
+                <div class="tab-button">
+                    <h3>{{localize "DAGGERHEART.GENERAL.Tabs.features"}}</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="favorites-window-container">
+        <div class="favorites-window">
+            <div class="features-container">
+                {{#each environmentFeatures as |featureData|}}
+                {{> "modules/daggerheart-sleek-ui/templates/components/card-npc-features.hbs"}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+</div>

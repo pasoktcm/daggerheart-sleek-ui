@@ -45,6 +45,8 @@ export async function preloadHandlebarsTemplates() {
     "modules/daggerheart-sleek-ui/templates/sheets/environments/tabs/environment-features.hbs",
     "modules/daggerheart-sleek-ui/templates/sheets/environments/tabs/environment-adversaries.hbs",
     "modules/daggerheart-sleek-ui/templates/sheets/environments/tabs/environment-notes.hbs",
+    "modules/daggerheart-sleek-ui/templates/sheets/environments/environment-minisheet.hbs",
+    "modules/daggerheart-sleek-ui/templates/sheets/environments/environment-minisheet-scene.hbs",
     "modules/daggerheart-sleek-ui/templates/components/card-environment-adversaries.hbs",
     // Shared components
     "modules/daggerheart-sleek-ui/templates/components/tabs-floating.hbs",
@@ -145,6 +147,34 @@ export async function toggleResourceManagement(event, button, actor) {
       }
     });
   }
+}
+
+/** @param {Actor} actor */
+export function isBeastformActive(actor) {
+  return !!actor.effects?.find((x) => !x.disabled && x.type === "beastform");
+}
+
+/** @param {Actor} actor @returns {string|null} */
+export function getBeastformPortrait(actor) {
+  if (!game.settings.get("daggerheart-sleek-ui", "beastformPortrait")) return null;
+  if (!isBeastformActive(actor)) return null;
+  return actor.prototypeToken?.ring?.subject?.texture || null;
+}
+
+/** @param {Actor} actor @returns {boolean} */
+export function resolveUsesUnarmed(actor) {
+  const sys = actor.system;
+  if (typeof sys.usesUnarmed === "boolean") return sys.usesUnarmed;
+  return !!sys.usedUnarmed;
+}
+
+/** @param {Actor} actor @returns {object|null} */
+export function resolveUnarmedAttack(actor) {
+  const sys = actor.system;
+  if (typeof sys.usesUnarmed === "boolean") {
+    return sys.usesUnarmed ? sys.attack : null;
+  }
+  return sys.usedUnarmed ?? null;
 }
 
 /**

@@ -25,8 +25,8 @@
             </div>
 
             <div class="member-portrait {{#if memberData.actor.system.deathMoveViable}}deathroll{{/if}}">
-                {{#if memberData.actor.system.beastformPortrait}}
-                <img src="{{memberData.actor.system.beastformPortrait}}" alt="{{memberData.actor.name}}" class="beastform-portrait" data-action="openMemberSheet" />
+                {{#if memberData.beastformPortrait}}
+                <img src="{{memberData.beastformPortrait}}" alt="{{memberData.actor.name}}" class="beastform-portrait" data-action="openMemberSheet" />
                 {{else}}
                 <img src="{{memberData.actor.img}}" alt="{{memberData.actor.name}}" data-action="openMemberSheet" />
                 {{/if}}

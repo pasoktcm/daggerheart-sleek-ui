@@ -105,8 +105,8 @@ export class FloatingTabs extends foundry.applications.api.HandlebarsApplication
       el.style.left = `${rect.right - 45}px`;
       el.style.top = `${rect.top + 100}px`;
     } else {
-      el.style.left = `${rect.right + 10}px`;
-      el.style.top = `${rect.top + rect.height / 2}px`;
+      el.style.left = `${rect.right}px`;
+      el.style.top = `${rect.top + rect.height / 2.5}px`;
     }
 
     el.style.transform = isPopOut ? "none" : "translateY(-50%)";

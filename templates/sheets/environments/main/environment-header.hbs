@@ -9,9 +9,11 @@
         {{document.system.tier}}
       </span>
 
+      {{#if source.system.type}}
       <span class="tag tag-green">
-        {{localize (concat "DAGGERHEART.CONFIG.EnvironmentType." document.system.type ".label")}}
+        {{localize (concat "DAGGERHEART.CONFIG.EnvironmentType." source.system.type ".label")}}
       </span>
+      {{/if}}
 
     </div>
   </div>
@@ -22,6 +24,7 @@
   </div>
 </div>
 
+{{#if (or document.system.description document.system.impulses)}}
 <div class="header-details">
 
   <div class="environment-info divider">
@@ -45,6 +48,7 @@
   </div>
 
 </div>
+{{/if}}
 
 <button type="button" class="settings-button" data-action="openSettings" data-tooltip-text="{{localize 'DAGGERHEART.UI.Tooltip.openSheetSettings'}}" aria-label="{{localize 'DAGGERHEART.UI.Tooltip.openSheetSettings'}}">
   <i class="fa-solid fa-gear"></i>

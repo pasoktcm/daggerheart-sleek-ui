@@ -1,5 +1,7 @@
 // ─── MACROBAR ────────────────────────────────────────────────────────────────
 
+import { resolveUnarmedAttack } from "../../helpers.js";
+
 export function hideMacrobar() {
   const hotbar = document.getElementById("hotbar");
   if (hotbar) hotbar.style.display = "none";
@@ -464,7 +466,7 @@ function _attachUseItemListeners(element, actor) {
     el.addEventListener("click", async (event) => {
       event.stopPropagation();
       _closeFavoritesWindow(el);
-      const action = actor.system.usedUnarmed;
+      const action = resolveUnarmedAttack(actor);
       if (action) await action.use(event);
     });
   });
@@ -487,7 +489,7 @@ function _attachRollDamageListeners(element, actor) {
       event.stopPropagation();
       const itemUuid = el.dataset.itemUuid;
       if (itemUuid === "unarmed-attack") {
-        const action = actor.system.usedUnarmed;
+        const action = resolveUnarmedAttack(actor);
         if (!action) return;
         const config = action.prepareConfig(event);
         config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor, null);

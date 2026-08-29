@@ -11,38 +11,41 @@
   display: flex;
   flex-direction: column;
   gap: var(--sleekUI-spacing-xs);
+  padding: var(--sleekUI-spacing-tiny);
   pointer-events: auto;
+  background: var(--sleekUI-color-background-dark);
+  border-radius: 0 var(--sleekUI-border-radius) var(--sleekUI-border-radius) 0;
 }
 
 .floating-tabs-nav .tab-button {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--sleekUI-color-background-primary);
   backdrop-filter: blur(5px);
-  border: 1px solid var(--sleekUI-color-border);
-  border-radius: var(--sleekUI-border-radius);
-  color: var(--sleekUI-color-secondary);
+  border-radius: var(--sleekUI-border-radius-s);
+  color: var(--sleekUI-color-border-equipped);
   cursor: pointer;
   transition: all 0.2s ease;
   outline: none;
   box-shadow: none;
+  background: none;
+  border: none;
 }
 
 .floating-tabs-nav .tab-button:hover {
-  background: var(--sleekUI-color-background-dark);
+  background: var(--sleekUI-color-background-resourceHover);
 }
 
 .floating-tabs-nav .tab-button.active {
-  background: var(--sleekUI-color-background-dark);
-  color: var(--sleekUI-color-tertiary);
+  background: var(--sleekUI-color-tertiary);
+  color: var(--sleekUI-color-background-dark);
 }
 
 .floating-tabs-nav .tab-button i {
-  font-size: var(--sleekUI-font-size-lg);
+  font-size: var(--sleekUI-font-size-md);
   pointer-events: none;
 }
 

@@ -1,5 +1,6 @@
 import { hideMacrobar, showMacrobar, collapseMinisheet, injectReopenButton, removeReopenButton, isMinisheetCollapsed, setMinisheetCollapsed } from "./utils-minisheet.js";
 import { applyMinisheetScale } from "../../settings.js";
+import { getBeastformPortrait } from "../../helpers.js";
 
 export function registerPartyMiniSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -178,6 +179,7 @@ export function registerPartyMiniSheet() {
         partyMembersData.push({
           actor: member,
           actorUuid: member.uuid,
+          beastformPortrait: getBeastformPortrait(member),
           hopeValue: sys.resources?.hope?.value ?? 0,
           hopeMax: sys.resources?.hope?.max ?? 0,
           hitPointsValue: sys.resources?.hitPoints?.value ?? 0,

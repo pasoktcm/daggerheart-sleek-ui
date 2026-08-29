@@ -121,6 +121,7 @@ TOOLTIPS
   background: none;
   box-shadow: none;
   border: none;
+  max-width: 314px;
 }
 
 .daggerheart.dh-style.tooltip {

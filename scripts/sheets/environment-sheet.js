@@ -78,6 +78,8 @@ export function registerEnvironmentSheet() {
 
       context.tabs = this.tabs;
 
+      context.currentFear = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Resources.Fear);
+
       if (options.isFirstRender && !this.collapsedCategories) {
         this.collapsedCategories = this.actor.getFlag("daggerheart-sleek-ui", "collapsedCategories") || [];
       }
@@ -405,5 +407,18 @@ export function registerEnvironmentSheet() {
     types: ["environment"],
     makeDefault: true,
     label: "DH Sleek UI",
+  });
+
+  Hooks.on("updateSetting", (setting) => {
+    if (setting.key !== `${CONFIG.DH.id}.${CONFIG.DH.SETTINGS.gameSettings.Resources.Fear}`) return;
+
+    canvas.tokens.placeables
+      .filter((t) => t.actor?.type === "environment")
+      .forEach((t) => {
+        const sheet = t.actor?.sheet;
+        if (sheet instanceof SleekEnvironmentSheet && sheet.rendered) {
+          sheet.render();
+        }
+      });
   });
 }

@@ -16,7 +16,7 @@ import {
 } from "./utils-minisheet.js";
 
 import { applyMinisheetScale } from "../../settings.js";
-import { toggleResourceManagement } from "../../helpers.js";
+import { toggleResourceManagement, formatWeaponDamageDisplay, getBeastformPortrait, resolveUnarmedAttack } from "../../helpers.js";
 
 export function registerCharacterMiniSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -303,13 +303,22 @@ export function registerCharacterMiniSheet() {
           usesData: null,
         }));
 
-        unarmedAttack = actor.system.usedUnarmed
+        const unarmed = resolveUnarmedAttack(actor);
+        unarmedAttack = unarmed
           ? {
-              item: actor.system.usedUnarmed,
+              item: {
+                name: game.i18n.localize(unarmed.name || "DAGGERHEART.GENERAL.unarmedAttack"),
+                img: unarmed.img,
+                uuid: "unarmed-attack",
+                system: {
+                  actions: new Map([[unarmed._id, unarmed]]),
+                  attack: unarmed,
+                },
+              },
               tags: [],
               hopeCost: 0,
               usesData: null,
-              damage: actor.system.usedUnarmed?.system?.damage ?? null,
+              damage: formatWeaponDamageDisplay(unarmed, { rollData: actor.getRollData() }),
               enrichedDescription: "",
             }
           : null;
@@ -329,7 +338,7 @@ export function registerCharacterMiniSheet() {
         isCharacterSheet: true,
         attributes: systemContext.attributes,
         isDeath: actor.system.deathMoveViable,
-        beastformPortrait: systemContext.beastformPortrait,
+        beastformPortrait: getBeastformPortrait(actor),
         quickAccess,
         quickAccessItems,
         unarmedAttack,

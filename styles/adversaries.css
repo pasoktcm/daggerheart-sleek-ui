@@ -129,15 +129,16 @@ FEATURES
 }
 
 #sleek-ui-sheet .adversary .card-container.header .card-icon {
-  width: 56px;
+  width: 64px;
 }
 
 #sleek-ui-sheet .adversary .card-container.header .card-icon .dice-roll {
-  left: 20px;
+  left: 24px;
 }
 
 #sleek-ui-sheet .resource.fear-resource {
   background: none;
+  flex-direction: row-reverse;
 }
 
 #sleek-ui-sheet .resource.fear-resource .fear-icon-full i {

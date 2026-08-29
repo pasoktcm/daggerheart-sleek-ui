@@ -1,5 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
-import { formatWeaponDamageDisplay } from "../helpers.js";
+import { formatWeaponDamageDisplay, getBeastformPortrait, resolveUnarmedAttack } from "../helpers.js";
 
 export function registerCharacterSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -126,17 +126,7 @@ export function registerCharacterSheet() {
       if (context.beastformActive) {
         context.beastformItem = this.actor.items.find((i) => i.type === "feature" && i.system.actions?.some((a) => a.type === "beastform"));
       }
-      if (context.beastformActive) {
-        const useBeastformPortrait = game.settings.get("daggerheart-sleek-ui", "beastformPortrait");
-
-        if (useBeastformPortrait) {
-          const portrait = this.actor.prototypeToken.ring.subject.texture;
-
-          if (portrait) {
-            context.beastformPortrait = portrait;
-          }
-        }
-      }
+      context.beastformPortrait = getBeastformPortrait(this.actor);
 
       await this._prepareFeaturesData(context);
       await this._prepareLoadoutData(context);
@@ -227,6 +217,17 @@ export function registerCharacterSheet() {
       ]);
 
       context.extraFeatures = await Promise.all(extraFeatures.map((feature) => createFeatureData(feature)));
+
+      const transformationPromises = [];
+      for (const [key, list] of Object.entries(sheetLists ?? {})) {
+        if (!key.startsWith("transformation-") || !list?.values?.length) continue;
+        for (const feature of list.values) {
+          transformationPromises.push(
+            createFeatureData(feature, [createTag(list.title, list.deleteUuid ?? "", "tag-purple")]),
+          );
+        }
+      }
+      context.transformationFeatures = await Promise.all(transformationPromises);
     }
 
     async _prepareLoadoutData(context) {
@@ -423,8 +424,8 @@ export function registerCharacterSheet() {
       context.consumables = await Promise.all(consumables.map((item) => createConsumableData(item)));
       context.loots = await Promise.all(loots.map((item) => createLootData(item)));
 
-      if (this.actor.system.usedUnarmed) {
-        const unarmed = this.actor.system.usedUnarmed;
+      const unarmed = resolveUnarmedAttack(this.actor);
+      if (unarmed) {
         const rollData = this.actor.getRollData();
         const unarmedDamage = formatWeaponDamageDisplay(unarmed, { rollData });
 
@@ -983,7 +984,7 @@ export function registerCharacterSheet() {
           const itemUuid = button.dataset.itemUuid;
 
           if (itemUuid === "unarmed-attack") {
-            const action = this.actor.system.usedUnarmed;
+            const action = resolveUnarmedAttack(this.actor);
             if (!action) return;
 
             const config = action.prepareConfig(event);
@@ -1452,20 +1453,14 @@ export function registerCharacterSheet() {
       if (!itemUuid) return;
 
       const item = await fromUuid(itemUuid);
-      console.log("Item:", item);
-      console.log("Item actor:", item?.actor);
-      console.log("Item parent:", item?.parent);
-
       if (!item) return;
 
       game.system.api.fields.ActionFields.BeastformField.handleActiveTransformations.call(item);
     }
 
     static async _onUseUnarmedAttack(event, target) {
-      const action = this.actor.system.usedUnarmed;
-      if (action) {
-        await action.use(event);
-      }
+      const action = resolveUnarmedAttack(this.actor);
+      if (action) await action.use(event);
     }
 
     async close(options = {}) {
