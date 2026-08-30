@@ -273,7 +273,7 @@ export function registerAdversaryMiniSheet() {
         source: actor,
         actor,
         isNPC: true,
-        showTooltip: true,
+        showTooltip: game.settings.get("daggerheart-sleek-ui", "showTooltip"),
         currentFear: game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Resources.Fear),
         adversaryFeatures: systemContext.adversaryFeatures ?? [],
         attackDamage,

@@ -1,6 +1,6 @@
 // ─── MACROBAR ────────────────────────────────────────────────────────────────
 
-import { resolveUnarmedAttack } from "../../helpers.js";
+import { attachQuantityListeners, recallDomainCardFromVault, resolveUnarmedAttack } from "../../helpers.js";
 
 export function hideMacrobar() {
   const hotbar = document.getElementById("hotbar");
@@ -268,7 +268,7 @@ export function attachFavoritesListeners(element, actor, { isMinisheet = false }
   _attachDieResourceListeners(element, actor);
   _attachDiceResourceListeners(element, actor);
   _attachRecallListeners(element, actor);
-  _attachQuantityListeners(element, actor);
+  attachQuantityListeners(element);
   _attachQuickAccessListeners(element, actor);
   if (isMinisheet) _attachUseActionListeners(element);
 }
@@ -675,45 +675,8 @@ function _attachRecallListeners(element, actor) {
       const itemUuid = el.closest("[data-item-uuid]")?.dataset.itemUuid;
       if (!itemUuid) return;
       const item = await fromUuid(itemUuid);
-      if (!item) return;
-      const recallCost = item.system.recallCost;
-      const currentStress = actor.system.resources.stress.value;
-      const maxStress = actor.system.resources.stress.max;
-      if (currentStress + recallCost > maxStress) {
-        ui.notifications.warn(game.i18n.localize("DAGGERHEART.UI.Notifications.notEnoughStress"));
-        return;
-      }
-      const loadoutSlot = actor.system.loadoutSlot;
-      if (loadoutSlot.max !== null && loadoutSlot.current >= loadoutSlot.max) {
-        ui.notifications.warn(game.i18n.localize("DAGGERHEART.UI.Notifications.loadoutMaxReached"));
-        return;
-      }
-      await Promise.all([item.update({ "system.inVault": false }), actor.update({ "system.resources.stress.value": currentStress + recallCost })]);
+      await recallDomainCardFromVault(item, event);
     });
-  });
-}
-
-function _attachQuantityListeners(element, actor) {
-  element.querySelectorAll(".quantity-resource").forEach((el) => {
-    el.addEventListener("click", async (event) => {
-      event.preventDefault();
-      const itemUuid = el.dataset.itemUuid;
-      const item = await fromUuid(itemUuid);
-      const amount = event.shiftKey ? 10 : 1;
-      await item.update({ "system.quantity": item.system.quantity + amount });
-    });
-    el.addEventListener(
-      "contextmenu",
-      async (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        const itemUuid = el.dataset.itemUuid;
-        const item = await fromUuid(itemUuid);
-        const amount = event.shiftKey ? 10 : 1;
-        await item.update({ "system.quantity": Math.max(0, item.system.quantity - amount) });
-      },
-      true,
-    );
   });
 }
 

@@ -1,3 +1,7 @@
+/* ====================
+   TEMPLATES
+   ==================== */
+
 export async function preloadHandlebarsTemplates() {
   const templatePaths = [
     // Character templates
@@ -79,7 +83,24 @@ export async function preloadHandlebarsTemplates() {
   return loadTemplates(templatePaths);
 }
 
+/* ====================
+   RESOURCE MANAGEMENT
+   ==================== */
+
+function _getResourceTooltipPosition(target) {
+  const pad = game.tooltip.constructor.TOOLTIP_MARGIN_PX ?? 5;
+  const anchor = target.getBoundingClientRect();
+
+  return {
+    top: `${anchor.bottom + pad}px`,
+    left: `${anchor.left}px`,
+    bottom: "",
+    right: "",
+  };
+}
+
 export async function toggleResourceManagement(event, button, actor) {
+  event.preventDefault();
   event.stopPropagation();
 
   if (document.body.querySelector(".locked-tooltip .resource-management-container")) {
@@ -91,6 +112,8 @@ export async function toggleResourceManagement(event, button, actor) {
     if (CONFIG.DH.RESOURCE.character.base[resource.id]) return acc;
 
     const resourceData = actor.system.resources[resource.id];
+    if (!resourceData) return acc;
+
     acc[resource.id] = {
       id: resource.id,
       label: game.i18n.localize(resource.label),
@@ -103,22 +126,24 @@ export async function toggleResourceManagement(event, button, actor) {
     return acc;
   }, {});
 
-  const html = document.createElement("div");
-  html.innerHTML = await foundry.applications.handlebars.renderTemplate(
+  if (!Object.keys(resources).length) return;
+
+  const htmlContent = await foundry.applications.handlebars.renderTemplate(
     "systems/daggerheart/templates/ui/tooltip/resourceManagement.hbs",
     { resources },
   );
 
   const target = button.closest(".resource-section");
-  const resourceManager = target?.querySelector(".resource-manager");
+  if (!target) return;
 
+  const resourceManager = target.querySelector(".resource-manager");
+  const position = _getResourceTooltipPosition(target);
+
+  game.tooltip.deactivate();
   game.tooltip.dismissLockedTooltips();
-  game.tooltip.activate(target, {
-    html,
-    locked: true,
+
+  const lockedTooltip = game.tooltip.createLockedTooltip(position, htmlContent, {
     cssClass: "bordered-tooltip dh-style",
-    direction: "DOWN",
-    noOffset: true,
   });
 
   resourceManager?.classList.add("inverted");
@@ -127,7 +152,7 @@ export async function toggleResourceManagement(event, button, actor) {
     resourceManager?.classList.remove("inverted");
   });
 
-  for (const element of html.querySelectorAll(".resource-value")) {
+  lockedTooltip.querySelectorAll(".resource-value").forEach((element) => {
     element.addEventListener("click", async (clickEvent) => {
       const pip = clickEvent.target.closest(".resource-value");
       if (!pip) return;
@@ -146,8 +171,222 @@ export async function toggleResourceManagement(event, button, actor) {
         pipEl.querySelector(".empty")?.classList.toggle("hidden", showFull);
       }
     });
+  });
+}
+
+/* ====================
+   ARMOR MANAGEMENT
+   ==================== */
+
+function _armorSourceOrder(origin) {
+  switch (origin?.type) {
+    case "class":
+    case "subclass":
+    case "ancestry":
+    case "community":
+    case "feature":
+    case "domainCard":
+      return 2;
+    case "loot":
+    case "consumable":
+      return 3;
+    case "character":
+      return 4;
+    case "weapon":
+      return 5;
+    case "armor":
+      return 6;
+    default:
+      return 1;
   }
 }
+
+function _getArmorSources(actor) {
+  const rawArmorSources = Array.from(actor.allApplicableEffects()).filter((x) => x.system.armorData);
+  if (actor.system.armor) rawArmorSources.push(actor.system.armor);
+
+  const data = rawArmorSources.map((doc) => {
+    const origin = doc.origin ? foundry.utils.fromUuidSync(doc.origin) : doc;
+    const useParentName = doc.parent && !(doc.parent instanceof Actor) && doc.parent.type !== "armor";
+    const name = doc.origin || !useParentName ? doc.name : doc.parent.name;
+
+    return {
+      origin,
+      name,
+      document: doc,
+      data: doc.system.armor ?? doc.system.armorData,
+      disabled: !!doc.disabled || !!doc.isSuppressed,
+    };
+  });
+
+  return data.sort((a, b) => _armorSourceOrder(a.origin) - _armorSourceOrder(b.origin));
+}
+
+function _getArmorTooltipPosition(target, direction) {
+  const pad = game.tooltip.constructor.TOOLTIP_MARGIN_PX ?? 5;
+  const anchor = target.getBoundingClientRect();
+  const right = `${window.innerWidth - anchor.right}px`;
+
+  if (direction === "UP") {
+    return {
+      top: "",
+      left: "",
+      bottom: `${window.innerHeight - anchor.top + pad}px`,
+      right,
+    };
+  }
+
+  return {
+    top: `${anchor.bottom + pad}px`,
+    left: "",
+    bottom: "",
+    right,
+  };
+}
+
+function _setArmorSlotIcon(icon, filled) {
+  if (filled) {
+    icon.classList.remove("fa-regular", "fa-shield-halved");
+    icon.classList.add("fa-solid", "fa-shield");
+  } else {
+    icon.classList.remove("fa-solid", "fa-shield-halved");
+    icon.classList.add("fa-regular", "fa-shield");
+  }
+}
+
+function _getArmorSourceCurrent(document) {
+  if (document.type === "armor") {
+    return document.system.armor.current;
+  }
+  if (document.system.armorData) {
+    return document.system.armorData.current;
+  }
+  return 0;
+}
+
+async function _syncArmorSlotIcons(container) {
+  if (!container) return;
+
+  const slot = container.querySelector(".armor .slot");
+  if (!slot?.dataset.uuid) return;
+
+  const document = await foundry.utils.fromUuid(slot.dataset.uuid);
+  if (!document) return;
+
+  const current = _getArmorSourceCurrent(document);
+
+  for (const icon of container.querySelectorAll(".armor .slot i")) {
+    const index = Number.parseInt(icon.dataset.index);
+    _setArmorSlotIcon(icon, index < current);
+  }
+}
+
+export async function toggleArmorManagement(event, button, actor) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  if (document.body.querySelector(".locked-tooltip .armor-management-container")) {
+    game.tooltip.dismissLockedTooltips();
+    return;
+  }
+
+  const target = button.closest(".resource-container");
+  if (!target) return;
+
+  const armorSources = _getArmorSources(actor)
+    .filter((s) => !s.disabled)
+    .toReversed()
+    .map(({ name, document, data }) => ({
+      ...data,
+      uuid: document.uuid,
+      name,
+    }));
+
+  if (!armorSources.length) return;
+
+  const isMinisheet = !!target.closest(".minisheet");
+  const direction = isMinisheet ? "UP" : "DOWN";
+  const useResourcePips = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.appearance).useResourcePips;
+  const htmlContent = await foundry.applications.handlebars.renderTemplate(
+    "systems/daggerheart/templates/ui/tooltip/armorManagement.hbs",
+    { sources: armorSources, useResourcePips },
+  );
+
+  const CharacterSheet = CONFIG.Actor.sheetClasses.character["daggerheart.CharacterSheet"]?.cls;
+  const position = _getArmorTooltipPosition(target, direction);
+
+  game.tooltip.deactivate();
+  game.tooltip.dismissLockedTooltips();
+
+  const lockedTooltip = game.tooltip.createLockedTooltip(position, htmlContent, {
+    cssClass: "bordered-tooltip dh-style",
+  });
+
+  for (const slotBar of lockedTooltip.querySelectorAll(".slot-bar.armor")) {
+    await _syncArmorSlotIcons(slotBar);
+  }
+
+  if (CharacterSheet?.armorSourcePipUpdate) {
+    lockedTooltip.querySelectorAll(".armor .slot").forEach((element) => {
+      element.addEventListener("click", async (event) => {
+        await CharacterSheet.armorSourcePipUpdate(event);
+        await _syncArmorSlotIcons(element.closest(".slot-bar"));
+      });
+    });
+  }
+}
+
+/* ====================
+   TOOLTIPS
+   ==================== */
+
+/** Dismiss the active hover tooltip when the pointer leaves tooltip triggers. */
+export function dismissHoverTooltip(event) {
+  const hoveredElement = document.elementFromPoint(event.clientX, event.clientY);
+  const isOverTooltipTrigger = hoveredElement?.closest("[data-tooltip], [data-tooltip-text]");
+  if (!isOverTooltipTrigger && game.tooltip?.active) {
+    game.tooltip.deactivate();
+  }
+}
+
+/* ====================
+   DOMAIN CARDS
+   ==================== */
+
+/**
+ * Recall a domain card from vault, showing the cost dialog with a proper title.
+ * @param {Item} item
+ * @param {Event} event
+ */
+export async function recallDomainCardFromVault(item, event) {
+  const sys = item?.system;
+  if (!sys?.toggleVault) return;
+
+  if (sys.recallCost === 0) {
+    return sys.toggleVault(event, false);
+  }
+
+  const cls = game.system.api.models.actions.actionsTypes.effect;
+  const action = new cls(
+    {
+      ...cls.getSourceConfig(sys),
+      type: "effect",
+      name: "DAGGERHEART.APPLICATIONS.ContextMenu.recall",
+      chatDisplay: false,
+      cost: [{ key: "stress", value: sys.recallCost }],
+    },
+    { parent: sys },
+  );
+
+  const config = await action.use(event);
+  if (config) {
+    await sys.toggleVault(event, false);
+  }
+}
+
+/* ====================
+   BEASTFORM
+   ==================== */
 
 /** @param {Actor} actor */
 export function isBeastformActive(actor) {
@@ -160,6 +399,10 @@ export function getBeastformPortrait(actor) {
   if (!isBeastformActive(actor)) return null;
   return actor.prototypeToken?.ring?.subject?.texture || null;
 }
+
+/* ====================
+   UNARMED ATTACK
+   ==================== */
 
 /** @param {Actor} actor @returns {boolean} */
 export function resolveUsesUnarmed(actor) {
@@ -176,6 +419,10 @@ export function resolveUnarmedAttack(actor) {
   }
   return sys.usedUnarmed ?? null;
 }
+
+/* ====================
+   WEAPON DAMAGE
+   ==================== */
 
 /**
  * Build display HTML for a weapon/unarmed attack damage formula.
@@ -231,6 +478,27 @@ export function formatWeaponDamageDisplay(attack, { rollData = {} } = {}) {
 
   return "";
 }
+
+/* ====================
+   INVENTORY
+   ==================== */
+
+/** Mirror DHBaseActorSheet inventory quantity listeners. */
+export function attachQuantityListeners(root) {
+  root.querySelectorAll(".inventory-item-quantity").forEach((input) => {
+    input.addEventListener("click", (event) => event.stopPropagation());
+    input.addEventListener("change", async (event) => {
+      const target = event.currentTarget.closest("[data-item-uuid]");
+      if (!target) return;
+      const item = await fromUuid(target.dataset.itemUuid);
+      await item?.update({ "system.quantity": event.currentTarget.value });
+    });
+  });
+}
+
+/* ====================
+   HANDLEBARS
+   ==================== */
 
 export function registerHelpers() {
   Handlebars.registerHelper("contains", function (array, value) {

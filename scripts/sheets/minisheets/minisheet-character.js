@@ -16,7 +16,7 @@ import {
 } from "./utils-minisheet.js";
 
 import { applyMinisheetScale } from "../../settings.js";
-import { toggleResourceManagement, formatWeaponDamageDisplay, getBeastformPortrait, resolveUnarmedAttack } from "../../helpers.js";
+import { toggleResourceManagement, toggleArmorManagement, formatWeaponDamageDisplay, getBeastformPortrait, resolveUnarmedAttack } from "../../helpers.js";
 
 export function registerCharacterMiniSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -283,7 +283,16 @@ export function registerCharacterMiniSheet() {
       const isSleekSheet = actor.sheet?.constructor?.name === "SleekCharacterSheet";
 
       if (!isSleekSheet) {
-        weapons = actor.items.filter((i) => i.type === "weapon").map((item) => ({ item, tags: [], hopeCost: 0, usesData: null, enrichedDescription: "" }));
+        weapons = actor.items.filter((i) => i.type === "weapon").map((item) => ({
+          item,
+          tags: [],
+          hopeCost: 0,
+          usesData: null,
+          enrichedDescription: "",
+          damage: formatWeaponDamageDisplay(item.system.attack, {
+            rollData: item.getRollData?.() ?? actor.getRollData(),
+          }),
+        }));
 
         armors = actor.items
           .filter((i) => i.type === "armor")
@@ -333,7 +342,7 @@ export function registerCharacterMiniSheet() {
         actor,
         hasExtraResources: systemContext.hasExtraResources,
         ownershipLevel: game.user.isGM ? CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER : actor.getUserLevel(game.user),
-        showTooltip: true,
+        showTooltip: game.settings.get("daggerheart-sleek-ui", "showTooltip"),
         isMinisheet: true,
         isCharacterSheet: true,
         attributes: systemContext.attributes,
@@ -361,6 +370,10 @@ export function registerCharacterMiniSheet() {
 
       this.element.querySelector(".resource-manager")?.addEventListener("click", (event) => {
         toggleResourceManagement(event, event.currentTarget, actor);
+      });
+
+      this.element.querySelector(".armor-details-btn")?.addEventListener("click", (event) => {
+        toggleArmorManagement(event, event.currentTarget, actor);
       });
 
       this.element.querySelectorAll("[data-action='openSheet']").forEach((el) => {

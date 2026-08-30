@@ -5,12 +5,15 @@
   <div class="category-header" data-action="toggleCategory">
     <h2>{{localize "DAGGERHEART.GENERAL.Tabs.loadout"}}</h2>
     <span class="loadout-number">({{document.system.loadoutSlot.current}}/{{loadoutMax}})</span>
+    
+    <span class="line"></span>
+
     <span class="create-btn">
       <a data-action="addNewItem" data-document-class="Item" data-type="domainCard" data-tooltip="Create">
         <i class="fa-solid fa-plus icon-button" style=""></i>
       </a>
     </span>
-    <span class="line"></span>
+    
     <i class="fa-solid fa-chevron-down"></i>
   </div>
 
@@ -32,13 +35,15 @@
 
   <div class="category-header" data-action="toggleCategory">
     <h2>{{localize "DAGGERHEART.GENERAL.Tabs.vault"}}</h2>
+    
+    <span class="line"></span>
+    
     <span class="create-btn">
       <a data-action="addNewItem" data-document-class="Item" data-type="domainCard" data-in-vault="true" data-tooltip="Create">
         <i class="fa-solid fa-plus icon-button" style=""></i>
       </a>
     </span>
       
-    <span class="line"></span>
     <i class="fa-solid fa-chevron-down"></i>
   </div>
 

@@ -1,4 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
+import { dismissHoverTooltip } from "../helpers.js";
 
 export function registerCompanionSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -162,16 +163,7 @@ export function registerCompanionSheet() {
       this.element.id = "sleek-ui-sheet";
       this._element = this.element;
 
-      // Only remove tooltips when hovering nothing
-      this.element.addEventListener("mousemove", (e) => {
-        const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
-        const isOverTooltipTrigger = hoveredElement?.closest("[data-tooltip], [data-tooltip-text]");
-
-        if (!isOverTooltipTrigger) {
-          const tooltip = document.querySelector(".tooltip.active");
-          if (tooltip) tooltip.remove();
-        }
-      });
+      this.element.addEventListener("mousemove", dismissHoverTooltip);
 
       const tabsPosition = game.settings.get("daggerheart-sleek-ui", "tabsPosition");
 

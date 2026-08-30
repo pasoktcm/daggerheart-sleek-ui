@@ -253,7 +253,7 @@ export function registerCompanionMiniSheet() {
         document: actor,
         source: actor,
         actor,
-        showTooltip: true,
+        showTooltip: game.settings.get("daggerheart-sleek-ui", "showTooltip"),
         partner,
         attack: actor.system.attack,
         attackDamage,

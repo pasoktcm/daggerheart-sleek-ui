@@ -1,4 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
+import { dismissHoverTooltip } from "../helpers.js";
 
 export function registerAdversarySheet() {
   if (game.system.id !== "daggerheart") return;
@@ -107,10 +108,14 @@ export function registerAdversarySheet() {
     }
 
     async _prepareFeaturesData(context) {
-      const currentFear = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Resources.Fear);
+      if (typeof this._prepareFeaturesContext === "function") {
+        await this._prepareFeaturesContext(context, {});
+      }
+
+      const featureItems = [...(context.features ?? []), ...(context.evolutionFeatures ?? [])];
 
       context.adversaryFeatures = await Promise.all(
-        (context.features || []).map(async (item) => {
+        featureItems.map(async (item) => {
           let fearCost = 0;
           let usesData = null;
 
@@ -239,16 +244,7 @@ export function registerAdversarySheet() {
       this.element.id = "sleek-ui-sheet";
       this._element = this.element;
 
-      // Only remove tooltips when hovering nothing
-      this.element.addEventListener("mousemove", (e) => {
-        const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
-        const isOverTooltipTrigger = hoveredElement?.closest("[data-tooltip], [data-tooltip-text]");
-
-        if (!isOverTooltipTrigger) {
-          const tooltip = document.querySelector(".tooltip.active");
-          if (tooltip) tooltip.remove();
-        }
-      });
+      this.element.addEventListener("mousemove", dismissHoverTooltip);
 
       const tabsPosition = game.settings.get("daggerheart-sleek-ui", "tabsPosition");
 

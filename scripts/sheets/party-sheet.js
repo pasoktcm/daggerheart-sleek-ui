@@ -1,5 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
-import { formatWeaponDamageDisplay, resolveUnarmedAttack, resolveUsesUnarmed } from "../helpers.js";
+import { attachQuantityListeners, dismissHoverTooltip, formatWeaponDamageDisplay, resolveUnarmedAttack, resolveUsesUnarmed } from "../helpers.js";
 
 export function registerPartySheet() {
   if (game.system.id !== "daggerheart") return;
@@ -327,14 +327,7 @@ export function registerPartySheet() {
       // Set after super so drag-drop binding (which may touch the element) runs first.
       this.element.id = "sleek-ui-sheet";
 
-      this.element.addEventListener("mousemove", (e) => {
-        const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
-        const isOverTooltipTrigger = hoveredElement?.closest("[data-tooltip], [data-tooltip-text]");
-        if (!isOverTooltipTrigger) {
-          const tooltip = document.querySelector(".tooltip.active");
-          if (tooltip) tooltip.remove();
-        }
-      });
+      this.element.addEventListener("mousemove", dismissHoverTooltip);
 
       const tabsPosition = game.settings.get("daggerheart-sleek-ui", "tabsPosition");
 
@@ -638,28 +631,7 @@ export function registerPartySheet() {
     }
 
     _attachQuantityListeners(htmlElement) {
-      htmlElement.querySelectorAll(".quantity-resource").forEach((element) => {
-        element.addEventListener("click", async (event) => {
-          event.preventDefault();
-          const itemUuid = element.dataset.itemUuid;
-          const item = await fromUuid(itemUuid);
-          const amount = event.shiftKey ? 10 : 1;
-          await item.update({ "system.quantity": item.system.quantity + amount });
-        });
-
-        element.addEventListener(
-          "contextmenu",
-          async (event) => {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            const itemUuid = element.dataset.itemUuid;
-            const item = await fromUuid(itemUuid);
-            const amount = event.shiftKey ? 10 : 1;
-            await item.update({ "system.quantity": Math.max(0, item.system.quantity - amount) });
-          },
-          true,
-        );
-      });
+      attachQuantityListeners(htmlElement);
     }
 
     // ─── Actions ──────────────────────────────────────────────────────────────

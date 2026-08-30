@@ -347,7 +347,7 @@ aside[role="tooltip"]:has(div.daggerheart.dh-style.tooltip.card-style) {
 /* DEATH MOVE */
 
 #tooltip .daggerheart.dh-style.tooltip .tooltip-title-container {
-  height: 44px;
+  height: 40px;
   margin-bottom: var(--sleekUI-spacing-lg);
 }
 
@@ -356,6 +356,7 @@ aside[role="tooltip"]:has(div.daggerheart.dh-style.tooltip.card-style) {
   font-size: var(--sleekUI-font-size-xl);
   font-weight: 600;
   text-transform: uppercase;
+  text-align: start;
   color: var(--sleekUI-color-primary);
   z-index: 5;
 }
@@ -386,7 +387,34 @@ aside[role="tooltip"]:has(div.daggerheart.dh-style.tooltip.card-style) {
   line-height: 18px;
   font-style: normal;
   color: var(--sleekUI-color-secondary);
+  text-align: start;
 }
+
+/* TAGS */
+
+#tooltip .daggerheart.dh-style.tooltip .tags {
+  margin-bottom: var(--sleekUI-spacing-xs);
+}
+
+#tooltip .daggerheart.dh-style.tooltip .tags .tag {
+  border-radius: var(--sleekUI-border-radius);
+  font-size: var(--sleekUI-font-size-xs);
+  color: var(--sleekUI-color-tag-text);
+  border: 1px solid var(--sleekUI-color-tag-border);
+  background: var(--sleekUI-color-tag-background);
+  height: 20px;
+  line-height: initial;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* DH CARD */
+.dh-card > article > section.description {
+  padding: 0 calc(16px * var(--scale));
+}
+
 
 /* ==================== 
 WINDOW TAB NAV

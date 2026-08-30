@@ -289,7 +289,7 @@ export function registerEnvironmentMiniSheet() {
         source: actor,
         actor,
         isNPC: true,
-        showTooltip: true,
+        showTooltip: game.settings.get("daggerheart-sleek-ui", "showTooltip"),
         currentFear: game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Resources.Fear),
         environmentFeatures: systemContext.environmentFeatures ?? [],
       };

@@ -395,6 +395,62 @@ HOMEBREW RESOURCE
   box-shadow: inset 0px 0.5px 0.5px 0.5px #ffffff;
 }
 
+#sleek-ui-sheet .armor-details-btn {
+  font-size: 10px;
+  color: var(--sleekUI-color-border);
+}
+
+#sleek-ui-sheet .armor-details-btn:hover {
+  color: var(--sleekUI-color-primary);
+}
+
+/* ARMOR DETAILS */
+
+#tooltip.bordered-tooltip, .locked-tooltip.bordered-tooltip,
+.bordered-tooltip.locked-tooltip .daggerheart.armor-management-container .slot-bar {
+  border: 1px solid var(--sleekUI-color-border);
+}
+
+.bordered-tooltip.locked-tooltip .daggerheart.armor-management-container .slot-bar {
+  background: var(--sleekUI-color-background-resourceHover);
+}
+
+.locked-tooltip.bordered-tooltip:has(.daggerheart.armor-management-container) {
+  padding: var(--sleekUI-spacing-md);
+  padding-bottom: var(--sleekUI-spacing-tiny);
+  background: var(--sleekUI-color-background-dark);
+}
+
+.bordered-tooltip.locked-tooltip .daggerheart.armor-management-container h3 {
+  color: var(--sleekUI-color-secondary) !important;
+  font-family: var(--sleekUI-font-primary) !important;
+  font-size: var(--sleekUI-font-size-md);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  text-align: center;
+  margin-bottom: var(--sleekUI-spacing-tiny);
+}
+
+.bordered-tooltip.locked-tooltip .daggerheart.armor-management-container .armor-source-container .armor-source-label {
+  color: var(--sleekUI-color-primary);
+  font-family: var(--sleekUI-font-primary);
+}
+
+.slot-bar.armor .slot {
+  font-size: var(--sleekUI-font-size-lg);
+  color: var(--sleekUI-color-primary);
+  transition: none;
+}
+
+.slot-bar.armor .slot:hover .fa-regular.fa-shield {
+  color: var(--sleekUI-color-secondary);
+  text-shadow: none;
+}
+
+.slot-bar.armor .slot .fa-regular.fa-shield {
+  color: var(--sleekUI-color-border);
+}
+
 /* ==================== 
    TRAITS
    ==================== */

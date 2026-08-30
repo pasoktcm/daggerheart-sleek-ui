@@ -1,9 +1,9 @@
 <div class="resource quantity-resource" data-item-uuid="{{item.uuid}}">
-
-  <div class="resource-counter">
-    <span>
-      {{item.system.quantity}}
-    </span>
-  </div>
-
+  <input
+    type="number"
+    class="inventory-item-quantity"
+    value="{{item.system.quantity}}"
+    min="0"
+    step="1"
+  />
 </div>

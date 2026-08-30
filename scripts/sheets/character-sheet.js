@@ -1,5 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
-import { formatWeaponDamageDisplay, getBeastformPortrait, resolveUnarmedAttack } from "../helpers.js";
+import { attachQuantityListeners, dismissHoverTooltip, formatWeaponDamageDisplay, getBeastformPortrait, recallDomainCardFromVault, resolveUnarmedAttack, toggleArmorManagement, toggleResourceManagement } from "../helpers.js";
 
 export function registerCharacterSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -37,6 +37,8 @@ export function registerCharacterSheet() {
           addQuickAccessDivider: this._onAddQuickAccessDivider,
           cancelBeastform: SleekCharacterSheet._onCancelBeastform,
           useUnarmedAttack: SleekCharacterSheet._onUseUnarmedAttack,
+          toggleResourceManagement: SleekCharacterSheet._onToggleResourceManagement,
+          toggleArmorMangement: SleekCharacterSheet._onToggleArmorManagement,
         },
         dragDrop: [
           {
@@ -218,16 +220,27 @@ export function registerCharacterSheet() {
 
       context.extraFeatures = await Promise.all(extraFeatures.map((feature) => createFeatureData(feature)));
 
-      const transformationPromises = [];
+      const transformationCategories = [];
       for (const [key, list] of Object.entries(sheetLists ?? {})) {
-        if (!key.startsWith("transformation-") || !list?.values?.length) continue;
-        for (const feature of list.values) {
-          transformationPromises.push(
+        if (!key.startsWith("transformation-")) continue;
+        if (!list?.values?.length && !list?.deleteUuid) continue;
+
+        const features = await Promise.all(
+          (list.values ?? []).map((feature) =>
             createFeatureData(feature, [createTag(list.title, list.deleteUuid ?? "", "tag-purple")]),
-          );
-        }
+          ),
+        );
+
+        const transformationItem = this.actor.items.get(key.slice("transformation-".length));
+
+        transformationCategories.push({
+          id: key,
+          title: transformationItem?.name ?? list.title,
+          deleteUuid: list.deleteUuid,
+          features,
+        });
       }
-      context.transformationFeatures = await Promise.all(transformationPromises);
+      context.transformationCategories = transformationCategories;
     }
 
     async _prepareLoadoutData(context) {
@@ -289,7 +302,8 @@ export function registerCharacterSheet() {
 
       context.loadoutCards = await Promise.all(sortedLoadout.map((item) => createDomainData(item)));
       context.vaultCards = await Promise.all(sortedVault.map((item) => createDomainData(item)));
-      context.loadoutMax = game.settings.get("daggerheart", "Homebrew").maxLoadout;
+      const homebrew = game.settings.get(CONFIG.DH.id, CONFIG.DH.SETTINGS.gameSettings.Homebrew);
+      context.loadoutMax = homebrew.maxLoadout + (this.actor.system.bonuses?.maxLoadout ?? 0);
     }
 
     async _prepareInventoryData(context) {
@@ -598,16 +612,7 @@ export function registerCharacterSheet() {
       this.element.id = "sleek-ui-sheet";
       this._element = this.element;
 
-      // Only remove tooltips when hovering nothing
-      this.element.addEventListener("mousemove", (e) => {
-        const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
-        const isOverTooltipTrigger = hoveredElement?.closest("[data-tooltip], [data-tooltip-text]");
-
-        if (!isOverTooltipTrigger) {
-          const tooltip = document.querySelector(".tooltip.active");
-          if (tooltip) tooltip.remove();
-        }
-      });
+      this.element.addEventListener("mousemove", dismissHoverTooltip);
 
       const tabsPosition = game.settings.get("daggerheart-sleek-ui", "tabsPosition");
 
@@ -950,27 +955,7 @@ export function registerCharacterSheet() {
           const item = await fromUuid(itemUuid);
           if (!item) return;
 
-          const recallCost = item.system.recallCost;
-          const currentStress = this.actor.system.resources.stress.value;
-          const maxStress = this.actor.system.resources.stress.max;
-
-          if (currentStress + recallCost > maxStress) {
-            ui.notifications.warn(`${game.i18n.localize("DAGGERHEART.UI.Notifications.notEnoughStress")}`);
-            return;
-          }
-
-          const { available } = this.actor.system.loadoutSlot;
-          if (!available && !item.system.loadoutIgnore) {
-            ui.notifications.warn(`${game.i18n.localize("DAGGERHEART.UI.Notifications.loadoutMaxReached")}`);
-            return;
-          }
-
-          await Promise.all([
-            item.update({ "system.inVault": false }),
-            this.actor.update({
-              "system.resources.stress.value": currentStress + recallCost,
-            }),
-          ]);
+          await recallDomainCardFromVault(item, event);
         });
       });
     }
@@ -1007,32 +992,7 @@ export function registerCharacterSheet() {
     }
 
     _attachQuantityListeners(htmlElement) {
-      htmlElement.querySelectorAll(".quantity-resource").forEach((element) => {
-        element.addEventListener("click", async (event) => {
-          event.preventDefault();
-          const itemUuid = element.dataset.itemUuid;
-          const item = await fromUuid(itemUuid);
-          const amount = event.shiftKey ? 10 : 1;
-          await item.update({
-            "system.quantity": item.system.quantity + amount,
-          });
-        });
-
-        element.addEventListener(
-          "contextmenu",
-          async (event) => {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            const itemUuid = element.dataset.itemUuid;
-            const item = await fromUuid(itemUuid);
-            const current = item.system.quantity;
-            const amount = event.shiftKey ? 10 : 1;
-            const newValue = Math.max(0, current - amount);
-            await item.update({ "system.quantity": newValue });
-          },
-          true,
-        );
-      });
+      attachQuantityListeners(htmlElement);
     }
 
     _attachBasicTabListeners(htmlElement) {
@@ -1456,6 +1416,14 @@ export function registerCharacterSheet() {
       if (!item) return;
 
       game.system.api.fields.ActionFields.BeastformField.handleActiveTransformations.call(item);
+    }
+
+    static async _onToggleResourceManagement(event, target) {
+      await toggleResourceManagement(event, target, this.actor);
+    }
+
+    static async _onToggleArmorManagement(event, target) {
+      await toggleArmorManagement(event, target, this.actor);
     }
 
     static async _onUseUnarmedAttack(event, target) {
