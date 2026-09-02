@@ -108,14 +108,12 @@ export async function toggleResourceManagement(event, button, actor) {
     return;
   }
 
-  const resources = Object.values(CONFIG.DH.RESOURCE.character.all).reduce((acc, resource) => {
-    if (CONFIG.DH.RESOURCE.character.base[resource.id]) return acc;
-
-    const resourceData = actor.system.resources[resource.id];
+  const resources = Object.entries(actor.system.availableExtraResources).reduce((acc, [key, resource]) => {
+    const resourceData = actor.system.resources[key];
     if (!resourceData) return acc;
 
-    acc[resource.id] = {
-      id: resource.id,
+    acc[key] = {
+      id: key,
       label: game.i18n.localize(resource.label),
       value: resourceData.value,
       max: resourceData.max,

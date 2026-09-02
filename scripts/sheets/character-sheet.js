@@ -141,6 +141,8 @@ export function registerCharacterSheet() {
     }
 
     async _prepareFeaturesData(context) {
+      await super._prepareFeaturesContext(context, {});
+
       const ancestry = this.actor.items.find((i) => i.type === "ancestry");
       const community = this.actor.items.find((i) => i.type === "community");
       const classItem = this.actor.items.find((i) => i.type === "class" && !i.system.isMulticlass);
@@ -148,17 +150,7 @@ export function registerCharacterSheet() {
       const multiclassItem = this.actor.items.find((i) => i.type === "class" && i.system.isMulticlass);
       const multiclassSubclass = this.actor.items.find((i) => i.type === "subclass" && i.system.isMulticlass);
 
-      const sheetLists = this.actor.system.sheetLists;
-      const ancestryFeatures = sheetLists?.ancestryFeatures?.values || [];
-      const communityFeatures = sheetLists?.communityFeatures?.values || [];
-      const extraFeatures = sheetLists?.features?.values || [];
-
-      const classFeatures = sheetLists?.classFeatures?.values || [];
-      const subclassFeatures = sheetLists?.subclassFeatures?.values || [];
-      const multiclassClassFeatures = sheetLists?.multiclassFeatures?.values || [];
-      const multiclassSubclassFeatures = sheetLists?.multiclassSubclassFeatures?.values || [];
-
-      const createFeatureData = async (item, tags) => {
+      const createFeatureData = async (item, tags = []) => {
         let hopeCost = 0;
         let usesData = null;
 
@@ -193,53 +185,85 @@ export function registerCharacterSheet() {
       const createTag = (label, uuid, tagClass) => ({ label, uuid, tagClass });
 
       const heritagePromises = [];
+      const classPromises = [];
+      const multiclassPromises = [];
+      const extraPromises = [];
+      const transformationCategories = [];
 
-      if (ancestryFeatures[0]) {
-        heritagePromises.push(createFeatureData(ancestryFeatures[0], [createTag(`Ancestry — ${ancestry?.name || "Unknown"}`, ancestry?.uuid || "", "tag-purple")]));
-      }
-
-      if (ancestryFeatures[1]) {
-        heritagePromises.push(createFeatureData(ancestryFeatures[1], [createTag(`Ancestry — ${ancestry?.name || "Unknown"}`, ancestry?.uuid || "", "tag-purple")]));
-      }
-
-      if (communityFeatures[0]) {
-        heritagePromises.push(createFeatureData(communityFeatures[0], [createTag(`Community — ${community?.name || "Unknown"}`, community?.uuid || "", "tag-orange")]));
+      for (const group of context.featureGroups ?? []) {
+        switch (group.type) {
+          case "ancestry":
+            for (const feature of group.values) {
+              heritagePromises.push(
+                createFeatureData(feature, [createTag(`Ancestry — ${ancestry?.name || "Unknown"}`, ancestry?.uuid || "", "tag-purple")]),
+              );
+            }
+            break;
+          case "community":
+            for (const feature of group.values) {
+              heritagePromises.push(
+                createFeatureData(feature, [createTag(`Community — ${community?.name || "Unknown"}`, community?.uuid || "", "tag-orange")]),
+              );
+            }
+            break;
+          case "class":
+            for (const feature of group.values) {
+              classPromises.push(
+                createFeatureData(feature, [createTag(`Class — ${classItem?.name || "Unknown"}`, classItem?.uuid || "", "tag-green")]),
+              );
+            }
+            break;
+          case "subclass":
+            for (const feature of group.values) {
+              classPromises.push(
+                createFeatureData(feature, [createTag(`Subclass — ${subclass?.name || "Unknown"}`, subclass?.uuid || "", "tag-green")]),
+              );
+            }
+            break;
+          case "multiclass":
+            for (const feature of group.values) {
+              multiclassPromises.push(
+                createFeatureData(feature, [createTag(`Multiclass — ${multiclassItem?.name || "Unknown"}`, multiclassItem?.uuid || "", "tag-blue")]),
+              );
+            }
+            break;
+          case "multiclassSubclass":
+            for (const feature of group.values) {
+              multiclassPromises.push(
+                createFeatureData(feature, [
+                  createTag(`Multiclass Subclass — ${multiclassSubclass?.name || "Unknown"}`, multiclassSubclass?.uuid || "", "tag-blue"),
+                ]),
+              );
+            }
+            break;
+          case "transformation": {
+            const anchor = group.anchorItem;
+            const features = await Promise.all(
+              group.values.map((feature) =>
+                createFeatureData(feature, [createTag(anchor?.name ?? group.title, group.deleteUuid ?? "", "tag-purple")]),
+              ),
+            );
+            transformationCategories.push({
+              id: anchor?.id ? `transformation-${anchor.id}` : group.deleteUuid,
+              title: anchor?.name ?? group.title,
+              deleteUuid: group.deleteUuid,
+              features,
+            });
+            break;
+          }
+          case "feature":
+          case "companion":
+            for (const feature of group.values) {
+              extraPromises.push(createFeatureData(feature));
+            }
+            break;
+        }
       }
 
       context.heritageFeatures = await Promise.all(heritagePromises);
-
-      context.classFeatures = await Promise.all([
-        ...classFeatures.map((feature) => createFeatureData(feature, [createTag(`Class — ${classItem?.name || "Unknown"}`, classItem?.uuid || "", "tag-green")])),
-        ...subclassFeatures.map((feature) => createFeatureData(feature, [createTag(`Subclass — ${subclass?.name || "Unknown"}`, subclass?.uuid || "", "tag-green")])),
-      ]);
-
-      context.multiclassFeatures = await Promise.all([
-        ...multiclassClassFeatures.map((feature) => createFeatureData(feature, [createTag(`Multiclass — ${multiclassItem?.name || "Unknown"}`, multiclassItem?.uuid || "", "tag-blue")])),
-        ...multiclassSubclassFeatures.map((feature) => createFeatureData(feature, [createTag(`Multiclass Subclass — ${multiclassSubclass?.name || "Unknown"}`, multiclassSubclass?.uuid || "", "tag-blue")])),
-      ]);
-
-      context.extraFeatures = await Promise.all(extraFeatures.map((feature) => createFeatureData(feature)));
-
-      const transformationCategories = [];
-      for (const [key, list] of Object.entries(sheetLists ?? {})) {
-        if (!key.startsWith("transformation-")) continue;
-        if (!list?.values?.length && !list?.deleteUuid) continue;
-
-        const features = await Promise.all(
-          (list.values ?? []).map((feature) =>
-            createFeatureData(feature, [createTag(list.title, list.deleteUuid ?? "", "tag-purple")]),
-          ),
-        );
-
-        const transformationItem = this.actor.items.get(key.slice("transformation-".length));
-
-        transformationCategories.push({
-          id: key,
-          title: transformationItem?.name ?? list.title,
-          deleteUuid: list.deleteUuid,
-          features,
-        });
-      }
+      context.classFeatures = await Promise.all(classPromises);
+      context.multiclassFeatures = await Promise.all(multiclassPromises);
+      context.extraFeatures = await Promise.all(extraPromises);
       context.transformationCategories = transformationCategories;
     }
 
