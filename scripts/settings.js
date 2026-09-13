@@ -1,9 +1,11 @@
+const MODULE = "daggerheart-sleek-ui";
+
 export function registerSettings() {
 
   // Theme Foundryborne
-  game.settings.register("daggerheart-sleek-ui", "theme", {
-    name: "Theme Foundryborne",
-    hint: "Enables the styling of Foundryborne's application windows to match Sleek UI's styling",
+  game.settings.register(MODULE, "theme", {
+    name: `${MODULE}.settings.theme.name`,
+    hint: `${MODULE}.settings.theme.hint`,
     requiresReload: true,
     scope: "world",
     config: true,
@@ -12,9 +14,9 @@ export function registerSettings() {
   });
 
   // Theme Chat Cards
-  game.settings.register("daggerheart-sleek-ui", "themeChat", {
-    name: "Theme Chat Cards",
-    hint: "Enables the styling of chat cards to match Sleek UI's styling",
+  game.settings.register(MODULE, "themeChat", {
+    name: `${MODULE}.settings.themeChat.name`,
+    hint: `${MODULE}.settings.themeChat.hint`,
     requiresReload: true,
     scope: "world",
     config: true,
@@ -23,9 +25,9 @@ export function registerSettings() {
   });
 
   // Minisheets
-  game.settings.register("daggerheart-sleek-ui", "enableMinisheet", {
-    name: "Enable Mini Sheets",
-    hint: "Enables the mini sheet displayed at the bottom of the screen while a token is selected",
+  game.settings.register(MODULE, "enableMinisheet", {
+    name: `${MODULE}.settings.enableMinisheet.name`,
+    hint: `${MODULE}.settings.enableMinisheet.hint`,
     requiresReload: true,
     scope: "client",
     config: true,
@@ -36,9 +38,9 @@ export function registerSettings() {
   // Minisheet Style
 
   //Minisheet Transform
-  game.settings.register("daggerheart-sleek-ui", "minisheetScale", {
-    name: "Minisheet Scale",
-    hint: "Adjusts the scale of the mini sheets to better accomodate smaller or larger screens (default: 1)",
+  game.settings.register(MODULE, "minisheetScale", {
+    name: `${MODULE}.settings.minisheetScale.name`,
+    hint: `${MODULE}.settings.minisheetScale.hint`,
     scope: "client",
     config: true,
     type: Number,
@@ -51,9 +53,9 @@ export function registerSettings() {
     onChange: (value) => applyMinisheetScale(value),
   });
 
-  game.settings.register("daggerheart-sleek-ui", "minisheetOffset", {
-    name: "Minisheet Horizontal Offset",
-    hint: "Adjusts the horizontal position of the mini sheets, nudging it from the center by the value in pixels (default: 0)",
+  game.settings.register(MODULE, "minisheetOffset", {
+    name: `${MODULE}.settings.minisheetOffset.name`,
+    hint: `${MODULE}.settings.minisheetOffset.hint`,
     scope: "client",
     config: true,
     type: Number,
@@ -63,14 +65,14 @@ export function registerSettings() {
   });
 
   // Tabs Position
-  game.settings.register("daggerheart-sleek-ui", "tabsPosition", {
-    name: "Tabs Position",
+  game.settings.register(MODULE, "tabsPosition", {
+    name: `${MODULE}.settings.tabsPosition.name`,
     scope: "client",
     config: true,
     type: String,
     choices: {
-      floating: "Floating",
-      basic: "Basic",
+      floating: `${MODULE}.settings.tabsPosition.choices.floating`,
+      basic: `${MODULE}.settings.tabsPosition.choices.basic`,
     },
     default: "floating",
     onChange: () => {
@@ -81,9 +83,9 @@ export function registerSettings() {
   });
 
   // Quick Access
-  game.settings.register("daggerheart-sleek-ui", "quickAccess", {
-    name: "Enable Quick Access",
-    hint: "Switch the default equipment and loadout sidebar sections with a universal Quick Access section",
+  game.settings.register(MODULE, "quickAccess", {
+    name: `${MODULE}.settings.quickAccess.name`,
+    hint: `${MODULE}.settings.quickAccess.hint`,
     scope: "client",
     config: true,
     type: Boolean,
@@ -91,9 +93,9 @@ export function registerSettings() {
   });
 
   // Tooltips
-  game.settings.register("daggerheart-sleek-ui", "showTooltip", {
-    name: "Show Card Tooltips",
-    hint: "Shows tooltips for cards when hovering the icon",
+  game.settings.register(MODULE, "showTooltip", {
+    name: `${MODULE}.settings.showTooltip.name`,
+    hint: `${MODULE}.settings.showTooltip.hint`,
     scope: "client",
     config: true,
     type: Boolean,
@@ -101,9 +103,9 @@ export function registerSettings() {
   });
 
   // Currency Labels
-  game.settings.register("daggerheart-sleek-ui", "currencyLabel", {
-    name: "Show Currency Labels",
-    hint: "Shows the labels for each currency on top of their values",
+  game.settings.register(MODULE, "currencyLabel", {
+    name: `${MODULE}.settings.currencyLabel.name`,
+    hint: `${MODULE}.settings.currencyLabel.hint`,
     scope: "world",
     config: true,
     type: Boolean,
@@ -111,9 +113,9 @@ export function registerSettings() {
   });
 
   // Beastform Portrait
-  game.settings.register("daggerheart-sleek-ui", "beastformPortrait", {
-    name: "Use Beastform Portrait",
-    hint: "When in beastform, change the character's portrait to the form's Subject Texture",
+  game.settings.register(MODULE, "beastformPortrait", {
+    name: `${MODULE}.settings.beastformPortrait.name`,
+    hint: `${MODULE}.settings.beastformPortrait.hint`,
     scope: "world",
     config: true,
     type: Boolean,

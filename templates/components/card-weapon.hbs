@@ -16,7 +16,7 @@
 
       {{#unless (eq item.uuid 'unarmed-attack')}}data-item-uuid="{{item.uuid}}"{{/unless}}
 
-      {{#if @root.showTooltip}}data-tooltip="{{#if (eq item.uuid 'unarmed-attack')}}Use Unarmed Attack{{else}}#item#{{item.uuid}}{{/if}}"{{/if}}>
+      {{#if @root.showTooltip}}data-tooltip="{{#if (eq item.uuid 'unarmed-attack')}}{{localize 'DAGGERHEART.GENERAL.unarmedAttack'}}{{else}}#item#{{item.uuid}}{{/if}}"{{/if}}>
 
       <img class="icon" src="{{item.img}}" alt="{{item.name}}" />
 

@@ -54,6 +54,10 @@ PARTY MEMBERS
   overflow: visible;
 }
 
+#sleek-ui-sheet .party-character h1 {
+  flex: 1;
+}
+
 #sleek-ui-sheet .party-character .character-information {
   flex-direction: column;
   margin: var(--sleekUI-spacing-xs);
@@ -63,29 +67,22 @@ PARTY MEMBERS
 
 /* REMOVE */
 #sleek-ui-sheet .party-character .party-character-remove {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: var(--sleekUI-spacing-md);
-  height: var(--sleekUI-spacing-md);
+  display: flex;
+  width: var(--sleekUI-spacing-xm);
+  height: var(--sleekUI-spacing-xm);
   cursor: pointer;
-  
 }
 
 #sleek-ui-sheet .party-character .party-character-remove .party-character-remove-icon {
-  display: none;
-  width: 100%;
-  height: 100%;
-  background: #E84747;
-  color: #fff;
-  font-size: var(--sleekUI-font-size-tiny);
-  border-radius: 50%;
-}
-
-#sleek-ui-sheet .party-character .party-character-remove:hover .party-character-remove-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--sleekUI-color-background-resourceHover);
+  font-size: var(--sleekUI-font-size-sm);
+}
+
+#sleek-ui-sheet .party-character .party-character-remove:hover .party-character-remove-icon {
+  color: #b83636;
 }
 
 /* PORTRAIT */
@@ -210,7 +207,7 @@ PARTY MEMBERS
   gap: var(--sleekUI-spacing-tiny);
 }
 
-#sleek-ui-sheet .party-character .resources-traits-row .resources-row .resource-container {  
+#sleek-ui-sheet .party-character .resources-traits-row .resources-row .resource-container {
   display: grid;
   grid-template-columns: auto 1fr 52px;
   align-items: center;
@@ -245,7 +242,7 @@ PARTY MEMBERS
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   max-width: 178px;
-    min-width: 178px;
+  min-width: 178px;
   gap: var(--sleekUI-spacing-tiny);
   grid-auto-flow: column;
 }

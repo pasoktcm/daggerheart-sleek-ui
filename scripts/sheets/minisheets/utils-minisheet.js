@@ -98,8 +98,8 @@ export function attachReactionRollListeners(element, actor) {
       event.stopPropagation();
       const config = {
         event,
-        title: `Reaction Roll: ${actor.name}`,
-        headerTitle: "Adversary Reaction Roll",
+        title: game.i18n.localize("DAGGERHEART.GENERAL.reactionRoll"),
+        headerTitle: game.i18n.localize("DAGGERHEART.ACTORS.Adversary.adversaryReactionRoll.headerTitle"),
         roll: { type: "trait" },
         actionType: "reaction",
         hasRoll: true,
@@ -131,7 +131,7 @@ export function triggerMinisheetToggle() {
 
 export function registerMinisheetKeybinding() {
   game.keybindings.register("daggerheart-sleek-ui", "toggleMinisheet", {
-    name: "Toggle minisheet open/closed",
+    name: "daggerheart-sleek-ui.keybindings.toggleMinisheet",
     editable: [{ key: "KeyC", modifiers: ["Alt"] }],
     onDown: () => triggerMinisheetToggle(),
   });
@@ -159,7 +159,7 @@ export function injectReopenButton(onReopen) {
   const btn = document.createElement("button");
   btn.id = "minisheet-reopen-btn";
   btn.classList.add("toggle-minisheet");
-  btn.dataset.tooltip = "Open Mini Sheet";
+  btn.dataset.tooltip = game.i18n.localize("daggerheart-sleek-ui.minisheet.open");
   btn.innerHTML = `<i class="fa-solid fa-chevron-up"></i>`;
   hotbar.appendChild(btn); // inside #hotbar
 
@@ -347,13 +347,13 @@ function _attachUseActionListeners(element) {
 
       const item = await fromUuid(itemUuid);
       if (!item) {
-        ui.notifications.warn("Item not found");
+        ui.notifications.warn(game.i18n.localize("daggerheart-sleek-ui.notifications.itemNotFound"));
         return;
       }
 
       const action = item.system.actions?.get(actionId);
       if (!action) {
-        ui.notifications.warn("Action not found");
+        ui.notifications.warn(game.i18n.localize("daggerheart-sleek-ui.notifications.actionNotFound"));
         return;
       }
 

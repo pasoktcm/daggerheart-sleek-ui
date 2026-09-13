@@ -64,6 +64,16 @@
       {{!-- NAME --}}
       <h1 class="small">{{actor.name}}</h1>
 
+      {{!-- REMOVE FROM PARTY --}}
+      {{#if @root.editable}}
+      <div class="party-character-remove" data-action="deletePartyMember" data-actor-uuid="{{actorUuid}}"
+        data-tooltip="{{localize 'DAGGERHEART.ACTORS.Party.RemoveConfirmation.title' name=actor.name}}">
+        <div class="party-character-remove-icon">
+          <i class="fa-solid fa-x"></i>
+        </div>
+      </div>
+      {{/if}}
+
       {{!-- HOPE --}}
       {{#if @root.showStats}}
       <div class="hope-container">
@@ -196,14 +206,5 @@
     {{/if}}
 
   </div>
-
-  {{#if @root.editable}}
-  <div class="party-character-remove" data-action="deletePartyMember" data-actor-uuid="{{actorUuid}}"
-    data-tooltip="{{localize 'DAGGERHEART.ACTORS.Party.RemoveConfirmation.title' name=actor.name}}">
-    <div class="party-character-remove-icon">
-      <i class="fa-solid fa-x"></i>
-    </div>
-  </div>
-  {{/if}}
 
 </div>

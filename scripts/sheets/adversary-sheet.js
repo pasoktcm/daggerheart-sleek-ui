@@ -1,5 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
-import { dismissHoverTooltip } from "../helpers.js";
+import { dismissHoverTooltip, localizeDocumentType } from "../helpers.js";
 
 export function registerAdversarySheet() {
   if (game.system.id !== "daggerheart") return;
@@ -162,14 +162,6 @@ export function registerAdversarySheet() {
     }
 
     async _prepareEffectsData(context) {
-      const getItemTypeName = (type) => {
-        const typeMap = {
-          feature: "Feature",
-          adversary: "Adversary",
-        };
-        return typeMap[type] || "Unknown";
-      };
-
       const createEffectData = async (effect) => {
         const infoTags = [];
         const resourceTags = [];
@@ -182,9 +174,8 @@ export function registerAdversarySheet() {
           sourceItem = effect.parent;
         }
         if (sourceItem) {
-          const sourceTypeName = getItemTypeName(sourceItem.type);
           infoTags.push({
-            label: `${sourceTypeName}: ${sourceItem.name}`,
+            label: `${localizeDocumentType(sourceItem.type)}: ${sourceItem.name}`,
             uuid: sourceItem.uuid,
             tagClass: "tag-green",
           });
@@ -203,7 +194,9 @@ export function registerAdversarySheet() {
         const isTemporary = effect.isTemporary || effect.duration?.rounds != null || (effect.duration?.seconds != null && effect.duration.seconds > 0) || effect.duration?.turns != null;
 
         resourceTags.push({
-          label: isTemporary ? "Temporary" : "Passive",
+          label: game.i18n.localize(
+            isTemporary ? "DAGGERHEART.EFFECTS.Duration.temporary" : "DAGGERHEART.EFFECTS.Duration.passive",
+          ),
           uuid: "",
           tagClass: "tag-blue",
         });

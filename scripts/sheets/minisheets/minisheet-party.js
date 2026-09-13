@@ -82,7 +82,7 @@ export function registerPartyMiniSheet() {
       if (minisheet) {
         const closeBtn = document.createElement("button");
         closeBtn.classList.add("toggle-minisheet", "close");
-        closeBtn.dataset.tooltip = "Close Mini Sheet";
+        closeBtn.dataset.tooltip = game.i18n.localize("daggerheart-sleek-ui.minisheet.close");
         closeBtn.innerHTML = `<i class="fa-solid fa-chevron-down"></i>`;
         minisheet.appendChild(closeBtn);
 

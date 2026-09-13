@@ -1,0 +1,90 @@
+{
+  "daggerheart-sleek-ui": {
+    "unknown": "Unknown",
+
+    "settings": {
+      "theme": {
+        "name": "Theme Foundryborne",
+        "hint": "Enables the styling of Foundryborne's application windows to match Sleek UI's styling"
+      },
+      "themeChat": {
+        "name": "Theme Chat Cards",
+        "hint": "Enables the styling of chat cards to match Sleek UI's styling"
+      },
+      "enableMinisheet": {
+        "name": "Enable Mini Sheets",
+        "hint": "Enables the mini sheet displayed at the bottom of the screen while a token is selected"
+      },
+      "minisheetScale": {
+        "name": "Minisheet Scale",
+        "hint": "Adjusts the scale of the mini sheets to better accomodate smaller or larger screens (default: 1)"
+      },
+      "minisheetOffset": {
+        "name": "Minisheet Horizontal Offset",
+        "hint": "Adjusts the horizontal position of the mini sheets, nudging it from the center by the value in pixels (default: 0)"
+      },
+      "tabsPosition": {
+        "name": "Tabs Position",
+        "choices": {
+          "floating": "Floating",
+          "basic": "Basic"
+        }
+      },
+      "quickAccess": {
+        "name": "Enable Quick Access",
+        "hint": "Switch the default equipment and loadout sidebar sections with a universal Quick Access section"
+      },
+      "showTooltip": {
+        "name": "Show Card Tooltips",
+        "hint": "Shows tooltips for cards when hovering the icon"
+      },
+      "currencyLabel": {
+        "name": "Show Currency Labels",
+        "hint": "Shows the labels for each currency on top of their values"
+      },
+      "beastformPortrait": {
+        "name": "Use Beastform Portrait",
+        "hint": "When in beastform, change the character's portrait to the form's Subject Texture"
+      }
+    },
+
+    "keybindings": {
+      "toggleMinisheet": "Toggle minisheet open/closed"
+    },
+
+    "quickAccess": {
+      "title": "Quick Access",
+      "addDivider": "Add Divider",
+      "dragHere": "Drag Here",
+      "alreadyInQuickAccess": "Item is already in Quick Access"
+    },
+
+    "biography": {
+      "descriptions": "Descriptions",
+      "clothes": "Clothes that are:",
+      "eyes": "Eyes the color of:",
+      "body": "Body that's:",
+      "skin": "Skin the color of:",
+      "attitude": "Attitude like:"
+    },
+
+    "minisheet": {
+      "open": "Open Mini Sheet",
+      "close": "Close Mini Sheet"
+    },
+
+    "notifications": {
+      "itemNotFound": "Item not found",
+      "actionNotFound": "Action not found",
+      "transferredTo": "Transferred {item} to {target}",
+      "transferredFrom": "Transferred {item} from {source}"
+    },
+
+    "party": {
+      "removeMemberTitle": "Remove {name} from party?",
+      "removeMemberContent": "Remove <strong>{name}</strong> from the party sheet?",
+      "memberFallback": "member",
+      "thisMemberFallback": "this member"
+    }
+  }
+}

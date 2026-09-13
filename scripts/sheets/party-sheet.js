@@ -186,8 +186,8 @@ export function registerPartySheet() {
             secondaryWeapon = equipped.find((w) => w.system.secondary) ?? null;
           }
 
-          if (!primaryWeapon && resolveUsesUnarmed(member)) {
-            const unarmed = resolveUnarmedAttack(member);
+          if (!primaryWeapon && resolveUsesUnarmed(actor)) {
+            const unarmed = resolveUnarmedAttack(actor);
             if (unarmed) {
               primaryWeapon = {
                 img: unarmed.img,
@@ -699,9 +699,14 @@ export function registerPartySheet() {
 
       if (!event.shiftKey) {
         const actor = await fromUuid(uuid);
+        const MODULE = "daggerheart-sleek-ui";
+        const memberName = actor?.name ?? game.i18n.localize(`${MODULE}.party.memberFallback`);
+        const contentName = actor?.name ?? game.i18n.localize(`${MODULE}.party.thisMemberFallback`);
         const confirmed = await foundry.applications.api.DialogV2.confirm({
-          window: { title: `Remove ${actor?.name ?? "member"} from party?` },
-          content: `<p>Remove <strong>${actor?.name ?? "this member"}</strong> from the party sheet?</p>`,
+          window: {
+            title: game.i18n.format(`${MODULE}.party.removeMemberTitle`, { name: memberName }),
+          },
+          content: game.i18n.format(`${MODULE}.party.removeMemberContent`, { name: contentName }),
         });
         if (!confirmed) return;
       }
@@ -826,7 +831,12 @@ export function registerPartySheet() {
           const createdItems = await this.document.createEmbeddedDocuments("Item", [item.toObject()]);
           if (createdItems?.length > 0) {
             await item.parent.deleteEmbeddedDocuments("Item", [item.id]);
-            ui.notifications.info(`Transferred ${item.name} to ${this.document.name}`);
+            ui.notifications.info(
+              game.i18n.format("daggerheart-sleek-ui.notifications.transferredTo", {
+                item: item.name,
+                target: this.document.name,
+              }),
+            );
           }
           return false;
         }
@@ -913,7 +923,12 @@ export function registerPartySheet() {
           const sourceItem = sourceActor.items.get(dragData.itemId);
           if (sourceItem) {
             await sourceActor.deleteEmbeddedDocuments("Item", [dragData.itemId]);
-            ui.notifications.info(`Transferred ${dragData.itemName} from ${sourceActor.name}`);
+            ui.notifications.info(
+              game.i18n.format("daggerheart-sleek-ui.notifications.transferredFrom", {
+                item: dragData.itemName,
+                source: sourceActor.name,
+              }),
+            );
           }
         }
         SleekPartySheet.draggedItem = null;

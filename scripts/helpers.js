@@ -399,6 +399,21 @@ export function getBeastformPortrait(actor) {
 }
 
 /* ====================
+   I18N
+   ==================== */
+
+const ACTOR_DOCUMENT_TYPES = new Set(["character", "companion", "adversary", "environment", "npc", "party"]);
+
+/** @param {string} type @returns {string} */
+export function localizeDocumentType(type) {
+  const unknown = game.i18n.localize("daggerheart-sleek-ui.unknown");
+  if (!type) return unknown;
+  const key = ACTOR_DOCUMENT_TYPES.has(type) ? `TYPES.Actor.${type}` : `TYPES.Item.${type}`;
+  const localized = game.i18n.localize(key);
+  return localized === key ? unknown : localized;
+}
+
+/* ====================
    UNARMED ATTACK
    ==================== */
 
