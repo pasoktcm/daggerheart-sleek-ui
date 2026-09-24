@@ -1,5 +1,6 @@
 import { hideMacrobar, showMacrobar, collapseMinisheet, injectReopenButton, removeReopenButton, isMinisheetCollapsed, setMinisheetCollapsed, attachResourceListeners, attachToggleResourceListeners, attachFavoritesListeners, attachReactionRollListeners } from "./utils-minisheet.js";
 import { applyMinisheetScale } from "../../settings.js";
+import { rollActorAttackDamage } from "../../helpers.js";
 
 export function registerAdversaryMiniSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -314,11 +315,7 @@ export function registerAdversaryMiniSheet() {
         el.addEventListener("click", async (event) => {
           event.preventDefault();
           event.stopPropagation();
-          const action = actor.system.attack;
-          const config = action.prepareConfig(event);
-          config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor, null);
-          config.hasRoll = false;
-          action.workflow.get("damage").execute(config, null, true);
+          await rollActorAttackDamage(event, actor);
         });
       });
 

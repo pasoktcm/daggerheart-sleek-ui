@@ -86,7 +86,7 @@ BUTTONS
   margin-top: 12px;
 }
 
-.chat-message .message-content button {
+.chat-message .message-content button:not(.icon):not(.undo-damage-button) {
   font-family: var(--sleekUI-font-primary);
   font-weight: 500;
   color: var(--sleekUI-color-roll);
@@ -99,6 +99,17 @@ BUTTONS
 
 .chat-message .message-content button:hover {
   background: var(--sleekUI-color-roll-transparent);
+}
+
+.chat-message .message-content .damage-summary .token-target-container header button.undo-damage-button {
+  margin-left: 0;
+  margin-right: var(--sleekUI-spacing-tiny);
+  border-radius: var(--sleekUI-border-radius-s);
+}
+
+.chat-message .message-content .damage-summary .token-target-container header button.undo-damage-button:hover {
+  background: var(--sleekUI-color-roll-transparent);
+  color: var(--sleekUI-color-roll);
 }
 
 /* ==================== 
@@ -465,7 +476,6 @@ FEATURES
 
 .chat-message .message-content .domain-card .domain-card-move .description {
   margin-bottom: var(--sleekUI-spacing-sm);
-  padding: 0 var(--sleekUI-spacing-sm);
   color: var(--sleekUI-color-secondary);
   line-height: 20px;
 }
@@ -487,6 +497,12 @@ FEATURES
 .chat-message .message-content .description hr {
   height: 1px;
   background-image: linear-gradient(90deg, transparent 0%, var(--sleekUI-color-border) 50%, transparent 100%);
+}
+
+.daggerheart.chat.resource-roll .reroll-message {
+  text-align: start;
+  font-size: var(--sleekUI-font-size-md);
+  margin-top: var(--sleekUI-spacing-xs);
 }
 
 /* ==================== 
@@ -855,6 +871,14 @@ EFFECTS APPLIED
 
 .chat-message .message-content .targets-container .token-target-container img {
   order: 2;
+}
+
+.daggerheart .chat-message .target-section .roll-part-content .dice-tooltip .wrapper div.empty-text {
+  font-size: var(--sleekUI-font-size-md);
+}
+
+.daggerheart.chat.damage-summary .token-target-container header .token-header-data {
+  margin-right: auto;
 }
 
 /* ==================== 

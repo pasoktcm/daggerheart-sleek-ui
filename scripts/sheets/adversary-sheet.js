@@ -1,5 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
-import { dismissHoverTooltip, localizeDocumentType } from "../helpers.js";
+import { dismissHoverTooltip, localizeDocumentType, rollActorAttackDamage } from "../helpers.js";
 
 export function registerAdversarySheet() {
   if (game.system.id !== "daggerheart") return;
@@ -52,6 +52,12 @@ export function registerAdversarySheet() {
 
     async _prepareContext(options) {
       const context = await super._prepareContext(options);
+
+      const adversaryTypes = CONFIG.DH.ACTOR.allAdversaryTypes();
+      const typeEntry = adversaryTypes[this.document.system.type];
+      context.adversaryTypeLabel = typeEntry?.label
+        ? game.i18n.localize(typeEntry.label)
+        : (this.document.system.type ?? "");
 
       context.tabsPosition = game.settings.get("daggerheart-sleek-ui", "tabsPosition");
       context.showTooltip = game.settings.get("daggerheart-sleek-ui", "showTooltip");
@@ -315,11 +321,7 @@ export function registerAdversarySheet() {
           event.preventDefault();
           event.stopPropagation();
 
-          const action = this.actor.system.attack;
-          const config = action.prepareConfig(event);
-          config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(this.actor, null);
-          config.hasRoll = false;
-          action.workflow.get("damage").execute(config, null, true);
+          await rollActorAttackDamage(event, this.actor);
         });
       });
     }

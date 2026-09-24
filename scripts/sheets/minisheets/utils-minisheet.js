@@ -1,6 +1,12 @@
 // ─── MACROBAR ────────────────────────────────────────────────────────────────
 
-import { attachQuantityListeners, recallDomainCardFromVault, resolveUnarmedAttack } from "../../helpers.js";
+import {
+  attachQuantityListeners,
+  recallDomainCardFromVault,
+  resolveUnarmedAttack,
+  rollActorAttackDamage,
+  rollItemAttackDamage,
+} from "../../helpers.js";
 
 export function hideMacrobar() {
   const hotbar = document.getElementById("hotbar");
@@ -66,7 +72,15 @@ export function attachTraitRollListeners(element, actor) {
         event,
         title: game.i18n.format("DAGGERHEART.UI.Chat.dualityRoll.abilityCheckTitle", { ability: abilityLabel }),
         headerTitle: `${game.i18n.localize("DAGGERHEART.GENERAL.dualityRoll")}: ${actor.name}`,
-        effects: await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor),
+        effects: await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(
+          {
+            action: {
+              actionType: "action",
+              roll: { type: "trait", trait: attribute },
+            },
+          },
+          actor,
+        ),
         roll: { trait: attribute, type: "trait" },
         hasRoll: true,
         actionType: "action",
@@ -94,12 +108,21 @@ export function attachDowntimeListeners(element, actor) {
 
 export function attachReactionRollListeners(element, actor) {
   element.querySelectorAll("[data-action='reactionRoll']").forEach((el) => {
-    el.addEventListener("click", (event) => {
+    el.addEventListener("click", async (event) => {
       event.stopPropagation();
       const config = {
         event,
         title: game.i18n.localize("DAGGERHEART.GENERAL.reactionRoll"),
         headerTitle: game.i18n.localize("DAGGERHEART.ACTORS.Adversary.adversaryReactionRoll.headerTitle"),
+        effects: await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(
+          {
+            action: {
+              actionType: "reaction",
+              roll: {},
+            },
+          },
+          actor,
+        ),
         roll: { type: "trait" },
         actionType: "reaction",
         hasRoll: true,
@@ -490,20 +513,12 @@ function _attachRollDamageListeners(element, actor) {
       const itemUuid = el.dataset.itemUuid;
       if (itemUuid === "unarmed-attack") {
         const action = resolveUnarmedAttack(actor);
-        if (!action) return;
-        const config = action.prepareConfig(event);
-        config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor, null);
-        config.hasRoll = false;
-        action.workflow.get("damage").execute(config, null, true);
+        await rollActorAttackDamage(event, actor, action);
         return;
       }
       const item = await fromUuid(itemUuid);
       if (!item) return;
-      const action = item.system.attack;
-      const config = action.prepareConfig(event);
-      config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(actor, item);
-      config.hasRoll = false;
-      action.workflow.get("damage").execute(config, null, true);
+      await rollItemAttackDamage(event, item, actor);
     });
   });
 }

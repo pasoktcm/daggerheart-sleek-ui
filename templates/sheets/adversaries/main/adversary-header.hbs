@@ -9,9 +9,7 @@
         {{localize "DAGGERHEART.ACTORS.Adversary.FIELDS.tier.label"}} {{document.system.tier}}
       </span>
 
-      <span class="tag tag-green">
-        {{localize (concat "DAGGERHEART.CONFIG.AdversaryType." document.system.type ".label")}}
-      </span>
+      <span class="tag tag-green">{{adversaryTypeLabel}}</span>
 
       {{#if (eq document.system.type "horde")}}
       <span class="tag tag-green">

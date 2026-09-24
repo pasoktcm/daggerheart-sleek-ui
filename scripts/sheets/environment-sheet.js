@@ -180,7 +180,11 @@ export function registerEnvironmentSheet() {
                 img: adversary.img,
                 tier: adversary.system?.tier ?? null,
                 type: adversary.system?.type ?? null,
-                typeName: adversary.system?.type ? game.i18n.localize(CONFIG.DH.ACTOR.adversaryTypes?.[adversary.system.type]?.label ?? adversary.system.type) : null,
+                typeName: adversary.system?.type
+                  ? game.i18n.localize(
+                      CONFIG.DH.ACTOR.allAdversaryTypes()[adversary.system.type]?.label ?? adversary.system.type,
+                    )
+                  : null,
               };
             }),
           );

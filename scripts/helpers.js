@@ -433,6 +433,44 @@ export function resolveUnarmedAttack(actor) {
   return sys.usedUnarmed ?? null;
 }
 
+/**
+ * Damage-only workflow for an item's standard attack (matches DH inventory roll damage).
+ * @param {Event} event
+ * @param {Item} item
+ * @param {Actor} actor Fallback actor if item has no .actor (e.g. sheet context)
+ */
+export async function rollItemAttackDamage(event, item, actor) {
+  const action = item?.system?.attack;
+  const performingActor = item?.actor ?? item?.parent ?? actor;
+  if (!action?.prepareConfig || !performingActor) return;
+
+  const config = action.prepareConfig(event);
+  config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(
+    action.getRollData(),
+    performingActor,
+  );
+  config.hasRoll = false;
+  return action.workflow.get("damage")?.execute(config, null, true);
+}
+
+/**
+ * Damage-only workflow for an actor attack action (adversary/companion/unarmed).
+ * @param {Event} event
+ * @param {Actor} actor
+ * @param {object} [action] Defaults to actor.system.attack
+ */
+export async function rollActorAttackDamage(event, actor, action = actor?.system?.attack) {
+  if (!action?.prepareConfig || !actor) return;
+
+  const config = action.prepareConfig(event);
+  config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(
+    action.getRollData(),
+    actor,
+  );
+  config.hasRoll = false;
+  return action.workflow.get("damage")?.execute(config, null, true);
+}
+
 /* ====================
    WEAPON DAMAGE
    ==================== */

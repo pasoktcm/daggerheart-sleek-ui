@@ -1,5 +1,5 @@
 import { FloatingTabs } from "../floating-tabs.js";
-import { dismissHoverTooltip, localizeDocumentType } from "../helpers.js";
+import { dismissHoverTooltip, localizeDocumentType, rollActorAttackDamage } from "../helpers.js";
 
 export function registerCompanionSheet() {
   if (game.system.id !== "daggerheart") return;
@@ -230,11 +230,7 @@ export function registerCompanionSheet() {
           event.preventDefault();
           event.stopPropagation();
 
-          const action = this.actor.system.attack;
-          const config = action.prepareConfig(event);
-          config.effects = await game.system.api.data.actions.actionsTypes.base.getActionRelevantEffects(this.actor, null);
-          config.hasRoll = false;
-          action.workflow.get("damage").execute(config, null, true);
+          await rollActorAttackDamage(event, this.actor);
         });
       });
     }
